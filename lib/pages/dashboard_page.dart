@@ -1,0 +1,41 @@
+import 'package:flutter/material.dart';
+
+class DashboardPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(12),
+      child: ListView.builder(
+        itemCount: 3,
+        itemBuilder: (context, index) {
+          return Column(
+            children: <Widget>[
+              ListTile(
+                title: Text(
+                    'Срочно заменить',
+                  style: TextStyle(fontSize: 20, color: Colors.deepOrange),
+                ),
+              ),
+              Column(
+                children: List.generate(3, (int index) {
+                  return ListTile(
+                    leading: Image.asset('images/carstat.png'),
+                    title: Text('Моторное масло и фильтр'),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text('Дата замены: '),
+                        Text('Пробег, км: '),
+                        Text('Марка масла: ')
+                      ],
+                    ),
+                  );
+                }),
+              )
+            ],
+          );
+        },
+      ),
+    );
+  }
+}

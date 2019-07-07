@@ -5,7 +5,14 @@ buildscript {
     }
 
     dependencies {
+
+        // Google Sign-In
         classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath 'com.google.gms:google-services:4.2.0'
+
+        // Flutter Auth
+        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath 'com.google.gms:google-services:4.2.0'
     }
 }
 

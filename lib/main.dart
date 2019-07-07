@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'pages/main_page.dart';
+import 'pages/start_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -7,7 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'carstat',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -20,44 +22,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.yellow,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              child: Text('Drawer Header'),
-              decoration: BoxDecoration(
-                color: Colors.yellow[600]
-              ),
-            )
-          ],
-        ),
-      ),
-      appBar: AppBar(
-        title: Image.asset('images/carstat.png'),
-        centerTitle: true,
-      ),
-      body: Center(
-      ),
+      home: StartPage(),
     );
   }
 }
