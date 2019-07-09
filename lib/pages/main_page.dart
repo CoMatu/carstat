@@ -1,3 +1,4 @@
+import 'package:carstat/pages/start_page.dart';
 import 'package:flutter/material.dart';
 import 'dashboard_page.dart';
 
@@ -20,6 +21,7 @@ class _MainPageState extends State<MainPage> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
+              //TODO add logout button to menu
               child: Text('Drawer Header'),
               decoration: BoxDecoration(
                   color: Colors.yellow[600]
@@ -32,7 +34,7 @@ class _MainPageState extends State<MainPage> {
         title: Image.asset('images/carstat.png'),
         centerTitle: true,
       ),
-      body: DashboardPage(),
+      body: StartPage(),
     );
   }
 }

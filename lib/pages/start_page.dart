@@ -1,7 +1,8 @@
+import 'package:flutter/material.dart';
+
 import 'package:carstat/pages/dashboard_page.dart';
 import 'package:carstat/pages/login_page.dart';
 import 'package:carstat/services/auth_provider.dart';
-import 'package:flutter/material.dart';
 import 'package:carstat/services/auth_service.dart';
 
 class StartPage extends StatefulWidget {
