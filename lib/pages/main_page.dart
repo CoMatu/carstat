@@ -1,9 +1,10 @@
+import 'package:flutter/material.dart';
+import 'dart:async';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:carstat/pages/start_page.dart';
 import 'package:carstat/services/auth_provider.dart';
 import 'package:carstat/services/auth_service.dart';
-import 'package:flutter/material.dart';
-import 'dashboard_page.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MainPage extends StatefulWidget {
   MainPage({Key key}) : super(key: key);
@@ -41,7 +42,7 @@ class _MainPageState extends State<MainPage> {
             ListTile(
               title: Text('Выход из аккаунта'),
               trailing: Icon(FontAwesomeIcons.signOutAlt),
-              onTap: () => _signOut(context), 
+              onTap: () => _signOut(context),
             ),
           ],
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:carstat/services/auth_service.dart';
 
 class AuthProvider extends InheritedWidget {

@@ -1,8 +1,8 @@
+import 'package:flutter/material.dart';
+
 import 'package:carstat/services/auth_provider.dart';
 import 'package:carstat/services/auth_service.dart';
-import 'package:flutter/material.dart';
 import 'pages/main_page.dart';
-import 'pages/start_page.dart';
 
 void main() => runApp(MyApp());
 
