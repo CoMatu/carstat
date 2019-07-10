@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class DashboardPage extends StatelessWidget {
+  const DashboardPage({this.onSignedOut});
+  final VoidCallback onSignedOut;
+
   @override
   Widget build(BuildContext context) {
     return Container(

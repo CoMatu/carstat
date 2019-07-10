@@ -5,13 +5,13 @@ import 'package:carstat/services/auth_provider.dart';
 
 class EmailFieldValidator {
   static String validate(String value) {
-    return value.isEmpty ? 'Email can\'t be empty' : null;
+    return value.isEmpty ? 'Введите Email' : null;
   }
 }
 
 class PasswordFieldValidator {
   static String validate(String value) {
-    return value.isEmpty ? 'Password can\'t be empty' : null;
+    return value.isEmpty ? 'Введите пароль' : null;
   }
 }
 
@@ -113,22 +113,24 @@ class _LoginPageState extends State<LoginPage> {
       return <Widget>[
         RaisedButton(
           key: Key('signIn'),
-          child: Text('Login', style: TextStyle(fontSize: 20.0)),
+          child: Text('ВХОД', style: TextStyle(fontSize: 20.0)),
           onPressed: validateAndSubmit,
+          color: Colors.yellow,
+          highlightColor: Colors.orange[400],
         ),
         FlatButton(
-          child: Text('Create an account', style: TextStyle(fontSize: 20.0)),
+          child: Text('Регистрация', style: TextStyle(fontSize: 20.0, color: Colors.grey[600])),
           onPressed: moveToRegister,
         ),
       ];
     } else {
       return <Widget>[
         RaisedButton(
-          child: Text('Create an account', style: TextStyle(fontSize: 20.0)),
+          child: Text('Регистрация', style: TextStyle(fontSize: 20.0)),
           onPressed: validateAndSubmit,
         ),
         FlatButton(
-          child: Text('Have an account? Login', style: TextStyle(fontSize: 20.0)),
+          child: Text('Есть аккаунт? Войти', style: TextStyle(fontSize: 20.0)),
           onPressed: moveToLogin,
         ),
       ];

@@ -42,7 +42,10 @@ class _MainPageState extends State<MainPage> {
             ListTile(
               title: Text('Выход из аккаунта'),
               trailing: Icon(FontAwesomeIcons.signOutAlt),
-              onTap: () => _signOut(context),
+              onTap: () {
+                _signOut(context);
+                Navigator.pushNamed(context, 'main_page');
+              }
             ),
           ],
         ),

@@ -41,7 +41,7 @@ class _StartPageState extends State<StartPage> {
       authStatus = AuthStatus.notSignedIn;
     });
   }
-  @override
+
   @override
   Widget build(BuildContext context) {
     switch (authStatus) {
@@ -49,11 +49,11 @@ class _StartPageState extends State<StartPage> {
         return _buildWaitingScreen();
       case AuthStatus.notSignedIn:
         return LoginPage(
-//          onSignedIn: _signedIn,
+          onSignedIn: _signedIn,
         );
       case AuthStatus.signedIn:
         return DashboardPage(
-//          onSignedOut: _signedOut,
+          onSignedOut: _signedOut,
         );
     }
     return null;

@@ -13,6 +13,9 @@ class MyApp extends StatelessWidget {
     return AuthProvider(
       auth: AuthService(),
       child: MaterialApp(
+        routes: {
+          'main_page': (context) => MainPage(),
+        },
         title: 'carstat',
         theme: ThemeData(
           // This is the theme of your application.
