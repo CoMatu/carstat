@@ -17,7 +17,6 @@ class _MainPageState extends State<MainPage> {
   _MainPageState({this.onSignedOut});
   final VoidCallback onSignedOut;
 
-
   Future<void> _signOut(BuildContext context) async {
     try {
       final BaseAuth auth = AuthProvider.of(context).auth;
@@ -27,7 +26,6 @@ class _MainPageState extends State<MainPage> {
       print(e);
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +53,12 @@ class _MainPageState extends State<MainPage> {
         centerTitle: true,
       ),
       body: StartPage(),
+      floatingActionButton: _fabWidget(),
     );
   }
+
+  Widget _fabWidget() {
+    return FloatingActionButton();
+  }
+
 }

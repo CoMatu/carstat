@@ -20,6 +20,12 @@ class _StartPageState extends State<StartPage> {
   AuthStatus authStatus = AuthStatus.notDetermined;
 
   @override
+  void setState(fn) {
+    // TODO: implement setState
+    super.setState(fn);
+  }
+
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     final BaseAuth auth = AuthProvider.of(context).auth;
@@ -53,7 +59,7 @@ class _StartPageState extends State<StartPage> {
         );
       case AuthStatus.signedIn:
         return DashboardPage(
-          onSignedOut: _signedOut,
+          onSignedOut: _signedOut
         );
     }
     return null;

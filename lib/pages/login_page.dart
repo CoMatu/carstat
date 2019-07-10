@@ -111,26 +111,34 @@ class _LoginPageState extends State<LoginPage> {
   List<Widget> buildSubmitButtons() {
     if (_formType == FormType.login) {
       return <Widget>[
-        RaisedButton(
-          key: Key('signIn'),
-          child: Text('ВХОД', style: TextStyle(fontSize: 20.0)),
-          onPressed: validateAndSubmit,
-          color: Colors.yellow,
-          highlightColor: Colors.orange[400],
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: RaisedButton(
+            key: Key('signIn'),
+            child: Text('ВХОД', style: TextStyle(fontSize: 20.0)),
+            onPressed: validateAndSubmit,
+            color: Colors.yellow,
+            highlightColor: Colors.orange[400],
+          ),
         ),
         FlatButton(
-          child: Text('Регистрация', style: TextStyle(fontSize: 20.0, color: Colors.grey[600])),
+          child: Text('Регистрация', style: TextStyle(fontSize: 14.0, color: Colors.blueAccent)),
           onPressed: moveToRegister,
         ),
       ];
     } else {
       return <Widget>[
-        RaisedButton(
-          child: Text('Регистрация', style: TextStyle(fontSize: 20.0)),
-          onPressed: validateAndSubmit,
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: RaisedButton(
+            child: Text('ЗАРЕГИСТРИРОВАТЬ', style: TextStyle(fontSize: 20.0)),
+            onPressed: validateAndSubmit,
+            color: Colors.yellow,
+            highlightColor: Colors.orange[400],
+          ),
         ),
         FlatButton(
-          child: Text('Есть аккаунт? Войти', style: TextStyle(fontSize: 20.0)),
+          child: Text('Есть аккаунт? Войти', style: TextStyle(fontSize: 14.0, color: Colors.blueAccent)),
           onPressed: moveToLogin,
         ),
       ];
