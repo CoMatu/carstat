@@ -1,3 +1,4 @@
+import 'package:carstat/pages/start_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:carstat/services/auth_provider.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
           // is not restarted.
           primarySwatch: Colors.yellow,
         ),
-        home: MainPage(),
+        home: StartPage(),
       ),
     );
   }

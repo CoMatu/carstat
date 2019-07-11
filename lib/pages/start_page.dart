@@ -1,3 +1,5 @@
+import 'package:carstat/components/build_waiting_screen.dart';
+import 'package:carstat/components/main_scafford.dart';
 import 'package:flutter/material.dart';
 
 import 'package:carstat/pages/dashboard_page.dart';
@@ -18,12 +20,6 @@ enum AuthStatus {
 
 class _StartPageState extends State<StartPage> {
   AuthStatus authStatus = AuthStatus.notDetermined;
-
-  @override
-  void setState(fn) {
-    // TODO: implement setState
-    super.setState(fn);
-  }
 
   @override
   void didChangeDependencies() {
@@ -52,24 +48,16 @@ class _StartPageState extends State<StartPage> {
   Widget build(BuildContext context) {
     switch (authStatus) {
       case AuthStatus.notDetermined:
-        return _buildWaitingScreen();
+        return MainScaffold(body: BuildWaitingScreen());
       case AuthStatus.notSignedIn:
-        return LoginPage(
+        return MainScaffold(body: LoginPage(
           onSignedIn: _signedIn,
-        );
+        ));
       case AuthStatus.signedIn:
-        return DashboardPage(
-          onSignedOut: _signedOut
-        );
+        return MainScaffold(body: DashboardPage(
+            onSignedOut: _signedOut
+        ));
     }
     return null;
-  }
-  Widget _buildWaitingScreen() {
-    return Scaffold(
-      body: Container(
-        alignment: Alignment.center,
-        child: CircularProgressIndicator(),
-      ),
-    );
   }
 }
