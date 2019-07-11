@@ -1,4 +1,4 @@
-import 'package:carstat/components/build_waiting_screen.dart';
+import 'package:carstat/pages/build_waiting_page.dart';
 import 'package:carstat/components/main_scafford.dart';
 import 'package:flutter/material.dart';
 
@@ -48,7 +48,7 @@ class _StartPageState extends State<StartPage> {
   Widget build(BuildContext context) {
     switch (authStatus) {
       case AuthStatus.notDetermined:
-        return MainScaffold(body: BuildWaitingScreen());
+        return MainScaffold(body: BuildWaitingPage());
       case AuthStatus.notSignedIn:
         return MainScaffold(body: LoginPage(
           onSignedIn: _signedIn,

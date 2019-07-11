@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class BuildWaitingScreen extends StatelessWidget {
+class BuildWaitingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build

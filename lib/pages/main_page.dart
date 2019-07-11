@@ -1,4 +1,3 @@
-import 'package:carstat/components/main_scafford.dart';
 import 'package:carstat/pages/start_page.dart';
 import 'package:flutter/material.dart';
 
