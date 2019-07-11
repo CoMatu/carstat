@@ -1,5 +1,5 @@
-import 'package:carstat/pages/dashboard_page.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:carstat/components/drawer.dart';
 
@@ -22,9 +22,11 @@ class MainScaffold extends StatelessWidget {
   }
 
   _getFAB() {
-    print(body);
-    if (body != null) {
-      return FloatingActionButton(onPressed: null);
+    if (body.toString() == 'DashboardPage') {
+      return FloatingActionButton(
+        child: Icon(FontAwesomeIcons.plus, color: Colors.blue,),
+        onPressed: () {},
+      );
     }
   }
 }
