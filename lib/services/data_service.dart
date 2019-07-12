@@ -2,10 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DataService {
 
-  Firestore fs = Firestore.instance;
+  CollectionReference fs = Firestore.instance.collection('users');
 
-  Future<void> addData(List data) async {
-
-  }
+  Future<void> addData(List data) async {}
 
 }
