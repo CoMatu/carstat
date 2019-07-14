@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import 'package:carstat/services/auth_provider.dart';
 import 'package:carstat/services/auth_service.dart';
-import 'pages/main_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,7 +14,7 @@ class MyApp extends StatelessWidget {
       auth: AuthService(),
       child: MaterialApp(
         routes: {
-          'main_page': (context) => MainPage(),
+          'start_page': (context) => StartPage(),
         },
         title: 'carstat',
         theme: ThemeData(

@@ -1,5 +1,6 @@
 import 'package:carstat/pages/build_waiting_page.dart';
 import 'package:carstat/components/main_scafford.dart';
+import 'package:carstat/pages/carslist_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:carstat/pages/dashboard_page.dart';
@@ -20,6 +21,7 @@ enum AuthStatus {
 
 class _StartPageState extends State<StartPage> {
   AuthStatus authStatus = AuthStatus.notDetermined;
+  String user;
 
   @override
   void didChangeDependencies() {
@@ -28,6 +30,9 @@ class _StartPageState extends State<StartPage> {
     auth.currentUser().then((String userId) {
       setState(() {
         authStatus = userId == null ? AuthStatus.notSignedIn : AuthStatus.signedIn;
+        if(userId != null) {
+          user = userId;
+        }
       });
     });
   }
@@ -54,8 +59,8 @@ class _StartPageState extends State<StartPage> {
           onSignedIn: _signedIn,
         ));
       case AuthStatus.signedIn:
-        return MainScaffold(body: DashboardPage(
-            onSignedOut: _signedOut
+        return MainScaffold(body: CarsListPage(
+//            onSignedOut: _signedOut
         ));
     }
     return null;

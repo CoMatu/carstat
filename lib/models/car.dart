@@ -1,9 +1,9 @@
 // типизирую модель авто для Firestore
 class Car {
-  String vin;
+  String carVin;
   String carModel;
   String carName;
-  String carType;
+  String carMark;
   int carYear;
   int carMileage;
 }

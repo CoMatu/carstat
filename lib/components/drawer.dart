@@ -32,7 +32,7 @@ class MainDrawer extends StatelessWidget {
               trailing: Icon(FontAwesomeIcons.signOutAlt),
               onTap: () {
                 _signOut(context);
-                Navigator.pushNamed(context, 'main_page');
+                Navigator.pushNamed(context, 'start_page');
               }),
         ],
       ),

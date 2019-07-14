@@ -1,3 +1,4 @@
+import 'package:carstat/services/data_service.dart';
 import 'package:flutter/material.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -9,9 +10,12 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
+
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Text('fff'
+/*
+
       padding: EdgeInsets.all(12),
       child: ListView.builder(
         itemCount: 3,
@@ -44,6 +48,15 @@ class _DashboardPageState extends State<DashboardPage> {
           );
         },
       ),
+*/
     );
   }
+
+  Widget _dialog() {
+    return
+      Stepper(steps: [
+      Step(title: Text('1'), content: Text('dddd')),
+
+    ]);
+}
 }
