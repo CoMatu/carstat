@@ -48,10 +48,10 @@ class _AddCarPageState extends State<AddCarPage> {
           },
           decoration: InputDecoration(
               labelText: 'Придумайте название авто',
-              labelStyle: TextStyle(decorationStyle: TextDecorationStyle.solid)
-          ),
-        )
-    ),
+              labelStyle: TextStyle(
+                  decorationStyle: TextDecorationStyle.solid,
+                  color: Colors.blueGrey)),
+        )),
     Step(
         title: const Text('Марка автомобиля'),
         isActive: true,
@@ -72,10 +72,9 @@ class _AddCarPageState extends State<AddCarPage> {
           },
           decoration: InputDecoration(
               labelText: 'Введите марку автомобиля',
-              labelStyle: TextStyle(decorationStyle: TextDecorationStyle.solid)
-          ),
-        )
-    ),
+              labelStyle:
+                  TextStyle(decorationStyle: TextDecorationStyle.solid)),
+        )),
     Step(
         title: const Text('Модель автомобиля'),
         isActive: true,
@@ -96,10 +95,9 @@ class _AddCarPageState extends State<AddCarPage> {
           },
           decoration: InputDecoration(
               labelText: 'Введите модель автомобиля',
-              labelStyle: TextStyle(decorationStyle: TextDecorationStyle.solid)
-          ),
-        )
-    ),
+              labelStyle:
+                  TextStyle(decorationStyle: TextDecorationStyle.solid)),
+        )),
     Step(
         title: const Text('Год выпуска'),
         isActive: true,
@@ -120,10 +118,9 @@ class _AddCarPageState extends State<AddCarPage> {
           },
           decoration: InputDecoration(
               labelText: 'Введите год выпуска',
-              labelStyle: TextStyle(decorationStyle: TextDecorationStyle.solid)
-          ),
-        )
-    ),
+              labelStyle:
+                  TextStyle(decorationStyle: TextDecorationStyle.solid)),
+        )),
     Step(
         title: const Text('Пробег'),
         isActive: true,
@@ -144,10 +141,9 @@ class _AddCarPageState extends State<AddCarPage> {
           },
           decoration: InputDecoration(
               labelText: 'Введите текущий пробег',
-              labelStyle: TextStyle(decorationStyle: TextDecorationStyle.solid)
-          ),
-        )
-    ),
+              labelStyle:
+                  TextStyle(decorationStyle: TextDecorationStyle.solid)),
+        )),
     Step(
         title: const Text('VIN'),
         isActive: true,
@@ -168,19 +164,16 @@ class _AddCarPageState extends State<AddCarPage> {
           },
           decoration: InputDecoration(
               labelText: 'Введите VIN',
-              labelStyle: TextStyle(decorationStyle: TextDecorationStyle.solid)
-          ),
-        )
-    ),
+              labelStyle:
+                  TextStyle(decorationStyle: TextDecorationStyle.solid)),
+        )),
   ];
 
   @override
   Widget build(BuildContext context) {
-
     void showSnackBarMessage(String message,
         [MaterialColor color = Colors.red]) {
-      Scaffold
-          .of(context)
+      Scaffold.of(context)
           .showSnackBar(new SnackBar(content: new Text(message)));
     }
 
@@ -199,28 +192,28 @@ class _AddCarPageState extends State<AddCarPage> {
         print("VIN: ${car.carVin}");
 
         AlertDialog(
-              title: Text("Details"),
-              content: SingleChildScrollView(
-                child: ListBody(
-                  children: <Widget>[
-                    Text("Имя авто: " + car.carName),
-                    Text("Марка: " + car.carMark),
-                    Text("Модель: " + car.carModel),
-                    Text("Год выпуска: " + car.carYear.toString()),
-                    Text("Пробег: " + car.carMileage.toString()),
-                    Text("VIN: " + car.carVin),
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                FlatButton(
-                  child: Text('OK'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
+          title: Text("Details"),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text("Имя авто: " + car.carName),
+                Text("Марка: " + car.carMark),
+                Text("Модель: " + car.carModel),
+                Text("Год выпуска: " + car.carYear.toString()),
+                Text("Пробег: " + car.carMileage.toString()),
+                Text("VIN: " + car.carVin),
               ],
-            );
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
       }
     }
 
@@ -228,71 +221,59 @@ class _AddCarPageState extends State<AddCarPage> {
     return Container(
       child: Form(
         key: _formKey,
-        child: ListView(children: <Widget>[
-          Stepper(
-            steps: steps,
-            controlsBuilder: (BuildContext context,
-                {VoidCallback onStepContinue, VoidCallback onStepCancel}) {
-              return Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: currStep == 5 ?
-                            RaisedButton(
-                              child: Text('СОХРАНИТЬ',
-                                  style: TextStyle(color: Colors.white)),
-                              color: Colors.green[400],
-                              onPressed: _submitDetails,
-                            )
-                            : RaisedButton.icon(
-                          icon: Icon(Icons.navigate_next, color: Colors.white),
-                          color: Colors.green,
-                          label: Text('ПРОДОЛЖИТЬ',
-                          style: TextStyle(color: Colors.white),),
-                          onPressed: onStepContinue,
-                        ),
-                      ),
-                      FlatButton.icon(
-                        icon: Icon(Icons.arrow_upward, color: Colors.red,),
-                        label: Text('ОТМЕНА',
-                        style: TextStyle(color: Colors.red),),
-                        onPressed: onStepCancel,
-                      )
-                    ],
-                  ),
-                ),
-              );
-            },
-            type: StepperType.vertical,
-            currentStep: this.currStep,
-            onStepContinue: () {
-              setState(() {
-                if (currStep < steps.length - 1) {
-                  currStep = currStep + 1;
-                } else {
-                  currStep = 0;
-                }
-              });
-            },
-            onStepCancel: () {
-              setState(() {
-                if (currStep > 0) {
-                  currStep = currStep - 1;
-                } else {
-                  currStep = 0;
-                }
-              });
-            },
-            onStepTapped: (step) {
-              setState(() {
-                currStep = step;
-              });
-            },
-          ),
-        ],),
+        child: ListView(
+          shrinkWrap: true,
+          children: <Widget>[
+            Stepper(
+              physics: ClampingScrollPhysics(), // без этого степпер не прокручивается!
+              steps: steps,
+              controlsBuilder: (BuildContext context,
+                  {VoidCallback onStepContinue, VoidCallback onStepCancel}) {
+                return Row(
+                  children: <Widget>[
+                    FlatButton(
+                      onPressed: onStepContinue,
+                      child: const Text('ДАЛЕЕ'),
+                    ),
+                    FlatButton(
+                      onPressed: onStepCancel,
+                      child: const Text('ВЫХОД'),
+                    ),
+                  ],
+                );
+              },
+              type: StepperType.vertical,
+              currentStep: this.currStep,
+              onStepContinue: () {
+                setState(() {
+                  if (currStep < steps.length - 1) {
+                    currStep = currStep + 1;
+                  } else {
+                    currStep = 0;
+                  }
+                });
+              },
+              onStepCancel: () {
+                setState(() {
+                  if (currStep > 0) {
+                    currStep = currStep - 1;
+                  } else {
+                    currStep = 0;
+                  }
+                });
+              },
+              onStepTapped: (step) {
+                setState(() {
+                  currStep = step;
+                });
+              },
+            ),
+            FlatButton(
+              child: Text('СОХРАНИТЬ'),
+              onPressed: _submitDetails,
+            )
+          ],
+        ),
       ),
     );
   }
