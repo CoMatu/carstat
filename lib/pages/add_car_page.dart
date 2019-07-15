@@ -231,6 +231,39 @@ class _AddCarPageState extends State<AddCarPage> {
         child: ListView(children: <Widget>[
           Stepper(
             steps: steps,
+            controlsBuilder: (BuildContext context,
+                {VoidCallback onStepContinue, VoidCallback onStepCancel}) {
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: currStep == 5 ?
+                            RaisedButton(
+                              child: Text('СОХРАНИТЬ'),
+                              color: Colors.orange,
+                              onPressed: onStepContinue,
+                            )
+                            : RaisedButton.icon(
+                          icon: Icon(Icons.navigate_next),
+                          color: Colors.green,
+                          label: Text('ПРОДОЛЖИТЬ'),
+                          onPressed: onStepContinue,
+                        ),
+                      ),
+                      FlatButton.icon(
+                        icon: Icon(Icons.delete_forever),
+                        color: Colors.orange,
+                        label: Text('ОТМЕНА'),
+                        onPressed: onStepCancel,
+                      )
+                    ],
+                  ),
+                ),
+              );
+            },
             type: StepperType.vertical,
             currentStep: this.currStep,
             onStepContinue: () {

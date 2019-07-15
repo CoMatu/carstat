@@ -10,7 +10,6 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-
   @override
   Widget build(BuildContext context) {
     return Text('fff'
@@ -49,14 +48,6 @@ class _DashboardPageState extends State<DashboardPage> {
         },
       ),
 */
-    );
+        );
   }
-
-  Widget _dialog() {
-    return
-      Stepper(steps: [
-      Step(title: Text('1'), content: Text('dddd')),
-
-    ]);
-}
 }
