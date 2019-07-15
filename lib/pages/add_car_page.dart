@@ -245,7 +245,7 @@ class _AddCarPageState extends State<AddCarPage> {
                               child: Text('СОХРАНИТЬ',
                                   style: TextStyle(color: Colors.white)),
                               color: Colors.green[400],
-                              onPressed: onStepContinue,
+                              onPressed: _submitDetails,
                             )
                             : RaisedButton.icon(
                           icon: Icon(Icons.navigate_next, color: Colors.white),
