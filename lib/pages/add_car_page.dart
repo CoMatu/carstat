@@ -242,21 +242,23 @@ class _AddCarPageState extends State<AddCarPage> {
                         padding: const EdgeInsets.all(8.0),
                         child: currStep == 5 ?
                             RaisedButton(
-                              child: Text('СОХРАНИТЬ'),
-                              color: Colors.orange,
+                              child: Text('СОХРАНИТЬ',
+                                  style: TextStyle(color: Colors.white)),
+                              color: Colors.green[400],
                               onPressed: onStepContinue,
                             )
                             : RaisedButton.icon(
-                          icon: Icon(Icons.navigate_next),
+                          icon: Icon(Icons.navigate_next, color: Colors.white),
                           color: Colors.green,
-                          label: Text('ПРОДОЛЖИТЬ'),
+                          label: Text('ПРОДОЛЖИТЬ',
+                          style: TextStyle(color: Colors.white),),
                           onPressed: onStepContinue,
                         ),
                       ),
                       FlatButton.icon(
-                        icon: Icon(Icons.delete_forever),
-                        color: Colors.orange,
-                        label: Text('ОТМЕНА'),
+                        icon: Icon(Icons.arrow_upward, color: Colors.red,),
+                        label: Text('ОТМЕНА',
+                        style: TextStyle(color: Colors.red),),
                         onPressed: onStepCancel,
                       )
                     ],
@@ -290,11 +292,6 @@ class _AddCarPageState extends State<AddCarPage> {
               });
             },
           ),
-          FlatButton(
-            child: Text('СОХРАНИТЬ ИНФОРМАЦИЮ',
-            style: TextStyle(color: Colors.green[600]),),
-            onPressed: _submitDetails,
-          )
         ],),
       ),
     );
