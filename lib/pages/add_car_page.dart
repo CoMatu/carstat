@@ -174,7 +174,7 @@ class _AddCarPageState extends State<AddCarPage> {
     void showSnackBarMessage(String message,
         [MaterialColor color = Colors.red]) {
       Scaffold.of(context)
-          .showSnackBar(new SnackBar(content: new Text(message)));
+          .showSnackBar(SnackBar(content: Text(message)));
     }
 
     void _submitDetails() {
@@ -184,24 +184,18 @@ class _AddCarPageState extends State<AddCarPage> {
         showSnackBarMessage('Заполните необходимую информацию');
       } else {
         formState.save();
-        print("Имя авто: ${car.carName}");
-        print("Марка: ${car.carMark}");
-        print("Модель: ${car.carModel}");
-        print("Год выпуска: ${car.carYear}");
-        print("Пробег: ${car.carMileage}");
-        print("VIN: ${car.carVin}");
 
-        AlertDialog(
+        var alert = AlertDialog(
           title: Text("Details"),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text("Имя авто: " + car.carName),
-                Text("Марка: " + car.carMark),
-                Text("Модель: " + car.carModel),
-                Text("Год выпуска: " + car.carYear.toString()),
-                Text("Пробег: " + car.carMileage.toString()),
-                Text("VIN: " + car.carVin),
+                Text("Имя авто: ${car.carName}"),
+                Text("Марка: ${car.carMark}"),
+                Text("Модель: ${car.carModel}"),
+                Text("Год выпуска: ${car.carYear}"),
+                Text("Пробег: ${car.carMileage}"),
+                Text("VIN: ${car.carVin}"),
               ],
             ),
           ),
@@ -209,15 +203,26 @@ class _AddCarPageState extends State<AddCarPage> {
             FlatButton(
               child: Text('OK'),
               onPressed: () {
-                Navigator.of(context).pop();
+              Navigator.of(context).pop();
               },
             ),
           ],
         );
+
+        print("Имя авто: ${car.carName}");
+        print("Марка: ${car.carMark}");
+        print("Модель: ${car.carModel}");
+        print("Год выпуска: ${car.carYear}");
+        print("Пробег: ${car.carMileage}");
+        print("VIN: ${car.carVin}");
+
+        showDialog(
+          context: context,
+          builder: (_) => alert
+        );
       }
     }
 
-    // TODO: implement build
     return Container(
       child: Form(
         key: _formKey,
@@ -227,7 +232,7 @@ class _AddCarPageState extends State<AddCarPage> {
             Stepper(
               physics: ClampingScrollPhysics(), // без этого степпер не прокручивается!
               steps: steps,
-              controlsBuilder: (BuildContext context,
+/*              controlsBuilder: (BuildContext context,
                   {VoidCallback onStepContinue, VoidCallback onStepCancel}) {
                 return Row(
                   children: <Widget>[
@@ -237,11 +242,11 @@ class _AddCarPageState extends State<AddCarPage> {
                     ),
                     FlatButton(
                       onPressed: onStepCancel,
-                      child: const Text('ВЫХОД'),
+                      child: const Text('ОТМЕНА'),
                     ),
                   ],
                 );
-              },
+              },*/
               type: StepperType.vertical,
               currentStep: this.currStep,
               onStepContinue: () {
