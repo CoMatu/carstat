@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:carstat/models/car.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DataService {
@@ -7,9 +8,11 @@ class DataService {
   String docId;
 
   CollectionReference fs = Firestore.instance.collection('users');
-  DocumentReference _documentReference;
 
-  addData(List data) async {}
+  Future<DocumentSnapshot> checkUsersDoc(String id) async {
+    var docIsExists = await fs.document(id).get();
+    return docIsExists;
+  }
 
   getData() async {
     Future<QuerySnapshot> _userDoc = fs
@@ -18,10 +21,22 @@ class DataService {
 
     await _userDoc.then((res) {
       docId = res.documents[0].documentID;
-      print('document ID: ' + docId);
+//      print('document ID: ' + docId);
     });
 
     return fs.document(docId).collection('cars').getDocuments();
+  }
+
+  Future<void> addCar(Car car) async {
+    var data = {
+    'carVin': car.carVin,
+    'carModel': car.carModel,
+    'carName': car.carName,
+    'carMark': car.carMark,
+    'carYear': car.carYear,
+    'carMileage': car.carMileage
+    };
+    fs.document(userId).collection('cars').document().setData(data);
   }
 
 }

@@ -1,6 +1,7 @@
 import 'package:carstat/pages/build_waiting_page.dart';
 import 'package:carstat/components/main_scafford.dart';
 import 'package:carstat/pages/carslist_page.dart';
+import 'package:carstat/services/data_service.dart';
 import 'package:flutter/material.dart';
 
 import 'package:carstat/pages/dashboard_page.dart';
@@ -51,6 +52,7 @@ class _StartPageState extends State<StartPage> {
 
   @override
   Widget build(BuildContext context) {
+/*
     switch (authStatus) {
       case AuthStatus.notDetermined:
         return MainScaffold(body: BuildWaitingPage());
@@ -59,10 +61,19 @@ class _StartPageState extends State<StartPage> {
           onSignedIn: _signedIn,
         ));
       case AuthStatus.signedIn:
+        //TODO check users doc is exist
         return MainScaffold(body: CarsListPage(
 //            onSignedOut: _signedOut
         ));
     }
-    return null;
+*/
+    return FutureBuilder(
+      future: DataService().checkUsersDoc(user),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        print('data');
+        print(snapshot.data);
+        return Text('ffffff');
+      },
+    );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:carstat/models/car.dart';
+import 'package:carstat/services/data_service.dart';
 import 'package:flutter/material.dart';
 
 class AddCarPage extends StatefulWidget {
@@ -11,6 +12,7 @@ class _AddCarPageState extends State<AddCarPage> {
   static var _focusNode = new FocusNode();
   GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
   static Car car = Car();
+  DataService _dataService = DataService();
 
   @override
   void initState() {
@@ -173,8 +175,7 @@ class _AddCarPageState extends State<AddCarPage> {
   Widget build(BuildContext context) {
     void showSnackBarMessage(String message,
         [MaterialColor color = Colors.red]) {
-      Scaffold.of(context)
-          .showSnackBar(SnackBar(content: Text(message)));
+      Scaffold.of(context).showSnackBar(SnackBar(content: Text(message)));
     }
 
     void _submitDetails() {
@@ -203,7 +204,8 @@ class _AddCarPageState extends State<AddCarPage> {
             FlatButton(
               child: Text('OK'),
               onPressed: () {
-              Navigator.of(context).pop();
+                _dataService.addCar(car);
+                Navigator.of(context).pop();
               },
             ),
           ],
@@ -216,10 +218,7 @@ class _AddCarPageState extends State<AddCarPage> {
         print("Пробег: ${car.carMileage}");
         print("VIN: ${car.carVin}");
 
-        showDialog(
-          context: context,
-          builder: (_) => alert
-        );
+        showDialog(context: context, builder: (_) => alert);
       }
     }
 
@@ -230,9 +229,10 @@ class _AddCarPageState extends State<AddCarPage> {
           shrinkWrap: true,
           children: <Widget>[
             Stepper(
-              physics: ClampingScrollPhysics(), // без этого степпер не прокручивается!
+              physics:
+                  ClampingScrollPhysics(), // без этого степпер не прокручивается!
               steps: steps,
-/*              controlsBuilder: (BuildContext context,
+              controlsBuilder: (BuildContext context,
                   {VoidCallback onStepContinue, VoidCallback onStepCancel}) {
                 return Row(
                   children: <Widget>[
@@ -246,7 +246,7 @@ class _AddCarPageState extends State<AddCarPage> {
                     ),
                   ],
                 );
-              },*/
+              },
               type: StepperType.vertical,
               currentStep: this.currStep,
               onStepContinue: () {
