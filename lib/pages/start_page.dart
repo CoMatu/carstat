@@ -1,3 +1,4 @@
+import 'package:carstat/pages/add_car_page.dart';
 import 'package:carstat/pages/build_waiting_page.dart';
 import 'package:carstat/components/main_scafford.dart';
 import 'package:carstat/pages/carslist_page.dart';
@@ -70,9 +71,14 @@ class _StartPageState extends State<StartPage> {
     return FutureBuilder(
       future: DataService().checkUsersDoc(user),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        print('data');
-        print(snapshot.data);
-        return Text('ffffff');
+        if(snapshot.connectionState == ConnectionState.done) {
+          if(snapshot.data.documents.length == 0) {
+            return MainScaffold(body: AddCarPage(),);
+          } else {
+            return MainScaffold(body: CarsListPage(),);
+          }
+        }
+        return BuildWaitingPage();
       },
     );
   }
