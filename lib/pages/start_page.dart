@@ -3,6 +3,7 @@ import 'package:carstat/pages/build_waiting_page.dart';
 import 'package:carstat/components/main_scafford.dart';
 import 'package:carstat/pages/carslist_page.dart';
 import 'package:carstat/services/data_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:carstat/pages/dashboard_page.dart';
@@ -31,8 +32,9 @@ class _StartPageState extends State<StartPage> {
     final BaseAuth auth = AuthProvider.of(context).auth;
     auth.currentUser().then((String userId) {
       setState(() {
-        authStatus = userId == null ? AuthStatus.notSignedIn : AuthStatus.signedIn;
-        if(userId != null) {
+        authStatus =
+            userId == null ? AuthStatus.notSignedIn : AuthStatus.signedIn;
+        if (userId != null) {
           user = userId;
         }
       });
@@ -53,29 +55,36 @@ class _StartPageState extends State<StartPage> {
 
   @override
   Widget build(BuildContext context) {
-/*
     switch (authStatus) {
       case AuthStatus.notDetermined:
         return MainScaffold(body: BuildWaitingPage());
       case AuthStatus.notSignedIn:
-        return MainScaffold(body: LoginPage(
+        return MainScaffold(
+            body: LoginPage(
           onSignedIn: _signedIn,
         ));
       case AuthStatus.signedIn:
         //TODO check users doc is exist
-        return MainScaffold(body: CarsListPage(
-//            onSignedOut: _signedOut
-        ));
+
+        return buildFutureBuilder();
     }
-*/
+
+    return null;
+  }
+
+  FutureBuilder<QuerySnapshot> buildFutureBuilder() {
     return FutureBuilder(
-      future: DataService().checkUsersDoc(user),
+      future: DataService().checkUserDocs(user),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if(snapshot.connectionState == ConnectionState.done) {
-          if(snapshot.data.documents.length == 0) {
-            return MainScaffold(body: AddCarPage(),);
+        if (snapshot.connectionState == ConnectionState.done) {
+          if (!snapshot.hasData) {
+            return MainScaffold(
+              body: AddCarPage(),
+            );
           } else {
-            return MainScaffold(body: CarsListPage(),);
+            return MainScaffold(
+              body: CarsListPage(),
+            );
           }
         }
         return BuildWaitingPage();
