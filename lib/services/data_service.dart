@@ -14,7 +14,7 @@ class DataService {
     return fs.where('userId', isEqualTo: userId).getDocuments().then((res) {
       if(res.documents.length == 0)
         fs.add({'userId': userId});
-      return null;
+      return res;
     });
   }
 
@@ -24,7 +24,7 @@ class DataService {
 
     await _userDoc.then((res) {
       docId = res.documents[0].documentID;
-//      print('document ID: ' + docId);
+      print('document ID: ' + docId);
     });
 
     return fs.document(docId).collection('cars').getDocuments();

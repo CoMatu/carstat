@@ -1,9 +1,8 @@
-import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:carstat/pages/add_car_page.dart';
 import 'package:carstat/services/data_service.dart';
-import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CarsListPage extends StatefulWidget {
 
