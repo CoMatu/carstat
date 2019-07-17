@@ -11,9 +11,9 @@ class DataService {
   CollectionReference fs = Firestore.instance.collection('users');
 
   Future<QuerySnapshot> checkUserDocs(String id) async {
-    return fs.where('userId', isEqualTo: userId).getDocuments().then((res) {
+    return fs.where('userId', isEqualTo: id).getDocuments().then((res) {
       if(res.documents.length == 0)
-        fs.add({'userId': userId});
+        fs.add({'userId': id});
       return res;
     });
   }
