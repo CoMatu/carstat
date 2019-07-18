@@ -1,12 +1,12 @@
 import 'dart:async';
-
-import 'package:carstat/models/car.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'package:carstat/models/car.dart';
+import 'package:carstat/services/auth_service.dart';
+
 class DataService {
-  final userId =
-      'EqYUUYmsi0RdG32DEYTPJNyeDVn1'; //TODO получать ID пользователя динамически
   String docId;
+  AuthService _firebaseAuth = AuthService();
 
   CollectionReference fs = Firestore.instance.collection('users');
 
@@ -19,8 +19,10 @@ class DataService {
   }
 
   getData() async {
+    String _userId = await _firebaseAuth.currentUser();
+
     Future<QuerySnapshot> _userDoc =
-        fs.where('userId', isEqualTo: userId).getDocuments();
+        fs.where('userId', isEqualTo: _userId).getDocuments();
 
     await _userDoc.then((res) {
       docId = res.documents[0].documentID;
