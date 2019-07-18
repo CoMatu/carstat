@@ -1,3 +1,4 @@
+import 'package:carstat/components/main_scafford.dart';
 import 'package:flutter/material.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -11,18 +12,15 @@ class DashboardPage extends StatefulWidget {
 class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
-    return Text('fff'
-/*
-
-      padding: EdgeInsets.all(12),
-      child: ListView.builder(
+    return MainScaffold(
+      body: ListView.builder(
         itemCount: 3,
         itemBuilder: (context, index) {
           return Column(
             children: <Widget>[
               ListTile(
                 title: Text(
-                    'Срочно заменить',
+                  'Срочно заменить',
                   style: TextStyle(fontSize: 20, color: Colors.deepOrange),
                 ),
               ),
@@ -45,8 +43,8 @@ class _DashboardPageState extends State<DashboardPage> {
             ],
           );
         },
-      ),
-*/
-        );
+      )
+
+    );
   }
 }

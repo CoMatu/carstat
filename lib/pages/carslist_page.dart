@@ -36,13 +36,43 @@ class _CarsListPageState extends State<CarsListPage> {
       if (cars.documents.length == 0) {
         return AddCarPage();
       }
-      return ListView.builder(
+      return
+        ListView.builder(
         itemCount: cars.documents.length,
         padding: EdgeInsets.all(5.0),
         itemBuilder: (context, i) {
-          return new ListTile(
-            title: Text(cars.documents[i].data['carName']),
-            subtitle: Text('car colors'),
+          return Card(
+            elevation: 8.0,
+            child: ListTile(
+              onTap: () {
+                Navigator.pushNamed(context, 'dashboard_page');
+              },
+                contentPadding: EdgeInsets.symmetric(
+                    horizontal: 20.0, vertical: 10.0),
+                leading: Container(
+                  padding: EdgeInsets.only(right: 12.0),
+                  decoration: BoxDecoration(
+                      border: Border(
+                          right: BorderSide(
+                              width: 1.0, color: Colors.green))),
+                  child: Icon(Icons.directions_car, color: Colors.green),
+                ),
+                title: Text(
+                  cars.documents[0].data['carName'],
+                  style: TextStyle(
+                      color: Colors.grey, fontWeight: FontWeight.bold),
+                ),
+                // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),
+
+                subtitle: Row(
+                  children: <Widget>[
+                    Text(cars.documents[0].data['carMark']+' '+cars.documents[0].data['carModel'], style: TextStyle(color: Colors.grey))
+                  ],
+                ),
+                trailing:
+                Icon(Icons.keyboard_arrow_right, color: Colors.green,
+                    size: 30.0))
+            ,
           );
         },
       );

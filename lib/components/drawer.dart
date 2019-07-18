@@ -28,6 +28,13 @@ class MainDrawer extends StatelessWidget {
         children: <Widget>[
           UserAccountsDrawerHeader(accountName: null, accountEmail: null),
           ListTile(
+            title: Text('Мои автомобили'),
+            trailing: Icon(Icons.directions_car),
+            onTap: () {
+              Navigator.pushNamed(context, 'start_page');
+            },
+          ),
+          ListTile(
               title: Text('Выход из аккаунта'),
               trailing: Icon(FontAwesomeIcons.signOutAlt),
               onTap: () {
