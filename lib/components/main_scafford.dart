@@ -22,6 +22,8 @@ class MainScaffold extends StatelessWidget {
   }
 
   _getFAB() {
+    print(body.toString());
+
     if (body.toString() == 'DashboardPage') {
       return FloatingActionButton(
         child: Icon(FontAwesomeIcons.plus, color: Colors.blue,),
