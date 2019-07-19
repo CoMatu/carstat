@@ -1,3 +1,4 @@
+import 'package:carstat/components/main_scafford.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:carstat/services/auth_service.dart';
@@ -78,15 +79,17 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(16.0),
-      child: Form(
-        key: formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: buildInputs() + buildSubmitButtons(),
-        ),
-      ),
+    return MainScaffold(
+      body: Container(
+          padding: EdgeInsets.all(16.0),
+          child: Form(
+            key: formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: buildInputs() + buildSubmitButtons(),
+            ),
+          ),
+        )
     );
   }
 
@@ -115,7 +118,7 @@ class _LoginPageState extends State<LoginPage> {
           padding: const EdgeInsets.all(16.0),
           child: RaisedButton(
             key: Key('signIn'),
-            child: Text('ВХОД', style: TextStyle(fontSize: 20.0)),
+            child: Text('ВХОД', style: TextStyle(color: Colors.green)),
             onPressed: validateAndSubmit,
             color: Colors.yellow,
             highlightColor: Colors.orange[400],

@@ -3,11 +3,16 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:carstat/components/drawer.dart';
 
-class MainScaffold extends StatelessWidget {
+class MainScaffold extends StatefulWidget {
   final Widget body;
 
   MainScaffold({this.body});
 
+  @override
+  _MainScaffoldState createState() => _MainScaffoldState();
+}
+
+class _MainScaffoldState extends State<MainScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,16 +20,16 @@ class MainScaffold extends StatelessWidget {
         title: Image.asset('images/carstat.png'),
         centerTitle: true,
       ),
-      body: body,
+      body: widget.body,
       drawer: MainDrawer(),
       floatingActionButton: _getFAB(),
     );
   }
 
   _getFAB() {
-    print(body.toString());
+    print(widget.body.toString());
 
-    if (body.toString() == 'DashboardPage') {
+    if (widget.body.toString() == 'DashboardPage') {
       return FloatingActionButton(
         child: Icon(FontAwesomeIcons.plus, color: Colors.blue,),
         onPressed: () {},

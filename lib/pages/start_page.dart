@@ -56,12 +56,11 @@ class _StartPageState extends State<StartPage> {
   Widget build(BuildContext context) {
     switch (authStatus) {
       case AuthStatus.notDetermined:
-        return MainScaffold(body: BuildWaitingPage());
+        return BuildWaitingPage();
       case AuthStatus.notSignedIn:
-        return MainScaffold(
-            body: LoginPage(
+        return LoginPage(
           onSignedIn: _signedIn,
-        ));
+        );
       case AuthStatus.signedIn:
         return buildFutureBuilder();
     }
@@ -79,9 +78,7 @@ class _StartPageState extends State<StartPage> {
               body: AddCarPage(),
             );
           } else {
-            return MainScaffold(
-              body: CarsListPage(),
-            );
+            return CarsListPage();
           }
         }
         return BuildWaitingPage();

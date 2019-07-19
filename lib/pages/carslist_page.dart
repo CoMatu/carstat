@@ -1,3 +1,4 @@
+import 'package:carstat/components/main_scafford.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -27,7 +28,7 @@ class _CarsListPageState extends State<CarsListPage> {
 
   @override
   Widget build(BuildContext context) {
-    return _carList();
+    return MainScaffold(body: _carList());
   }
 
   Widget _carList() {
