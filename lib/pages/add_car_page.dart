@@ -171,6 +171,8 @@ class _AddCarPageState extends State<AddCarPage> {
         )),
   ];
 
+  //TODO возможность добавить фото авто из галереи
+
   @override
   Widget build(BuildContext context) {
     void showSnackBarMessage(String message,

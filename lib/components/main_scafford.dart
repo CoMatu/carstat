@@ -1,3 +1,4 @@
+import 'package:carstat/components/main_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -16,10 +17,7 @@ class _MainScaffoldState extends State<MainScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Image.asset('images/carstat.png'),
-        centerTitle: true,
-      ),
+      appBar: MainAppBar(),
       body: widget.body,
       drawer: MainDrawer(),
       floatingActionButton: _getFAB(),
