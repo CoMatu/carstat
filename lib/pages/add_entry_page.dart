@@ -103,6 +103,21 @@ class _AddEntryPageState extends State<AddEntryPage> {
                   }),
                 ),
               ]),
+              Container(height: 30),
+              TextFormField(
+                keyboardType: TextInputType.text,
+                decoration: const InputDecoration(
+                  labelText: 'Расходный материал / запчасть'
+                ),
+              ),
+              Container(height: 30),
+              TextFormField(
+                maxLines: 3,
+                keyboardType: TextInputType.text,
+                decoration: const InputDecoration(
+                  labelText: 'Заметки'
+                ),
+              )
             ],
           ),
         ),
