@@ -1,6 +1,5 @@
 import 'package:carstat/pages/add_car_page.dart';
 import 'package:carstat/pages/carslist_page.dart';
-import 'package:carstat/services/data_service.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

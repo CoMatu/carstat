@@ -46,11 +46,11 @@ class _StartPageState extends State<StartPage> {
     });
   }
 
-  void _signedOut() {
-    setState(() {
-      authStatus = AuthStatus.notSignedIn;
-    });
-  }
+//  void _signedOut() {
+//    setState(() {
+//      authStatus = AuthStatus.notSignedIn;
+//    });
+//  }
 
   @override
   Widget build(BuildContext context) {

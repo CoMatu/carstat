@@ -1,3 +1,4 @@
+import 'package:carstat/services/validators/date_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'dart:async';
@@ -55,13 +56,13 @@ class _AddEntryPageState extends State<AddEntryPage> {
         bottom: false,
         child: Form(
           key: _formKey,
+          autovalidate: true,
           child: ListView(
             padding: const EdgeInsets.symmetric(horizontal: 32.0),
             children: <Widget>[
               Container(height: 30),
               Text('На этой странице необходимо ввести название проверки или '
-                  'операции регламента технического обслуживания автомобиля. '
-                  ),
+                  'операции регламента технического обслуживания автомобиля. '),
               Text('Например,  "Замена моторного масла и масляного фильтра", '
                   'замена каждые 5000 км или 6 месяцев'),
               Container(height: 30),
@@ -93,6 +94,9 @@ class _AddEntryPageState extends State<AddEntryPage> {
                   ),
                   controller: _controller,
                   keyboardType: TextInputType.datetime,
+                  validator: (val) => DateValidator().isValidDate(val)
+                      ? null
+                      : 'Неправильный формат даты',
                 )),
                 IconButton(
                   icon: Icon(Icons.more_horiz),
@@ -106,21 +110,17 @@ class _AddEntryPageState extends State<AddEntryPage> {
               TextFormField(
                 keyboardType: TextInputType.text,
                 decoration: const InputDecoration(
-                  labelText: 'Расходный материал / запчасть'
-                ),
+                    labelText: 'Расходный материал / запчасть'),
               ),
               Container(height: 30),
               TextFormField(
                 maxLines: 3,
                 keyboardType: TextInputType.text,
-                decoration: const InputDecoration(
-                  labelText: 'Заметки'
-                ),
+                decoration: const InputDecoration(labelText: 'Заметки'),
               ),
               Container(height: 30),
               FlatButton(
-                onPressed: () {
-              },
+                onPressed: () {},
                 child: Text('СОХРАНИТЬ'),
               )
             ],
