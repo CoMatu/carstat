@@ -1,3 +1,4 @@
+import 'package:carstat/pages/add_car_page.dart';
 import 'package:carstat/pages/carslist_page.dart';
 import 'package:carstat/services/data_service.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,14 @@ class MainDrawer extends StatelessWidget {
             onTap: () {
               Navigator.push(context,
                   new MaterialPageRoute(builder: (context) => CarsListPage()));
+            },
+          ),
+          ListTile(
+            title: Text('Добавить автомобиль'),
+            trailing: Icon(Icons.add, color: Colors.red,),
+            onTap: () {
+              Navigator.push(context,
+                  new MaterialPageRoute(builder: (context) => AddCarPage()));
             },
           ),
           ListTile(

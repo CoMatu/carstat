@@ -20,8 +20,9 @@ class _DashboardPageState extends State<DashboardPage> {
         drawer: MainDrawer(),
         floatingActionButton: FloatingActionButton(
           child: Icon(
-            FontAwesomeIcons.plus,
-            color: Colors.blue,
+            Icons.add,
+            color: Colors.green,
+            size: 32,
           ),
           onPressed: () {
             Navigator.push(context,
@@ -43,7 +44,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 Column(
                   children: List.generate(3, (int index) {
                     return ListTile(
-                      leading: Image.asset('images/carstat.png'),
+                      leading: Icon(FontAwesomeIcons.car, color: Colors.green, size: 44,),
                       title: Text('Моторное масло и фильтр'),
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

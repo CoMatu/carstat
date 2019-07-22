@@ -1,3 +1,5 @@
+import 'package:carstat/components/drawer.dart';
+import 'package:carstat/components/main_appbar.dart';
 import 'package:carstat/models/car.dart';
 import 'package:carstat/services/data_service.dart';
 import 'package:flutter/material.dart';
@@ -224,62 +226,66 @@ class _AddCarPageState extends State<AddCarPage> {
       }
     }
 
-    return Container(
-      child: Form(
-        key: _formKey,
-        child: ListView(
-          shrinkWrap: true,
-          children: <Widget>[
-            Stepper(
-              physics:
-                  ClampingScrollPhysics(), // без этого степпер не прокручивается!
-              steps: steps,
-              controlsBuilder: (BuildContext context,
-                  {VoidCallback onStepContinue, VoidCallback onStepCancel}) {
-                return Row(
-                  children: <Widget>[
-                    FlatButton(
-                      onPressed: onStepContinue,
-                      child: const Text('ДАЛЕЕ'),
-                    ),
-                    FlatButton(
-                      onPressed: onStepCancel,
-                      child: const Text('ОТМЕНА'),
-                    ),
-                  ],
-                );
-              },
-              type: StepperType.vertical,
-              currentStep: this.currStep,
-              onStepContinue: () {
-                setState(() {
-                  if (currStep < steps.length - 1) {
-                    currStep = currStep + 1;
-                  } else {
-                    currStep = 0;
-                  }
-                });
-              },
-              onStepCancel: () {
-                setState(() {
-                  if (currStep > 0) {
-                    currStep = currStep - 1;
-                  } else {
-                    currStep = 0;
-                  }
-                });
-              },
-              onStepTapped: (step) {
-                setState(() {
-                  currStep = step;
-                });
-              },
-            ),
-            FlatButton(
-              child: Text('СОХРАНИТЬ'),
-              onPressed: _submitDetails,
-            )
-          ],
+    return Scaffold(
+      appBar: MainAppBar(),
+      drawer: MainDrawer(),
+      body: Container(
+        child: Form(
+          key: _formKey,
+          child: ListView(
+            shrinkWrap: true,
+            children: <Widget>[
+              Stepper(
+                physics:
+                ClampingScrollPhysics(), // без этого степпер не прокручивается!
+                steps: steps,
+                controlsBuilder: (BuildContext context,
+                    {VoidCallback onStepContinue, VoidCallback onStepCancel}) {
+                  return Row(
+                    children: <Widget>[
+                      FlatButton(
+                        onPressed: onStepContinue,
+                        child: const Text('ДАЛЕЕ'),
+                      ),
+                      FlatButton(
+                        onPressed: onStepCancel,
+                        child: const Text('ОТМЕНА'),
+                      ),
+                    ],
+                  );
+                },
+                type: StepperType.vertical,
+                currentStep: this.currStep,
+                onStepContinue: () {
+                  setState(() {
+                    if (currStep < steps.length - 1) {
+                      currStep = currStep + 1;
+                    } else {
+                      currStep = 0;
+                    }
+                  });
+                },
+                onStepCancel: () {
+                  setState(() {
+                    if (currStep > 0) {
+                      currStep = currStep - 1;
+                    } else {
+                      currStep = 0;
+                    }
+                  });
+                },
+                onStepTapped: (step) {
+                  setState(() {
+                    currStep = step;
+                  });
+                },
+              ),
+              FlatButton(
+                child: Text('СОХРАНИТЬ'),
+                onPressed: _submitDetails,
+              )
+            ],
+          ),
         ),
       ),
     );

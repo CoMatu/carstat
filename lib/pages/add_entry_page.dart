@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'dart:async';
-import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 
 import 'package:carstat/components/main_appbar.dart';
 import 'package:carstat/components/drawer.dart';
@@ -117,6 +116,12 @@ class _AddEntryPageState extends State<AddEntryPage> {
                 decoration: const InputDecoration(
                   labelText: 'Заметки'
                 ),
+              ),
+              Container(height: 30),
+              FlatButton(
+                onPressed: () {
+              },
+                child: Text('СОХРАНИТЬ'),
               )
             ],
           ),
