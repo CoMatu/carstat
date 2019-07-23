@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:carstat/models/entry.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:carstat/models/car.dart';
@@ -43,5 +44,17 @@ class DataService {
       'carMileage': car.carMileage
     };
     fs.document(docId).collection('cars').document().setData(data);
+  }
+
+  Future<void> addEntry(Entry entry) async {
+    var entryData = {
+    'entryName': entry.entryName,
+    'entryDate': entry.entryDate,
+    'entryDateLimit': entry.entryDateLimit,
+    'entryMileage': entry.entryMileage,
+    'entryMileageLimit': entry.entryMileageLimit,
+    'entryPartName': entry.entryPartName,
+    'entryNote': entry.entryNote
+    };
   }
 }

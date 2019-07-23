@@ -1,3 +1,4 @@
+import 'package:carstat/models/entry.dart';
 import 'package:carstat/services/validators/date_validator.dart';
 import 'package:carstat/services/validators/number_validator.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +15,10 @@ class AddEntryPage extends StatefulWidget {
 
 class _AddEntryPageState extends State<AddEntryPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final TextEditingController _controller = TextEditingController();
+
+  Entry _entry = Entry();
 
   Future _chooseDate(BuildContext context, String initialDateString) async {
     var now = DateTime.now();
@@ -50,6 +53,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: MainAppBar(),
       drawer: MainDrawer(),
       body: SafeArea(
@@ -69,6 +73,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
               Container(height: 30),
               TextFormField(
                 keyboardType: TextInputType.text,
+                onSaved: (val) => _entry.entryName = val,
                 decoration: const InputDecoration(
                   labelText: 'Название проверки (операции)',
                 ),
@@ -77,6 +82,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
               TextFormField(
                 keyboardType: TextInputType.number,
                 validator: (val) => NumberValidator().numberValidator(val),
+                onSaved: (val) => _entry.entryDateLimit = int.parse(val),
                 decoration:
                     const InputDecoration(labelText: 'Периодичность, месяцев'),
               ),
@@ -84,6 +90,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
               TextFormField(
                 keyboardType: TextInputType.number,
                 validator: (val) => NumberValidator().numberValidator(val),
+                onSaved: (val) => _entry.entryMileageLimit = int.parse(val),
                 decoration: const InputDecoration(
                     labelText: 'Периодичность проверки, км'),
               ),
@@ -100,6 +107,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
                   validator: (val) => DateValidator().isValidDate(val)
                       ? null
                       : 'Неправильный формат даты',
+                      onSaved: (val) => _entry.entryDate = convertToDate(val),
                 )),
                 IconButton(
                   icon: Icon(Icons.more_horiz),
@@ -112,6 +120,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
               Container(height: 30),
               TextFormField(
                 keyboardType: TextInputType.text,
+                onSaved: (val) => _entry.entryPartName = val,
                 decoration: const InputDecoration(
                     labelText: 'Расходный материал / запчасть'),
               ),
@@ -119,11 +128,12 @@ class _AddEntryPageState extends State<AddEntryPage> {
               TextFormField(
                 maxLines: 3,
                 keyboardType: TextInputType.text,
+                onSaved: (val) => _entry.entryNote = val,
                 decoration: const InputDecoration(labelText: 'Заметки'),
               ),
               Container(height: 30),
               FlatButton(
-                onPressed: () {},
+                onPressed: _submitForm,
                 child: Text('СОХРАНИТЬ'),
               )
             ],
@@ -131,5 +141,19 @@ class _AddEntryPageState extends State<AddEntryPage> {
         ),
       ),
     );
+  }
+
+  void _submitForm() {
+    final FormState form = _formKey.currentState;
+
+    if(!form.validate()) {
+      _scaffoldKey.currentState.showSnackBar(
+        SnackBar(
+            content: Text('Форма заполнена некорректно! Исправьте ошибки...'),
+        backgroundColor: Colors.red,)
+      );
+    } else {
+      form.save();
+    }
   }
 }
