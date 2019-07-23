@@ -47,7 +47,7 @@ class _CarsListPageState extends State<CarsListPage> {
                 Image.asset('images/auto_caddilac.jpg'),
                 ListTile(
                     onTap: () {
-                      Navigator.pushNamed(context, 'dashboard_page');
+                      Navigator.pushNamed(context, 'dashboard_page', arguments: cars.documents[i].documentID);
                     },
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),

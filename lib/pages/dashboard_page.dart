@@ -14,8 +14,10 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
+
   @override
   Widget build(BuildContext context) {
+    final String carId = ModalRoute.of(context).settings.arguments;
     return Scaffold(
         drawer: MainDrawer(),
         floatingActionButton: FloatingActionButton(
@@ -26,7 +28,7 @@ class _DashboardPageState extends State<DashboardPage> {
           ),
           onPressed: () {
             Navigator.push(context,
-                new MaterialPageRoute(builder: (context) => AddEntryPage()));
+                MaterialPageRoute(builder: (context) => AddEntryPage(carId)));
           },
         ),
         appBar: MainAppBar(),

@@ -13,8 +13,7 @@ class DataService {
 
   Future<QuerySnapshot> checkUserDocs(String id) async {
     return fs.where('userId', isEqualTo: id).getDocuments().then((res) {
-      if(res.documents.length == 0)
-        fs.add({'userId': id});
+      if (res.documents.length == 0) fs.add({'userId': id});
       return res;
     });
   }
@@ -46,15 +45,24 @@ class DataService {
     fs.document(docId).collection('cars').document().setData(data);
   }
 
-  Future<void> addEntry(Entry entry) async {
+  Future<void> addEntry(Entry entry, String carId) async {
+    await getData();
     var entryData = {
-    'entryName': entry.entryName,
-    'entryDate': entry.entryDate,
-    'entryDateLimit': entry.entryDateLimit,
-    'entryMileage': entry.entryMileage,
-    'entryMileageLimit': entry.entryMileageLimit,
-    'entryPartName': entry.entryPartName,
-    'entryNote': entry.entryNote
+      'entryName': entry.entryName,
+      'entryDate': entry.entryDate,
+      'entryDateLimit': entry.entryDateLimit,
+      'entryMileage': entry.entryMileage,
+      'entryMileageLimit': entry.entryMileageLimit,
+      'entryPartName': entry.entryPartName,
+      'entryNote': entry.entryNote
     };
+
+    fs
+        .document(docId)
+        .collection('cars')
+        .document(carId)
+        .collection('entries')
+        .document()
+        .setData(entryData);
   }
 }

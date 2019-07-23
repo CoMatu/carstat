@@ -1,4 +1,5 @@
 import 'package:carstat/models/entry.dart';
+import 'package:carstat/services/data_service.dart';
 import 'package:carstat/services/validators/date_validator.dart';
 import 'package:carstat/services/validators/number_validator.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +10,12 @@ import 'package:carstat/components/main_appbar.dart';
 import 'package:carstat/components/drawer.dart';
 
 class AddEntryPage extends StatefulWidget {
+  final String carId;
+
+  AddEntryPage(this.carId);
+
   @override
-  _AddEntryPageState createState() => _AddEntryPageState();
+  _AddEntryPageState createState() => _AddEntryPageState(carId);
 }
 
 class _AddEntryPageState extends State<AddEntryPage> {
@@ -19,6 +24,10 @@ class _AddEntryPageState extends State<AddEntryPage> {
   final TextEditingController _controller = TextEditingController();
 
   Entry _entry = Entry();
+
+  final String carId;
+
+  _AddEntryPageState(this.carId);
 
   Future _chooseDate(BuildContext context, String initialDateString) async {
     var now = DateTime.now();
@@ -52,6 +61,8 @@ class _AddEntryPageState extends State<AddEntryPage> {
 
   @override
   Widget build(BuildContext context) {
+    print('for add entry to car ID: $carId');
+
     return Scaffold(
       key: _scaffoldKey,
       appBar: MainAppBar(),
@@ -154,6 +165,13 @@ class _AddEntryPageState extends State<AddEntryPage> {
       );
     } else {
       form.save();
+
+      print(_entry.entryName);
+      print(_entry.entryDateLimit);
+      print(_entry.entryMileageLimit);
+
+      DataService().addEntry(_entry, carId);
+      Navigator.pop(context);
     }
   }
 }
