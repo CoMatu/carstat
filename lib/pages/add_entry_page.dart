@@ -1,11 +1,12 @@
-import 'package:carstat/services/validators/date_validator.dart';
-import 'package:carstat/services/validators/number_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'dart:async';
 
+import 'package:carstat/models/entry.dart';
 import 'package:carstat/components/main_appbar.dart';
 import 'package:carstat/components/drawer.dart';
+import 'package:carstat/services/validators/date_validator.dart';
+import 'package:carstat/services/validators/number_validator.dart';
 
 class AddEntryPage extends StatefulWidget {
   @override
@@ -14,8 +15,9 @@ class AddEntryPage extends StatefulWidget {
 
 class _AddEntryPageState extends State<AddEntryPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
   final TextEditingController _controller = TextEditingController();
+
+  Entry _entry = Entry();
 
   Future _chooseDate(BuildContext context, String initialDateString) async {
     var now = DateTime.now();
@@ -72,6 +74,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
                 decoration: const InputDecoration(
                   labelText: 'Название проверки (операции)',
                 ),
+                onSaved: (val) => _entry.entryName = val,
               ),
               Container(height: 30),
               TextFormField(
