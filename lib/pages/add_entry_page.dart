@@ -166,10 +166,6 @@ class _AddEntryPageState extends State<AddEntryPage> {
     } else {
       form.save();
 
-      print(_entry.entryName);
-      print(_entry.entryDateLimit);
-      print(_entry.entryMileageLimit);
-
       DataService().addEntry(_entry, carId);
       Navigator.pop(context);
     }
