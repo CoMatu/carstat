@@ -1,4 +1,5 @@
 import 'package:carstat/services/validators/date_validator.dart';
+import 'package:carstat/services/validators/number_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'dart:async';
@@ -75,12 +76,14 @@ class _AddEntryPageState extends State<AddEntryPage> {
               Container(height: 30),
               TextFormField(
                 keyboardType: TextInputType.number,
+                validator: (val) => NumberValidator().numberValidator(val),
                 decoration:
                     const InputDecoration(labelText: 'Периодичность, месяцев'),
               ),
               Container(height: 30),
               TextFormField(
                 keyboardType: TextInputType.number,
+                validator: (val) => NumberValidator().numberValidator(val),
                 decoration: const InputDecoration(
                     labelText: 'Периодичность проверки, км'),
               ),
