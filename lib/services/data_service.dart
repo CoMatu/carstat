@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:carstat/models/entry.dart';
+import 'package:carstat/models/operation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:carstat/models/car.dart';
@@ -42,19 +43,19 @@ class DataService {
       'carYear': car.carYear,
       'carMileage': car.carMileage
     };
-    fs.document(docId).collection('cars').document().setData(data);
+    fs
+        .document(docId)
+        .collection('cars')
+        .document()
+        .setData(data);
   }
 
   Future<void> addEntry(Entry entry, String carId) async {
     await getData();
     var entryData = {
       'entryName': entry.entryName,
-      'entryDate': entry.entryDate,
       'entryDateLimit': entry.entryDateLimit,
-      'entryMileage': entry.entryMileage,
       'entryMileageLimit': entry.entryMileageLimit,
-      'entryPartName': entry.entryPartName,
-      'entryNote': entry.entryNote
     };
 
     fs
@@ -62,6 +63,25 @@ class DataService {
         .collection('cars')
         .document(carId)
         .collection('entries')
+        .document()
+        .setData(entryData);
+  }
+
+  Future<void> addOperation(Operation operation, String carId) async {
+    await getData();
+    var entryData = {
+      'operationDate': operation.operationDate,
+      'operationMileage': operation.operationMileage,
+      'operationPartName': operation.operationPartName,
+      'operationNote': operation.operationNote,
+      'entryId': operation.entryId,
+    };
+
+    fs
+        .document(docId)
+        .collection('cars')
+        .document(carId)
+        .collection('operations')
         .document()
         .setData(entryData);
   }

@@ -1,10 +1,7 @@
 import 'package:carstat/models/entry.dart';
 import 'package:carstat/services/data_service.dart';
-import 'package:carstat/services/validators/date_validator.dart';
 import 'package:carstat/services/validators/number_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'dart:async';
 
 import 'package:carstat/components/main_appbar.dart';
 import 'package:carstat/components/drawer.dart';
@@ -21,43 +18,12 @@ class AddEntryPage extends StatefulWidget {
 class _AddEntryPageState extends State<AddEntryPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  final TextEditingController _controller = TextEditingController();
 
   Entry _entry = Entry();
 
   final String carId;
 
   _AddEntryPageState(this.carId);
-
-  Future _chooseDate(BuildContext context, String initialDateString) async {
-    var now = DateTime.now();
-    var initialDate = convertToDate(initialDateString) ?? now;
-    initialDate = (initialDate.year >= 2015 && initialDate.isBefore(now)
-        ? initialDate
-        : now);
-
-    var result = await showDatePicker(
-      context: context,
-      initialDate: initialDate,
-      firstDate: DateTime(2015),
-      lastDate: DateTime.now(),
-    );
-
-    if (result == null) return;
-
-    setState(() {
-      _controller.text = DateFormat.yMd().format(result);
-    });
-  }
-
-  DateTime convertToDate(String input) {
-    try {
-      var d = DateFormat.yMd().parseStrict(input);
-      return d;
-    } catch (e) {
-      return null;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +44,8 @@ class _AddEntryPageState extends State<AddEntryPage> {
             children: <Widget>[
               Container(height: 30),
               Text('На этой странице необходимо ввести название проверки или '
-                  'операции регламента технического обслуживания автомобиля. '),
+                  'операции регламента технического обслуживания автомобиля, а '
+                  'также периодичность проверки.'),
               Text('Например,  "Замена моторного масла и масляного фильтра", '
                   'замена каждые 5000 км или 6 месяцев'),
               Container(height: 30),
@@ -106,46 +73,20 @@ class _AddEntryPageState extends State<AddEntryPage> {
                     labelText: 'Периодичность проверки, км'),
               ),
               Container(height: 30),
-              Row(children: <Widget>[
-                Expanded(
-                    child: TextFormField(
-                  decoration: InputDecoration(
-//                        icon: const Icon(Icons.calendar_today),
-                    labelText: 'Дата последней проверки (операции)',
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  FlatButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text('ОТМЕНА', style: TextStyle(color: Colors.red),),
                   ),
-                  controller: _controller,
-                  keyboardType: TextInputType.datetime,
-                  validator: (val) => DateValidator().isValidDate(val)
-                      ? null
-                      : 'Неправильный формат даты',
-                      onSaved: (val) => _entry.entryDate = convertToDate(val),
-                )),
-                IconButton(
-                  icon: Icon(Icons.more_horiz),
-                  tooltip: 'Выберите дату',
-                  onPressed: (() {
-                    _chooseDate(context, _controller.text);
-                  }),
-                ),
-              ]),
-              Container(height: 30),
-              TextFormField(
-                keyboardType: TextInputType.text,
-                onSaved: (val) => _entry.entryPartName = val,
-                decoration: const InputDecoration(
-                    labelText: 'Расходный материал / запчасть'),
-              ),
-              Container(height: 30),
-              TextFormField(
-                maxLines: 3,
-                keyboardType: TextInputType.text,
-                onSaved: (val) => _entry.entryNote = val,
-                decoration: const InputDecoration(labelText: 'Заметки'),
-              ),
-              Container(height: 30),
-              FlatButton(
-                onPressed: _submitForm,
-                child: Text('СОХРАНИТЬ'),
+                  FlatButton(
+                    onPressed: _submitForm,
+                    child: Text('СОХРАНИТЬ'),
+                  )
+                ],
               )
             ],
           ),
@@ -157,12 +98,11 @@ class _AddEntryPageState extends State<AddEntryPage> {
   void _submitForm() {
     final FormState form = _formKey.currentState;
 
-    if(!form.validate()) {
-      _scaffoldKey.currentState.showSnackBar(
-        SnackBar(
-            content: Text('Форма заполнена некорректно! Исправьте ошибки...'),
-        backgroundColor: Colors.red,)
-      );
+    if (!form.validate()) {
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text('Форма заполнена некорректно! Исправьте ошибки...'),
+        backgroundColor: Colors.red,
+      ));
     } else {
       form.save();
 
