@@ -42,9 +42,71 @@ class _CarsListPageState extends State<CarsListPage> {
         itemBuilder: (context, i) {
           return Card(
             elevation: 8.0,
-            child: Column(
+            child: Container(
+              height: 100,
+              child: Row(
+                children: <Widget>[
+                  Flexible(
+                    flex: 1,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(5),
+                          topLeft: Radius.circular(5)
+                        ),
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: AssetImage('images/auto_caddilac.jpg')
+                        )
+                      ),
+                    ),
+                  ),
+                  Flexible(
+                    flex: 2,
+                    child: Container(
+                      child: ListTile(
+                        onTap: () {
+                          Navigator.pushNamed(context, 'dashboard_page', arguments: cars.documents[i].documentID);
+                        },
+                        title: Text(
+                          cars.documents[0].data['carName'],
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.green),
+                        ),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Divider(),
+                            Row(
+                              children: <Widget>[
+                                Text(
+                                    cars.documents[0].data['carMark'] +
+                                        ' ' +
+                                        cars.documents[0].data['carModel'],
+                                    style: TextStyle()),
+                                Container(width: 15,),
+                                Container(
+                                  width: 60,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.teal),
+                                      borderRadius: BorderRadius.all(Radius.circular(10.0))
+                                    ),
+                                    child: Text(cars.documents[0].data['carYear'].toString()+' г.', textAlign: TextAlign.center,)),
+                              ],
+                            ),
+                            Text('VIN: ' + cars.documents[0].data['carVin'])
+                          ],
+                        )
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            )
+/*
+            Column(
               children: <Widget>[
-                Image.asset('images/auto_caddilac.jpg'),
+//                Image.asset('images/auto_caddilac.jpg'),
                 ListTile(
                     onTap: () {
                       Navigator.pushNamed(context, 'dashboard_page', arguments: cars.documents[i].documentID);
@@ -79,6 +141,7 @@ class _CarsListPageState extends State<CarsListPage> {
                         color: Colors.green, size: 30.0))
               ],
             ),
+*/
           );
         },
       );
