@@ -85,7 +85,8 @@ class _DashboardPageState extends State<DashboardPage>
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => AddOperationPage(carId, _entries)));
+                              builder: (context) =>
+                                  AddOperationPage(carId, _entries)));
                     }
                   },
                 ),
@@ -134,7 +135,8 @@ class _DashboardPageState extends State<DashboardPage>
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => EntryDetailsPage(_entries[index])));
+                                builder: (context) =>
+                                    EntryDetailsPage(_entries[index])));
                       },
                       contentPadding: EdgeInsets.symmetric(
                           vertical: 10.0, horizontal: 10.0),
@@ -153,13 +155,18 @@ class _DashboardPageState extends State<DashboardPage>
                   contentPadding:
                       EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
                   leading: CircleAvatar(
-                    child: Icon(FontAwesomeIcons.user),
+                    backgroundColor: Colors.green[200],
+                    child: Icon(
+                      FontAwesomeIcons.user,
+                      color: Colors.black87,
+                    ),
                     radius: 32.0,
                   ),
                   title: Text(
                     'Добро пожаловать в TURBOSTAT!',
                   ),
-                  subtitle: Text('Вы используете TURBOSTAT уже 555 дней'),
+                  subtitle:
+                      Text('Вы используете TURBOSTAT уже 555 дней. Спасибо!'),
                 ),
               ],
             );

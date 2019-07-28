@@ -19,9 +19,11 @@ class _CarsListPageState extends State<CarsListPage> {
   @override
   void initState() {
     dataService.getData().then((results) {
-      setState(() {
-        cars = results;
-      });
+      if(mounted) {
+        setState(() {
+          cars = results;
+        });
+      }
     });
     super.initState();
   }
