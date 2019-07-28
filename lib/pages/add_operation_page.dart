@@ -1,3 +1,4 @@
+import 'package:carstat/models/entry.dart';
 import 'package:carstat/models/operation.dart';
 import 'package:carstat/services/data_service.dart';
 import 'package:carstat/services/validators/date_validator.dart';
@@ -10,11 +11,12 @@ import 'package:carstat/components/drawer.dart';
 
 class AddOperationPage extends StatefulWidget {
   final String carId;
+  final List<Entry> entries;
 
-  AddOperationPage(this.carId);
+  AddOperationPage(this.carId, this.entries);
 
   @override
-  _AddOperationPageState createState() => _AddOperationPageState(carId);
+  _AddOperationPageState createState() => _AddOperationPageState(carId, entries);
 }
 
 class _AddOperationPageState extends State<AddOperationPage> {
@@ -22,11 +24,13 @@ class _AddOperationPageState extends State<AddOperationPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final TextEditingController _controller = TextEditingController();
 
+  List<String> _entriesNames = <String>[];
   Operation _operation = Operation();
 
   final String carId;
+  final List<Entry> _entries;
 
-  _AddOperationPageState(this.carId);
+  _AddOperationPageState(this.carId, this._entries);
 
   Future _chooseDate(BuildContext context, String initialDateString) async {
     var now = DateTime.now();
@@ -59,9 +63,15 @@ class _AddOperationPageState extends State<AddOperationPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    print('for add operation to car ID: $carId');
+  void initState() {
+    _entries.forEach((res) {
+      _entriesNames.add(res.entryName);
+    });
+    super.initState();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
       appBar: MainAppBar(),
@@ -76,25 +86,52 @@ class _AddOperationPageState extends State<AddOperationPage> {
             padding: const EdgeInsets.symmetric(horizontal: 32.0),
             children: <Widget>[
               Container(height: 30),
-              Text('На этой странице необходимо ввести название проверки или '
-                  'операции регламента технического обслуживания автомобиля, а '
-                  'также периодичность проверки.'),
-              Text('Например,  "Замена моторного масла и масляного фильтра", '
-                  'замена каждые 5000 км или 6 месяцев'),
+              Text('На этой странице необходимо записать выполненную проверку'
+                  ' или операцию ТО, показания спидометра, использованные '
+                  'расходники или запчасти'),
+              FormField<String>(
+                builder: (FormFieldState<String> state) {
+                  return InputDecorator(
+                    decoration: InputDecoration(
+                      labelText: 'Выберите проверку из списка',
+                    ),
+                    isEmpty: _operation.entryId == '',
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        value: _operation.entryId,
+                        isDense: true,
+                        onChanged: (String newValue) {
+                          setState(() {
+                            _operation.entryId = newValue;
+                            state.didChange(newValue);
+                          });
+                        },
+                        items: _entriesNames.map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  );
+                },
+              ),
               Container(height: 30),
               Row(children: <Widget>[
                 Expanded(
                     child: TextFormField(
                   decoration: InputDecoration(
 //                        icon: const Icon(Icons.calendar_today),
-                    labelText: 'Дата последней проверки (операции)',
+                    labelText: 'Дата проверки (операции)',
                   ),
                   controller: _controller,
                   keyboardType: TextInputType.datetime,
                   validator: (val) => DateValidator().isValidDate(val)
                       ? null
                       : 'Неправильный формат даты',
-                      onSaved: (val) => _operation.operationDate = convertToDate(val),
+                  onSaved: (val) =>
+                      _operation.operationDate = convertToDate(val),
                 )),
                 IconButton(
                   icon: Icon(Icons.more_horiz),
@@ -108,8 +145,8 @@ class _AddOperationPageState extends State<AddOperationPage> {
               TextFormField(
                 keyboardType: TextInputType.text,
                 onSaved: (val) => _operation.operationMileage = int.parse(val),
-                decoration: const InputDecoration(
-                    labelText: 'Показания спидометра на дату проверки (операции)'),
+                decoration:
+                    const InputDecoration(labelText: 'Показания спидометра'),
               ),
               Container(height: 30),
               TextFormField(
@@ -133,7 +170,10 @@ class _AddOperationPageState extends State<AddOperationPage> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: Text('ОТМЕНА', style: TextStyle(color: Colors.red),),
+                    child: Text(
+                      'ОТМЕНА',
+                      style: TextStyle(color: Colors.red),
+                    ),
                   ),
                   FlatButton(
                     onPressed: _submitForm,

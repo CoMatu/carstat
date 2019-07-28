@@ -27,7 +27,6 @@ class DataService {
 
     await _userDoc.then((res) {
       docId = res.documents[0].documentID;
-      print('document ID: ' + docId);
     });
 
     return fs.document(docId).collection('cars').getDocuments();
@@ -56,6 +55,7 @@ class DataService {
       'entryName': entry.entryName,
       'entryDateLimit': entry.entryDateLimit,
       'entryMileageLimit': entry.entryMileageLimit,
+      'entryChange': entry.forChange
     };
 
     fs
@@ -67,22 +67,52 @@ class DataService {
         .setData(entryData);
   }
 
+  Future<List<Entry>> getEntries(String carId) async {
+    String _userId = await _firebaseAuth.currentUser();
+    List<Entry> _entriesList = [];
+
+    Future<QuerySnapshot> _userDoc = fs.where('userId', isEqualTo: _userId)
+    .getDocuments();
+    await _userDoc.then((res) {
+      docId = res.documents[0].documentID;
+    });
+
+    Future<QuerySnapshot> _carEntries = fs.document(docId).collection('cars').document(carId)
+    .collection('entries').getDocuments();
+
+    await _carEntries.then((res) {
+      res.documents.forEach((doc) {
+        var entry = Entry();
+        entry.entryName = doc.data['entryName'];
+        entry.entryMileageLimit = doc.data['entryMileageLimit'];
+        entry.entryDateLimit = doc.data['entryDateLimit'];
+        entry.forChange = doc.data['forChange'];
+
+        _entriesList.add(entry);
+      });
+    });
+
+    return _entriesList;
+  }
+
   Future<void> addOperation(Operation operation, String carId) async {
     await getData();
-    var entryData = {
+    var entryId = operation.entryId;
+    var operationData = {
       'operationDate': operation.operationDate,
       'operationMileage': operation.operationMileage,
       'operationPartName': operation.operationPartName,
       'operationNote': operation.operationNote,
-      'entryId': operation.entryId,
     };
 
     fs
         .document(docId)
         .collection('cars')
         .document(carId)
+        .collection('entries')
+        .document(entryId)
         .collection('operations')
         .document()
-        .setData(entryData);
+        .setData(operationData);
   }
 }

@@ -18,12 +18,10 @@ class AddEntryPage extends StatefulWidget {
 class _AddEntryPageState extends State<AddEntryPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
   Entry _entry = Entry();
-
   final String carId;
-
   _AddEntryPageState(this.carId);
+  bool _forChange = false;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +45,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
                   'операции регламента технического обслуживания автомобиля, а '
                   'также периодичность проверки.'),
               Text('Например,  "Замена моторного масла и масляного фильтра", '
-                  'замена каждые 5000 км или 6 месяцев'),
+                  'замена каждые 15000 км или 12 месяцев.'),
               Container(height: 30),
               TextFormField(
                 keyboardType: TextInputType.text,
@@ -55,6 +53,22 @@ class _AddEntryPageState extends State<AddEntryPage> {
                 decoration: const InputDecoration(
                   labelText: 'Название проверки (операции)',
                 ),
+              ),
+              Container(height: 30,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Text('Проверка'),
+                  Switch(
+                    value: _forChange,
+                    onChanged: (value) {
+                      setState(() {
+                        _forChange = value;
+                      });
+                    },
+                  ),
+                  Text('Замена')
+                ],
               ),
               Container(height: 30),
               TextFormField(
@@ -70,7 +84,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
                 validator: (val) => NumberValidator().numberValidator(val),
                 onSaved: (val) => _entry.entryMileageLimit = int.parse(val),
                 decoration: const InputDecoration(
-                    labelText: 'Периодичность проверки, км'),
+                    labelText: 'Периодичность, км'),
               ),
               Container(height: 30),
               Row(
@@ -104,6 +118,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
         backgroundColor: Colors.red,
       ));
     } else {
+      _entry.forChange = _forChange;
       form.save();
 
       DataService().addEntry(_entry, carId);

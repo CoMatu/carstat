@@ -1,6 +1,10 @@
 import 'package:carstat/components/drawer.dart';
 import 'package:carstat/components/main_appbar.dart';
+import 'package:carstat/models/entry.dart';
 import 'package:carstat/pages/add_entry_page.dart';
+import 'package:carstat/pages/add_operation_page.dart';
+import 'package:carstat/pages/entry_details_page.dart';
+import 'package:carstat/services/data_service.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:math' as math;
@@ -19,10 +23,11 @@ class _DashboardPageState extends State<DashboardPage>
   AnimationController _controller;
 
   static const List<IconData> icons = const [
-    Icons.sms,
-    Icons.mail,
-    Icons.phone
+    FontAwesomeIcons.tools,
+    FontAwesomeIcons.calendarPlus,
   ];
+
+  static List<Entry> _entries = [];
 
   @override
   void initState() {
@@ -30,15 +35,21 @@ class _DashboardPageState extends State<DashboardPage>
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );
-//    super.initState();
+
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    Color backgroundColor = Theme.of(context).cardColor;
-    Color foregroundColor = Theme.of(context).accentColor;
+    Color backgroundColor = Colors.yellow;
+    Color foregroundColor = Colors.black87;
 
     final String carId = ModalRoute.of(context).settings.arguments;
+
+    _getEntries() async {
+      _entries = await DataService().getEntries(carId);
+    }
+
     return Scaffold(
         drawer: MainDrawer(),
         floatingActionButton: Column(
@@ -49,74 +60,107 @@ class _DashboardPageState extends State<DashboardPage>
               width: 56.0,
               alignment: FractionalOffset.topCenter,
               child: ScaleTransition(
-                  scale: CurvedAnimation(
-                parent: _controller,
-                curve: Interval(
-                    0.0,
-                    1.0 - index / icons.length / 2.0,
-                    curve: Curves.easeOut),
+                scale: CurvedAnimation(
+                  parent: _controller,
+                  curve: Interval(0.0, 1.0 - index / icons.length / 2.0,
+                      curve: Curves.easeOut),
+                ),
+                child: FloatingActionButton(
+                  heroTag: null,
+                  backgroundColor: backgroundColor,
+                  mini: true,
+                  child: Icon(
+                    icons[index],
+                    color: foregroundColor,
+                    size: 18,
+                  ),
+                  onPressed: () {
+                    // выбираем куда переход по индексу в списке иконок icons
+                    if (index == 1) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AddEntryPage(carId)));
+                    } else {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AddOperationPage(carId, _entries)));
+                    }
+                  },
+                ),
               ),
-              child: FloatingActionButton(
-                heroTag: null,
-                backgroundColor: backgroundColor,
-                mini: true,
-                child: Icon(icons[index], color: foregroundColor,),
-                onPressed: (){},
-              ),),
             );
             return child;
-          }).toList()..add(FloatingActionButton(
-              onPressed: (){
+          }).toList()
+            ..add(FloatingActionButton(
+              onPressed: () {
                 if (_controller.isDismissed) {
                   _controller.forward();
                 } else {
                   _controller.reverse();
                 }
               },
-            heroTag: null,
-            child: AnimatedBuilder(animation: _controller,
-                builder: (BuildContext context, Widget child) {
-              return Transform(
-                transform: Matrix4.rotationZ(_controller.value * 0.5 * math.pi),
-                alignment: FractionalOffset.center,
-                child: Icon(_controller.isDismissed ? Icons.add : Icons.close),
-              );
-                }
-            ),
-          )),
-        ),
-        appBar: MainAppBar(),
-        body: ListView.builder(
-          itemCount: 3,
-          itemBuilder: (context, index) {
-            return Column(
-              children: <Widget>[
-                ListTile(
-                  title: Text(
-                    'Срочно заменить',
-                    style: TextStyle(fontSize: 20, color: Colors.deepOrange),
-                  ),
-                ),
-                Column(
-                  children: List.generate(3, (int index) {
-                    return ListTile(
-                      leading: Icon(
-                        FontAwesomeIcons.car,
-                        color: Colors.green,
-                        size: 44,
-                      ),
-                      title: Text('Моторное масло и фильтр'),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text('Дата замены: '),
-                          Text('Пробег, км: '),
-                          Text('Марка масла: ')
-                        ],
+              heroTag: null,
+              child: AnimatedBuilder(
+                  animation: _controller,
+                  builder: (BuildContext context, Widget child) {
+                    return Transform(
+                      transform:
+                          Matrix4.rotationZ(_controller.value * 0.5 * math.pi),
+                      alignment: FractionalOffset.center,
+                      child: Icon(
+                        _controller.isDismissed
+                            ? FontAwesomeIcons.plus
+                            : FontAwesomeIcons.times,
                       ),
                     );
                   }),
-                )
+            )),
+        ),
+        appBar: MainAppBar(),
+        body: FutureBuilder(
+          future: _getEntries(),
+          builder: (BuildContext ctx, AsyncSnapshot snapshot) {
+            return ListView(
+              children: <Widget>[
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: ScrollPhysics(),
+                  itemCount: _entries.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => EntryDetailsPage(_entries[index])));
+                      },
+                      contentPadding: EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 10.0),
+                      leading: CircleAvatar(
+                        child: Icon(FontAwesomeIcons.angry),
+                        radius: 32.0,
+                      ),
+                      title: Text(
+                        _entries[index].entryName,
+                      ),
+                      subtitle: Text('Нет информации о проведении ТО'),
+                    );
+                  },
+                ),
+                ListTile(
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+                  leading: CircleAvatar(
+                    child: Icon(FontAwesomeIcons.user),
+                    radius: 32.0,
+                  ),
+                  title: Text(
+                    'Добро пожаловать в TURBOSTAT!',
+                  ),
+                  subtitle: Text('Вы используете TURBOSTAT уже 555 дней'),
+                ),
               ],
             );
           },

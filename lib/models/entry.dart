@@ -4,4 +4,5 @@ class Entry {
   String entryName;
   int entryMileageLimit;
   int entryDateLimit;
+  bool forChange;
 }

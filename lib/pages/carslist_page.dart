@@ -43,7 +43,7 @@ class _CarsListPageState extends State<CarsListPage> {
           return Card(
             elevation: 8.0,
             child: Container(
-              height: 100,
+              height: 120,
               child: Row(
                 children: <Widget>[
                   Flexible(
@@ -55,8 +55,8 @@ class _CarsListPageState extends State<CarsListPage> {
                           topLeft: Radius.circular(5)
                         ),
                         image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: AssetImage('images/auto_caddilac.jpg')
+                          fit: BoxFit.fitHeight,
+                          image: AssetImage('images/nissan_note.jpg')
                         )
                       ),
                     ),
@@ -77,14 +77,8 @@ class _CarsListPageState extends State<CarsListPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Divider(),
-                            Row(
+                            Wrap(
                               children: <Widget>[
-                                Text(
-                                    cars.documents[0].data['carMark'] +
-                                        ' ' +
-                                        cars.documents[0].data['carModel'],
-                                    style: TextStyle()),
-                                Container(width: 15,),
                                 Container(
                                   width: 60,
                                     decoration: BoxDecoration(
@@ -92,10 +86,15 @@ class _CarsListPageState extends State<CarsListPage> {
                                       borderRadius: BorderRadius.all(Radius.circular(10.0))
                                     ),
                                     child: Text(cars.documents[0].data['carYear'].toString()+' г.', textAlign: TextAlign.center,)),
+                                Container(width: 15,),
+                                Text(
+                                    cars.documents[0].data['carMark'] +
+                                        ' ' +
+                                        cars.documents[0].data['carModel'],
+                                    style: TextStyle()),
                               ],
                             ),
-                            Text('VIN: ' + cars.documents[0].data['carVin'])
-                          ],
+                            Text('VIN: ' + cars.documents[0].data['carVin'])                          ],
                         )
                       ),
                     ),
@@ -103,45 +102,6 @@ class _CarsListPageState extends State<CarsListPage> {
                 ],
               ),
             )
-/*
-            Column(
-              children: <Widget>[
-//                Image.asset('images/auto_caddilac.jpg'),
-                ListTile(
-                    onTap: () {
-                      Navigator.pushNamed(context, 'dashboard_page', arguments: cars.documents[i].documentID);
-                    },
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                    leading: Container(
-                      padding: EdgeInsets.only(right: 12.0),
-                      decoration: BoxDecoration(
-                          border: Border(
-                              right:
-                                  BorderSide(width: 1.0, color: Colors.green))),
-                      child: Icon(Icons.directions_car, color: Colors.green),
-                    ),
-                    title: Text(
-                      cars.documents[0].data['carName'],
-                      style: TextStyle(
-                          color: Colors.grey, fontWeight: FontWeight.bold),
-                    ),
-                    // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),
-
-                    subtitle: Row(
-                      children: <Widget>[
-                        Text(
-                            cars.documents[0].data['carMark'] +
-                                ' ' +
-                                cars.documents[0].data['carModel'],
-                            style: TextStyle(color: Colors.grey))
-                      ],
-                    ),
-                    trailing: Icon(Icons.keyboard_arrow_right,
-                        color: Colors.green, size: 30.0))
-              ],
-            ),
-*/
           );
         },
       );
