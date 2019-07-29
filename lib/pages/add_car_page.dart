@@ -280,9 +280,20 @@ class _AddCarPageState extends State<AddCarPage> {
                   });
                 },
               ),
-              FlatButton(
-                child: Text('СОХРАНИТЬ'),
-                onPressed: _submitDetails,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  FlatButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, 'car_list_page');
+                    },
+                    child: Text('ОТМЕНА', style: TextStyle(color: Colors.red),),
+                  ),
+                  FlatButton(
+                    child: Text('СОХРАНИТЬ'),
+                    onPressed: _submitDetails,
+                  ),
+                ],
               )
             ],
           ),

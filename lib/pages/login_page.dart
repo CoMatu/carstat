@@ -118,7 +118,7 @@ class _LoginPageState extends State<LoginPage> {
           padding: const EdgeInsets.all(16.0),
           child: RaisedButton(
             key: Key('signIn'),
-            child: Text('ВХОД', style: TextStyle(color: Colors.green)),
+            child: Text('ВХОД', style: TextStyle()),
             onPressed: validateAndSubmit,
             color: Colors.yellow,
             highlightColor: Colors.orange[400],
@@ -134,7 +134,7 @@ class _LoginPageState extends State<LoginPage> {
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: RaisedButton(
-            child: Text('ЗАРЕГИСТРИРОВАТЬ', style: TextStyle(fontSize: 20.0)),
+            child: Text('ЗАРЕГИСТРИРОВАТЬ', style: TextStyle()),
             onPressed: validateAndSubmit,
             color: Colors.yellow,
             highlightColor: Colors.orange[400],

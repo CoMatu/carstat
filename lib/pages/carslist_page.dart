@@ -19,9 +19,11 @@ class _CarsListPageState extends State<CarsListPage> {
   @override
   void initState() {
     dataService.getData().then((results) {
-      setState(() {
-        cars = results;
-      });
+      if(mounted) {
+        setState(() {
+          cars = results;
+        });
+      }
     });
     super.initState();
   }
@@ -42,43 +44,66 @@ class _CarsListPageState extends State<CarsListPage> {
         itemBuilder: (context, i) {
           return Card(
             elevation: 8.0,
-            child: Column(
-              children: <Widget>[
-                Image.asset('images/auto_caddilac.jpg'),
-                ListTile(
-                    onTap: () {
-                      Navigator.pushNamed(context, 'dashboard_page');
-                    },
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                    leading: Container(
-                      padding: EdgeInsets.only(right: 12.0),
+            child: Container(
+              height: 120,
+              child: Row(
+                children: <Widget>[
+                  Flexible(
+                    flex: 1,
+                    child: Container(
                       decoration: BoxDecoration(
-                          border: Border(
-                              right:
-                                  BorderSide(width: 1.0, color: Colors.green))),
-                      child: Icon(Icons.directions_car, color: Colors.green),
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(5),
+                          topLeft: Radius.circular(5)
+                        ),
+                        image: DecorationImage(
+                          fit: BoxFit.fitHeight,
+                          image: AssetImage('images/nissan_note.jpg')
+                        )
+                      ),
                     ),
-                    title: Text(
-                      cars.documents[0].data['carName'],
-                      style: TextStyle(
-                          color: Colors.grey, fontWeight: FontWeight.bold),
+                  ),
+                  Flexible(
+                    flex: 2,
+                    child: Container(
+                      child: ListTile(
+                        onTap: () {
+                          Navigator.pushNamed(context, 'dashboard_page', arguments: cars.documents[i].documentID);
+                        },
+                        title: Text(
+                          cars.documents[0].data['carName'],
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.green),
+                        ),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Divider(),
+                            Wrap(
+                              children: <Widget>[
+                                Container(
+                                  width: 60,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.teal),
+                                      borderRadius: BorderRadius.all(Radius.circular(10.0))
+                                    ),
+                                    child: Text(cars.documents[0].data['carYear'].toString()+' г.', textAlign: TextAlign.center,)),
+                                Container(width: 15,),
+                                Text(
+                                    cars.documents[0].data['carMark'] +
+                                        ' ' +
+                                        cars.documents[0].data['carModel'],
+                                    style: TextStyle()),
+                              ],
+                            ),
+                            Text('VIN: ' + cars.documents[0].data['carVin'])                          ],
+                        )
+                      ),
                     ),
-                    // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),
-
-                    subtitle: Row(
-                      children: <Widget>[
-                        Text(
-                            cars.documents[0].data['carMark'] +
-                                ' ' +
-                                cars.documents[0].data['carModel'],
-                            style: TextStyle(color: Colors.grey))
-                      ],
-                    ),
-                    trailing: Icon(Icons.keyboard_arrow_right,
-                        color: Colors.green, size: 30.0))
-              ],
-            ),
+                  )
+                ],
+              ),
+            )
           );
         },
       );

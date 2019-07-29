@@ -51,6 +51,7 @@ flutter:
   assets:
     - images/carstat.png
     - images/auto_caddilac.jpg
+    - images/nissan_note.jpg
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

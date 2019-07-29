@@ -1,9 +1,8 @@
+// проверка или операция регламента ТО. Например, замена масла и масляного фильтра
+
 class Entry {
   String entryName;
-  DateTime entryDate;
-  int entryDateLimit;
-  int entryMileage;
   int entryMileageLimit;
-  String entryPartName;
-  String entryNote;
+  int entryDateLimit;
+  bool forChange;
 }
