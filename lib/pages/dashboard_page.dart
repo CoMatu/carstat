@@ -39,6 +39,8 @@ class _DashboardPageState extends State<DashboardPage>
     super.initState();
   }
 
+  //TODO нет обновления после добавления регламента ТО
+
   @override
   Widget build(BuildContext context) {
     Color backgroundColor = Colors.yellow;
