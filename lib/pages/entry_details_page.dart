@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 class EntryDetailsPage extends StatefulWidget {
   final Entry entry;
+
   EntryDetailsPage(this.entry);
 
   @override
@@ -12,6 +13,7 @@ class EntryDetailsPage extends StatefulWidget {
 
 class _EntryDetailsPageState extends State<EntryDetailsPage> {
   final Entry _entry;
+
   _EntryDetailsPageState(this._entry);
 
   @override
@@ -24,20 +26,16 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
           Card(
             child: ListTile(
               title: Column(
-                children: <Widget>[
-                  Text(_entry.entryName, style: TextStyle(
-                    fontSize: 24
-                  ),),
-                  Divider()
-                ],
+                children: <Widget>[Text(_entry.entryName), Divider()],
               ),
               subtitle: Column(
                 children: <Widget>[
-                  Text('Эту операцию необходимо выполнять каждые '
-                      '${_entry.entryDateLimit} месяца или '
-                      '${_entry.entryMileageLimit} км пробега (в зависимости от '
-                      'того, что наступит раньше)',
-                  style: TextStyle(fontSize: 16),),
+                  Text(
+                    'Эту операцию необходимо выполнять каждые '
+                    '${_entry.entryDateLimit} месяца или '
+                    '${_entry.entryMileageLimit} км пробега (в зависимости от '
+                    'того, что наступит раньше)',
+                  ),
                 ],
               ),
             ),
