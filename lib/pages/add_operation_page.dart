@@ -106,10 +106,10 @@ class _AddOperationPageState extends State<AddOperationPage> {
                             state.didChange(newValue);
                           });
                         },
-                        items: _entriesNames.map((String value) {
+                        items: _entries.map((Entry value) {
                           return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
+                            value: value.entryName,
+                            child: Text(value.entryName),
                           );
                         }).toList(),
                       ),
