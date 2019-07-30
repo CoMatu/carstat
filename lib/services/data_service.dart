@@ -42,20 +42,24 @@ class DataService {
       'carYear': car.carYear,
       'carMileage': car.carMileage
     };
-    fs
-        .document(docId)
-        .collection('cars')
-        .document()
-        .setData(data);
+    fs.document(docId).collection('cars').document().setData(data);
   }
 
   Future<void> addEntry(Entry entry, String carId) async {
     await getData();
+    var entryRef = fs
+        .document(docId)
+        .collection('cars')
+        .document(carId)
+        .collection('entries')
+        .document();
+
     var entryData = {
       'entryName': entry.entryName,
       'entryDateLimit': entry.entryDateLimit,
       'entryMileageLimit': entry.entryMileageLimit,
-      'entryChange': entry.forChange
+      'entryChange': entry.forChange,
+      'entryId': entryRef.documentID
     };
 
     fs
@@ -63,22 +67,28 @@ class DataService {
         .collection('cars')
         .document(carId)
         .collection('entries')
-        .document()
+        .document(entryRef.documentID)
         .setData(entryData);
+
+//        .setData(entryData);
   }
 
   Future<List<Entry>> getEntries(String carId) async {
     String _userId = await _firebaseAuth.currentUser();
     List<Entry> _entriesList = [];
 
-    Future<QuerySnapshot> _userDoc = fs.where('userId', isEqualTo: _userId)
-    .getDocuments();
+    Future<QuerySnapshot> _userDoc =
+        fs.where('userId', isEqualTo: _userId).getDocuments();
     await _userDoc.then((res) {
       docId = res.documents[0].documentID;
     });
 
-    Future<QuerySnapshot> _carEntries = fs.document(docId).collection('cars').document(carId)
-    .collection('entries').getDocuments();
+    Future<QuerySnapshot> _carEntries = fs
+        .document(docId)
+        .collection('cars')
+        .document(carId)
+        .collection('entries')
+        .getDocuments();
 
     await _carEntries.then((res) {
       res.documents.forEach((doc) {
@@ -87,6 +97,7 @@ class DataService {
         entry.entryMileageLimit = doc.data['entryMileageLimit'];
         entry.entryDateLimit = doc.data['entryDateLimit'];
         entry.forChange = doc.data['forChange'];
+        entry.entryId = doc.data['entryId'];
 
         _entriesList.add(entry);
       });
@@ -103,6 +114,7 @@ class DataService {
       'operationMileage': operation.operationMileage,
       'operationPartName': operation.operationPartName,
       'operationNote': operation.operationNote,
+      'entryId': operation.entryId
     };
 
     fs

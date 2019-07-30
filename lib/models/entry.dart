@@ -2,6 +2,7 @@
 
 class Entry {
   String entryName;
+  String entryId;
   int entryMileageLimit;
   int entryDateLimit;
   bool forChange;
