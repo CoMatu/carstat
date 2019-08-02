@@ -13,13 +13,13 @@ class CarsListPage extends StatefulWidget {
 class _CarsListPageState extends State<CarsListPage> {
   bool isLoaded = false;
   QuerySnapshot cars;
-
   DataService dataService = DataService();
+  TextEditingController _textFieldController = TextEditingController();
 
   @override
   void initState() {
     dataService.getData().then((results) {
-      if(mounted) {
+      if (mounted) {
         setState(() {
           cars = results;
         });
@@ -43,72 +43,141 @@ class _CarsListPageState extends State<CarsListPage> {
         padding: EdgeInsets.all(5.0),
         itemBuilder: (context, i) {
           return Card(
-            elevation: 8.0,
-            child: Container(
-              height: 120,
-              child: Row(
-                children: <Widget>[
-                  Flexible(
-                    flex: 1,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(5),
-                          topLeft: Radius.circular(5)
-                        ),
-                        image: DecorationImage(
-                          fit: BoxFit.fitHeight,
-                          image: AssetImage('images/nissan_note.jpg')
-                        )
+              elevation: 8.0,
+              child: Container(
+                height: 120,
+                child: Row(
+                  children: <Widget>[
+                    Flexible(
+                      flex: 1,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(5),
+                                topLeft: Radius.circular(5)),
+                            image: DecorationImage(
+                                fit: BoxFit.fitHeight,
+                                image: AssetImage('images/nissan_note.jpg'))),
                       ),
                     ),
-                  ),
-                  Flexible(
-                    flex: 2,
-                    child: Container(
-                      child: ListTile(
-                        onTap: () {
-                          Navigator.pushNamed(context, 'dashboard_page', arguments: cars.documents[i].documentID);
-                        },
-                        title: Text(
-                          cars.documents[0].data['carName'],
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.green),
-                        ),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Divider(),
-                            Wrap(
-                              children: <Widget>[
-                                Container(
-                                  width: 60,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.teal),
-                                      borderRadius: BorderRadius.all(Radius.circular(10.0))
-                                    ),
-                                    child: Text(cars.documents[0].data['carYear'].toString()+' г.', textAlign: TextAlign.center,)),
-                                Container(width: 15,),
-                                Text(
-                                    cars.documents[0].data['carMark'] +
-                                        ' ' +
-                                        cars.documents[0].data['carModel'],
-                                    style: TextStyle()),
-                              ],
+                    Flexible(
+                      flex: 2,
+                      child: Container(
+                        child: ListTile(
+                            onTap: () {
+                              Navigator.pushNamed(context, 'dashboard_page',
+                                  arguments: cars.documents[i].documentID);
+                            },
+                            title: Text(
+                              cars.documents[0].data['carName'],
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.green),
                             ),
-                            Text('VIN: ' + cars.documents[0].data['carVin'])                          ],
-                        )
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: Wrap(
+                                    children: <Widget>[
+                                      Container(
+                                          width: 60,
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: Colors.teal),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10.0))),
+                                          child: Text(
+                                            cars.documents[0].data['carYear']
+                                                    .toString() +
+                                                ' г.',
+                                            textAlign: TextAlign.center,
+                                          )),
+                                      Container(
+                                        width: 15,
+                                      ),
+                                      Text(
+                                          cars.documents[0].data['carMark'] +
+                                              ' ' +
+                                              cars.documents[0]
+                                                  .data['carModel'],
+                                          style: TextStyle()),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Text('VIN: '),
+                                      Text(
+                                        cars.documents[0].data['carVin'],
+                                        style: TextStyle(color: Colors.black87),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Text('Пробег, км: '),
+                                      Text(
+                                        '87000',
+                                        style: TextStyle(color: Colors.black87),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 8),
+                                        child: GestureDetector(
+                                          child: Icon(Icons.edit, size: 14, color: Colors.orange,),
+                                          onTap: () {
+                                            _displayDialog(context);
+                                          },
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                )
+                              ],
+                            )),
                       ),
-                    ),
-                  )
-                ],
-              ),
-            )
-          );
+                    )
+                  ],
+                ),
+              ));
         },
       );
     } else {
       return Center(child: Text('Загрузка информации...'));
     }
+  }
+
+  _displayDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: TextField(
+              controller: _textFieldController,
+              decoration: InputDecoration(hintText: "Введите текущий пробег"),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('ОТМЕНА', style: TextStyle(color: Colors.red),),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              FlatButton(
+                child: Text('СОХРАНИТЬ', style: TextStyle(color: Colors.green),),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
   }
 }
