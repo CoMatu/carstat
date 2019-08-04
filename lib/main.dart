@@ -1,3 +1,4 @@
+import 'package:carstat/pages/add_car_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -19,7 +20,8 @@ class MyApp extends StatelessWidget {
         routes: {
           'start_page': (context) => StartPage(),
           'dashboard_page': (context) => DashboardPage(),
-          'car_list_page': (context) => CarsListPage()
+          'car_list_page': (context) => CarsListPage(),
+          'add_car_page': (context) => AddCarPage()
         },
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,

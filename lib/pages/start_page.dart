@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:carstat/pages/add_car_page.dart';
 import 'package:carstat/pages/build_waiting_page.dart';
-import 'package:carstat/components/main_scafford.dart';
 import 'package:carstat/pages/carslist_page.dart';
 import 'package:carstat/services/data_service.dart';
 import 'package:carstat/pages/login_page.dart';
@@ -24,6 +23,7 @@ enum AuthStatus {
 class _StartPageState extends State<StartPage> {
   AuthStatus authStatus = AuthStatus.notDetermined;
   String user;
+  DataService dataService = DataService();
 
   @override
   void didChangeDependencies() {
@@ -70,16 +70,10 @@ class _StartPageState extends State<StartPage> {
 
   FutureBuilder<QuerySnapshot> buildFutureBuilder() {
     return FutureBuilder(
-      future: DataService().checkUserDocs(user),
+      future: dataService.checkUserDocs(user),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          if (!snapshot.hasData) {
-            return MainScaffold(
-              body: AddCarPage(),
-            );
-          } else {
-            return CarsListPage();
-          }
+          return CarsListPage();
         }
         return BuildWaitingPage();
       },

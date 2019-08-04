@@ -1,9 +1,45 @@
-import 'package:carstat/components/main_scafford.dart';
+import 'dart:async';
+import 'package:carstat/components/drawer.dart';
+import 'package:carstat/components/main_appbar.dart';
+import 'package:carstat/models/car.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:carstat/pages/add_car_page.dart';
 import 'package:carstat/services/data_service.dart';
+
+enum ConfirmAction { CANCEL, ACCEPT }
+
+Future<ConfirmAction> _asyncConfirmDialog(BuildContext context) async {
+  return showDialog<ConfirmAction>(
+    context: context,
+    barrierDismissible: false, // user must tap button for close dialog!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Удалить автомобиль?'),
+        content: const Text(
+            'Вы удалите автомобиль из списка ваших транспортных средств без возможности восстановления'),
+        actions: <Widget>[
+          FlatButton(
+            child: const Text('ОТМЕНА'),
+            onPressed: () {
+              Navigator.of(context).pop(ConfirmAction.CANCEL);
+            },
+          ),
+          FlatButton(
+            child: const Text(
+              'УДАЛИТЬ',
+              style: TextStyle(color: Colors.red),
+            ),
+            onPressed: () {
+              Navigator.of(context).pop(ConfirmAction.ACCEPT);
+            },
+          )
+        ],
+      );
+    },
+  );
+}
 
 class CarsListPage extends StatefulWidget {
   @override
@@ -11,169 +47,270 @@ class CarsListPage extends StatefulWidget {
 }
 
 class _CarsListPageState extends State<CarsListPage> {
+  int _count;
   bool isLoaded = false;
-  QuerySnapshot cars;
   DataService dataService = DataService();
   TextEditingController _textFieldController = TextEditingController();
+  List<Car> _cars = [];
+  Car car = Car();
 
   @override
   void initState() {
     dataService.getData().then((results) {
+      List<Car> _res = [];
+      results.documents.forEach((val) {
+        car.carId = val.data['carId'];
+        car.carVin = val.data['carVin'];
+        car.carMileage = val.data['carMileage'];
+        car.carYear = val.data['carYear'];
+        car.carModel = val.data['carModel'];
+        car.carMark = val.data['carMark'];
+        car.carName = val.data['carName'];
+        _res.add(car);
+      });
+
       if (mounted) {
         setState(() {
-          cars = results;
+          _cars = _res;
         });
       }
     });
     super.initState();
   }
 
+  void _updateCarsList() {
+    dataService.getData().then((results) {
+      List<Car> _resUpd = [];
+      results.documents.forEach((val) {
+        car.carId = val.data['carId'];
+        car.carVin = val.data['carVin'];
+        car.carMileage = val.data['carMileage'];
+        car.carYear = val.data['carYear'];
+        car.carModel = val.data['carModel'];
+        car.carMark = val.data['carMark'];
+        car.carName = val.data['carname'];
+        _resUpd.add(car);
+      });
+
+      if (mounted) {
+        setState(() {
+          _cars = _resUpd;
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MainScaffold(body: _carList());
+    return Scaffold(
+      appBar: MainAppBar(),
+      drawer: MainDrawer(),
+      body: _carList(),
+    );
   }
 
   Widget _carList() {
-    if (cars != null) {
-      if (cars.documents.length == 0) {
-        return AddCarPage();
-      }
-      return ListView.builder(
-        itemCount: cars.documents.length,
-        padding: EdgeInsets.all(5.0),
-        itemBuilder: (context, i) {
-          return Card(
-              elevation: 8.0,
-              child: Container(
-                height: 120,
-                child: Row(
-                  children: <Widget>[
-                    Flexible(
-                      flex: 1,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(5),
-                                topLeft: Radius.circular(5)),
-                            image: DecorationImage(
-                                fit: BoxFit.fitHeight,
-                                image: AssetImage('images/nissan_note.jpg'))),
+    return Column(
+      children: <Widget>[
+        ListView.builder(
+          shrinkWrap: true,
+          physics: ScrollPhysics(),
+          itemCount: _cars.length,
+          padding: EdgeInsets.all(5.0),
+          itemBuilder: (context, index) {
+            return Card(
+                elevation: 8.0,
+                child: Container(
+                  child: Row(
+                    children: <Widget>[
+                      Flexible(
+                        flex: 1,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(5),
+                                  topLeft: Radius.circular(5)),
+                              image: DecorationImage(
+                                  image: AssetImage('images/nissan_note.jpg'))),
+                        ),
                       ),
-                    ),
-                    Flexible(
-                      flex: 2,
-                      child: Container(
-                        child: ListTile(
-                            onTap: () {
-                              Navigator.pushNamed(context, 'dashboard_page',
-                                  arguments: cars.documents[i].documentID);
-                            },
-                            title: Text(
-                              cars.documents[0].data['carName'],
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.green),
-                            ),
-                            subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Divider(),
-                                Padding(
-                                  padding: const EdgeInsets.all(2.0),
-                                  child: Wrap(
-                                    children: <Widget>[
-                                      Container(
-                                          width: 60,
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: Colors.teal),
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(10.0))),
-                                          child: Text(
-                                            cars.documents[0].data['carYear']
-                                                    .toString() +
-                                                ' г.',
-                                            textAlign: TextAlign.center,
-                                          )),
-                                      Container(
-                                        width: 15,
-                                      ),
-                                      Text(
-                                          cars.documents[0].data['carMark'] +
-                                              ' ' +
-                                              cars.documents[0]
-                                                  .data['carModel'],
-                                          style: TextStyle()),
-                                    ],
+                      Flexible(
+                        flex: 2,
+                        child: Container(
+                          child: ListTile(
+                              onTap: () {
+                                Navigator.pushNamed(context, 'dashboard_page',
+                                    arguments: _cars[index].carId);
+                              },
+                              title: Row(
+                                children: <Widget>[
+                                  Text(
+                                    _cars[index].carName,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.green),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(2.0),
-                                  child: Row(
-                                    children: <Widget>[
-                                      Text('VIN: '),
-                                      Text(
-                                        cars.documents[0].data['carVin'],
-                                        style: TextStyle(color: Colors.black87),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 8),
+                                    child: GestureDetector(
+                                      child: Icon(
+                                        Icons.delete,
+                                        size: 16,
+                                        color: Colors.red,
                                       ),
-                                    ],
+                                      onTap: () async {
+                                        await _asyncConfirmDialog(context)
+                                            .then((res) {
+                                          DataService()
+                                              .deleteCar(_cars[index].carId)
+                                              .then((value) {
+                                            _updateCarsList();
+                                          });
+                                        });
+                                      },
+                                    ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(2.0),
-                                  child: Row(
-                                    children: <Widget>[
-                                      Text('Пробег, км: '),
-                                      Text(
-                                        '87000',
-                                        style: TextStyle(color: Colors.black87),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 8),
-                                        child: GestureDetector(
-                                          child: Icon(Icons.edit, size: 14, color: Colors.orange,),
-                                          onTap: () {
-                                            _displayDialog(context);
-                                          },
+                                ],
+                              ),
+                              subtitle: Wrap(
+                                children: <Widget>[
+                                  Divider(),
+                                  Padding(
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: Wrap(
+                                      children: <Widget>[
+                                        Container(
+                                            padding: EdgeInsets.only(
+                                                left: 6.0, right: 6.0),
+                                            decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: Colors.teal),
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(10.0))),
+                                            child: Text(
+                                              _cars[index].carYear.toString() +
+                                                  ' г.',
+                                              textAlign: TextAlign.center,
+                                            )),
+                                        Container(
+                                          width: 15,
                                         ),
-                                      )
-                                    ],
+                                        Text(_cars[index].carMark),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 8),
+                                          child: Text(_cars[index].carModel),
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                )
-                              ],
-                            )),
-                      ),
-                    )
-                  ],
+                                  Padding(
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: Wrap(
+                                      children: <Widget>[
+                                        Text('VIN: '),
+                                        Text(
+                                          _cars[index].carVin,
+                                          style:
+                                              TextStyle(color: Colors.black87),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: Row(
+                                      children: <Widget>[
+                                        Text(
+                                          _cars[index].carMileage.toString() +
+                                              ' ' +
+                                              'км',
+                                          style:
+                                              TextStyle(color: Colors.black87),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 8),
+                                          child: GestureDetector(
+                                            child: Icon(
+                                              Icons.edit,
+                                              size: 16,
+                                              color: Colors.orange,
+                                            ),
+                                            onTap: () {
+                                              _displayDialog(
+                                                  context, _cars[index].carId);
+                                            },
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              )),
+                        ),
+                      )
+                    ],
+                  ),
+                ));
+          },
+        ),
+        Card(
+          //TODO add FAB change button
+          child: Container(
+            child: FlatButton(
+                child: Container(
+                  width: 200,
+                  child: Icon(
+                    Icons.add_circle_outline,
+                    size: 56,
+                    color: Colors.grey,
+                  ),
                 ),
-              ));
-        },
-      );
-    } else {
-      return Center(child: Text('Загрузка информации...'));
-    }
+                onPressed: () {
+                  Navigator.pushNamed(context, 'add_car_page');
+                }),
+          ),
+        )
+      ],
+    );
   }
 
-  _displayDialog(BuildContext context) async {
+  _displayDialog(BuildContext context, String documentID) async {
     return showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
             content: TextField(
               controller: _textFieldController,
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(hintText: "Введите текущий пробег"),
+              //TODO add validator for > 1 mln
             ),
             actions: <Widget>[
               FlatButton(
-                child: Text('ОТМЕНА', style: TextStyle(color: Colors.red),),
+                child: Text(
+                  'ОТМЕНА',
+                  style: TextStyle(color: Colors.red),
+                ),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
               ),
               FlatButton(
-                child: Text('СОХРАНИТЬ', style: TextStyle(color: Colors.green),),
+                child: Text(
+                  'СОХРАНИТЬ',
+                  style: TextStyle(color: Colors.green),
+                ),
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  setState(() {
+                    DataService()
+                        .updateCar(documentID, 'carMileage',
+                            int.parse(_textFieldController.value.text))
+                        .then((res) {
+                      Navigator.pushNamed(context, 'car_list_page');
+                    });
+                  });
                 },
               )
             ],

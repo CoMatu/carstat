@@ -143,10 +143,10 @@ class _AddOperationPageState extends State<AddOperationPage> {
               ]),
               Container(height: 30),
               TextFormField(
-                keyboardType: TextInputType.text,
+                keyboardType: TextInputType.number,
                 onSaved: (val) => _operation.operationMileage = int.parse(val),
                 decoration:
-                    const InputDecoration(labelText: 'Показания спидометра'),
+                    const InputDecoration(labelText: 'Текущий пробег, км'),
               ),
               Container(height: 30),
               TextFormField(

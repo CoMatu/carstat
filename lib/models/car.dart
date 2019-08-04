@@ -6,4 +6,5 @@ class Car {
   String carMark;
   int carYear;
   int carMileage;
+  String carId;
 }

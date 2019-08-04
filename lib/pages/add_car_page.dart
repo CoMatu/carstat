@@ -208,8 +208,9 @@ class _AddCarPageState extends State<AddCarPage> {
             FlatButton(
               child: Text('OK'),
               onPressed: () {
-                _dataService.addCar(car);
-                Navigator.of(context).pop();
+                _dataService.addCar(car).then((res) {
+                  Navigator.pushNamed(context, 'car_list_page');
+                });
               },
             ),
           ],
@@ -226,6 +227,7 @@ class _AddCarPageState extends State<AddCarPage> {
       }
     }
 
+    //TODO add validator не записывает с пустыми полями
     return Scaffold(
       appBar: MainAppBar(),
       drawer: MainDrawer(),
