@@ -33,16 +33,18 @@ class MainDrawer extends StatelessWidget {
             title: Text('Мои автомобили'),
             trailing: Icon(Icons.directions_car),
             onTap: () {
+              Navigator.of(context).pop();
               Navigator.push(context,
-                  new MaterialPageRoute(builder: (context) => CarsListPage()));
+                  MaterialPageRoute(builder: (context) => CarsListPage()));
             },
           ),
           ListTile(
             title: Text('Добавить автомобиль'),
             trailing: Icon(Icons.add, color: Colors.red,),
             onTap: () {
+              Navigator.of(context).pop();
               Navigator.push(context,
-                  new MaterialPageRoute(builder: (context) => AddCarPage()));
+                  MaterialPageRoute(builder: (context) => AddCarPage()));
             },
           ),
           ListTile(
@@ -50,6 +52,7 @@ class MainDrawer extends StatelessWidget {
               trailing: Icon(FontAwesomeIcons.signOutAlt),
               onTap: () {
                 _signOut(context);
+                Navigator.of(context).pop();
                 Navigator.pushNamed(context, 'start_page');
               }),
         ],

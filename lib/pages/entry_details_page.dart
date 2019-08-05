@@ -36,6 +36,25 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                     '${_entry.entryMileageLimit} км пробега (в зависимости от '
                     'того, что наступит раньше)',
                   ),
+                  Divider(),
+                  Column(
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          Text('Дата последней операции: '),
+                        ],
+                      ),
+                      Row(children: <Widget>[
+                        Text('Показания спидометра: '),
+                      ],),
+                      Row(children: <Widget>[
+                        Text('Наименование запасной части: '),
+                      ],),
+                      Row(children: <Widget>[
+                        Text('Заметки: '),
+                      ],),
+                    ],
+                  )
                 ],
               ),
             ),

@@ -1,8 +1,8 @@
 import 'dart:async';
+
 import 'package:carstat/models/entry.dart';
 import 'package:carstat/models/operation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:carstat/models/car.dart';
 import 'package:carstat/services/auth_service.dart';
 
@@ -34,28 +34,45 @@ class DataService {
 
   Future<void> addCar(Car car) async {
     await getData();
+    var docRef = fs.document(docId).collection('cars').document();
+    String _id = docRef.documentID;
     var data = {
       'carVin': car.carVin,
       'carModel': car.carModel,
       'carName': car.carName,
       'carMark': car.carMark,
       'carYear': car.carYear,
-      'carMileage': car.carMileage
+      'carMileage': car.carMileage,
+      'carId': _id
     };
-    fs
-        .document(docId)
-        .collection('cars')
-        .document()
-        .setData(data);
+    fs.document(docId).collection('cars').document(_id).setData(data);
+  }
+  
+  Future<void> updateCar(String carId, String parameter, value) async {
+    await getData();
+    fs.document(docId).collection('cars').document(carId).updateData({parameter: value});
+  }
+
+  Future<void> deleteCar(String carId) async {
+    await getData();
+    fs.document(docId).collection('cars').document(carId).delete();
   }
 
   Future<void> addEntry(Entry entry, String carId) async {
     await getData();
+    var entryRef = fs
+        .document(docId)
+        .collection('cars')
+        .document(carId)
+        .collection('entries')
+        .document();
+
     var entryData = {
       'entryName': entry.entryName,
       'entryDateLimit': entry.entryDateLimit,
       'entryMileageLimit': entry.entryMileageLimit,
-      'entryChange': entry.forChange
+      'entryChange': entry.forChange,
+      'entryId': entryRef.documentID
     };
 
     fs
@@ -63,22 +80,28 @@ class DataService {
         .collection('cars')
         .document(carId)
         .collection('entries')
-        .document()
+        .document(entryRef.documentID)
         .setData(entryData);
+
+//        .setData(entryData);
   }
 
   Future<List<Entry>> getEntries(String carId) async {
     String _userId = await _firebaseAuth.currentUser();
     List<Entry> _entriesList = [];
 
-    Future<QuerySnapshot> _userDoc = fs.where('userId', isEqualTo: _userId)
-    .getDocuments();
+    Future<QuerySnapshot> _userDoc =
+        fs.where('userId', isEqualTo: _userId).getDocuments();
     await _userDoc.then((res) {
       docId = res.documents[0].documentID;
     });
 
-    Future<QuerySnapshot> _carEntries = fs.document(docId).collection('cars').document(carId)
-    .collection('entries').getDocuments();
+    Future<QuerySnapshot> _carEntries = fs
+        .document(docId)
+        .collection('cars')
+        .document(carId)
+        .collection('entries')
+        .getDocuments();
 
     await _carEntries.then((res) {
       res.documents.forEach((doc) {
@@ -87,6 +110,7 @@ class DataService {
         entry.entryMileageLimit = doc.data['entryMileageLimit'];
         entry.entryDateLimit = doc.data['entryDateLimit'];
         entry.forChange = doc.data['forChange'];
+        entry.entryId = doc.data['entryId'];
 
         _entriesList.add(entry);
       });
@@ -103,6 +127,7 @@ class DataService {
       'operationMileage': operation.operationMileage,
       'operationPartName': operation.operationPartName,
       'operationNote': operation.operationNote,
+      'entryId': operation.entryId
     };
 
     fs
