@@ -49,28 +49,27 @@ class _CarsListPageState extends State<CarsListPage> {
   DataService dataService = DataService();
   TextEditingController _textFieldController = TextEditingController();
   List<Car> _cars = [];
-  Car car = Car();
+  Car car;
 
   @override
   void initState() {
     dataService.getData().then((results) {
       List<Car> _res = [];
+      car = Car();
       results.documents.forEach((val) {
         car.carId = val.data['carId'];
+        print(car.carId);
         car.carVin = val.data['carVin'];
         car.carMileage = val.data['carMileage'];
         car.carYear = val.data['carYear'];
         car.carModel = val.data['carModel'];
         car.carMark = val.data['carMark'];
         car.carName = val.data['carName'];
-        _res.add(car);
+        print(car.carName);
+        _cars.add(car);
       });
 
-      if (mounted) {
-        setState(() {
-          _cars = _res;
-        });
-      }
+        setState(() {});
     });
     super.initState();
   }
@@ -116,6 +115,7 @@ class _CarsListPageState extends State<CarsListPage> {
           itemCount: _cars.length,
           padding: EdgeInsets.all(5.0),
           itemBuilder: (context, index) {
+//            print(_cars[index].carName);
             return Card(
                 elevation: 8.0,
                 child: Container(
