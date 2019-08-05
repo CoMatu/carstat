@@ -114,7 +114,7 @@ class _DashboardPageState extends State<DashboardPage>
                       alignment: FractionalOffset.center,
                       child: Icon(
                         _controller.isDismissed
-                            ? FontAwesomeIcons.plus
+                            ? Icons.add
                             : FontAwesomeIcons.times,
                       ),
                     );

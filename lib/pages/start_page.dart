@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'package:carstat/pages/add_car_page.dart';
 import 'package:carstat/pages/build_waiting_page.dart';
 import 'package:carstat/pages/carslist_page.dart';
 import 'package:carstat/services/data_service.dart';

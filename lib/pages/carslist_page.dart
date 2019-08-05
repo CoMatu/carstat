@@ -3,9 +3,7 @@ import 'package:carstat/components/drawer.dart';
 import 'package:carstat/components/main_appbar.dart';
 import 'package:carstat/models/car.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'package:carstat/pages/add_car_page.dart';
 import 'package:carstat/services/data_service.dart';
 
 enum ConfirmAction { CANCEL, ACCEPT }
@@ -47,7 +45,6 @@ class CarsListPage extends StatefulWidget {
 }
 
 class _CarsListPageState extends State<CarsListPage> {
-  int _count;
   bool isLoaded = false;
   DataService dataService = DataService();
   TextEditingController _textFieldController = TextEditingController();
@@ -105,6 +102,7 @@ class _CarsListPageState extends State<CarsListPage> {
     return Scaffold(
       appBar: MainAppBar(),
       drawer: MainDrawer(),
+      floatingActionButton: _getFab(),
       body: _carList(),
     );
   }
@@ -255,23 +253,6 @@ class _CarsListPageState extends State<CarsListPage> {
                 ));
           },
         ),
-        Card(
-          //TODO add FAB change button
-          child: Container(
-            child: FlatButton(
-                child: Container(
-                  width: 200,
-                  child: Icon(
-                    Icons.add_circle_outline,
-                    size: 56,
-                    color: Colors.grey,
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.pushNamed(context, 'add_car_page');
-                }),
-          ),
-        )
       ],
     );
   }
@@ -303,18 +284,19 @@ class _CarsListPageState extends State<CarsListPage> {
                   style: TextStyle(color: Colors.green),
                 ),
                 onPressed: () {
-                  setState(() {
-                    DataService()
-                        .updateCar(documentID, 'carMileage',
-                            int.parse(_textFieldController.value.text))
-                        .then((res) {
-                      Navigator.pushNamed(context, 'car_list_page');
-                    });
-                  });
                 },
               )
             ],
           );
         });
+  }
+
+  _getFab() {
+    return FloatingActionButton(
+      child: Icon(Icons.add),
+      onPressed: () {
+        Navigator.pushNamed(context, 'add_car_page');
+      },
+    );
   }
 }
