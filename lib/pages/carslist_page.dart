@@ -1,9 +1,9 @@
 import 'dart:async';
+import 'package:carstat/components/car_card.dart';
 import 'package:carstat/components/drawer.dart';
 import 'package:carstat/components/main_appbar.dart';
 import 'package:carstat/models/car.dart';
 import 'package:flutter/material.dart';
-
 import 'package:carstat/services/data_service.dart';
 
 enum ConfirmAction { CANCEL, ACCEPT }
@@ -112,7 +112,59 @@ class _CarsListPageState extends State<CarsListPage> {
           padding: EdgeInsets.all(5.0),
           itemBuilder: (context, index) {
 //            print(_cars[index].carName);
-            return Card(
+            return CarCard(_cars[index]);
+          },
+        ),
+      ],
+    );
+  }
+
+  _displayDialog(BuildContext context, String documentID) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: TextField(
+              controller: _textFieldController,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(hintText: "Введите текущий пробег"),
+              //TODO add validator for > 1 mln
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text(
+                  'ОТМЕНА',
+                  style: TextStyle(color: Colors.red),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              FlatButton(
+                child: Text(
+                  'СОХРАНИТЬ',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onPressed: () {
+                },
+              )
+            ],
+          );
+        });
+  }
+
+  _getFab() {
+    return FloatingActionButton(
+      child: Icon(Icons.add),
+      onPressed: () {
+        Navigator.pushNamed(context, 'add_car_page');
+      },
+    );
+  }
+}
+
+/*
+              Card(
                 elevation: 8.0,
                 child: Container(
                   child: Row(
@@ -247,52 +299,5 @@ class _CarsListPageState extends State<CarsListPage> {
                     ],
                   ),
                 ));
-          },
-        ),
-      ],
-    );
-  }
 
-  _displayDialog(BuildContext context, String documentID) async {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            content: TextField(
-              controller: _textFieldController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(hintText: "Введите текущий пробег"),
-              //TODO add validator for > 1 mln
-            ),
-            actions: <Widget>[
-              FlatButton(
-                child: Text(
-                  'ОТМЕНА',
-                  style: TextStyle(color: Colors.red),
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              FlatButton(
-                child: Text(
-                  'СОХРАНИТЬ',
-                  style: TextStyle(color: Colors.green),
-                ),
-                onPressed: () {
-                },
-              )
-            ],
-          );
-        });
-  }
-
-  _getFab() {
-    return FloatingActionButton(
-      child: Icon(Icons.add),
-      onPressed: () {
-        Navigator.pushNamed(context, 'add_car_page');
-      },
-    );
-  }
-}
+ */
