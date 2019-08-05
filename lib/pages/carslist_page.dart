@@ -49,26 +49,22 @@ class _CarsListPageState extends State<CarsListPage> {
   DataService dataService = DataService();
   TextEditingController _textFieldController = TextEditingController();
   List<Car> _cars = [];
-  Car car;
 
   @override
   void initState() {
     dataService.getData().then((results) {
-      List<Car> _res = [];
-      car = Car();
-      results.documents.forEach((val) {
-        car.carId = val.data['carId'];
-        print(car.carId);
-        car.carVin = val.data['carVin'];
-        car.carMileage = val.data['carMileage'];
-        car.carYear = val.data['carYear'];
-        car.carModel = val.data['carModel'];
-        car.carMark = val.data['carMark'];
-        car.carName = val.data['carName'];
-        print(car.carName);
+      var _count = results.documents.length;
+      for(int i = 0; i < _count; i++) {
+        Car car = Car();
+        car.carId = results.documents[i].data['carId'];
+        car.carVin = results.documents[i].data['carVin'];
+        car.carMileage = results.documents[i].data['carMileage'];
+        car.carYear = results.documents[i].data['carYear'];
+        car.carModel = results.documents[i].data['carModel'];
+        car.carMark = results.documents[i].data['carMark'];
+        car.carName = results.documents[i].data['carName'];
         _cars.add(car);
-      });
-
+      }
         setState(() {});
     });
     super.initState();
@@ -76,23 +72,23 @@ class _CarsListPageState extends State<CarsListPage> {
 
   void _updateCarsList() {
     dataService.getData().then((results) {
-      List<Car> _resUpd = [];
-      results.documents.forEach((val) {
-        car.carId = val.data['carId'];
-        car.carVin = val.data['carVin'];
-        car.carMileage = val.data['carMileage'];
-        car.carYear = val.data['carYear'];
-        car.carModel = val.data['carModel'];
-        car.carMark = val.data['carMark'];
-        car.carName = val.data['carname'];
-        _resUpd.add(car);
-      });
+      var _count = results.documents.length;
+      _cars = [];
 
-      if (mounted) {
-        setState(() {
-          _cars = _resUpd;
-        });
+      for(int i = 0; i < _count; i++) {
+        Car car = Car();
+        car.carId = results.documents[i].data['carId'];
+        print(car.carId);
+        car.carVin = results.documents[i].data['carVin'];
+        car.carMileage = results.documents[i].data['carMileage'];
+        car.carYear = results.documents[i].data['carYear'];
+        car.carModel = results.documents[i].data['carModel'];
+        car.carMark = results.documents[i].data['carMark'];
+        car.carName = results.documents[i].data['carName'];
+        _cars.add(car);
       }
+        print('after delete -' + _cars.length.toString());
+        setState(() {});
     });
   }
 
@@ -140,7 +136,7 @@ class _CarsListPageState extends State<CarsListPage> {
                                 Navigator.pushNamed(context, 'dashboard_page',
                                     arguments: _cars[index].carId);
                               },
-                              title: Row(
+                              title: Wrap(
                                 children: <Widget>[
                                   Text(
                                     _cars[index].carName,
@@ -153,7 +149,7 @@ class _CarsListPageState extends State<CarsListPage> {
                                     child: GestureDetector(
                                       child: Icon(
                                         Icons.delete,
-                                        size: 16,
+                                        size: 24,
                                         color: Colors.red,
                                       ),
                                       onTap: () async {
@@ -232,7 +228,7 @@ class _CarsListPageState extends State<CarsListPage> {
                                           child: GestureDetector(
                                             child: Icon(
                                               Icons.edit,
-                                              size: 16,
+                                              size: 24.0,
                                               color: Colors.orange,
                                             ),
                                             onTap: () {
