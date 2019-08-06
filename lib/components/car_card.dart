@@ -1,13 +1,13 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
 
 import 'package:carstat/models/car.dart';
-import 'package:carstat/pages/carslist_page.dart';
 import 'package:carstat/services/data_service.dart';
-import 'package:flutter/material.dart';
 
 enum ConfirmAction { CANCEL, ACCEPT }
 
-Future<ConfirmAction> _asyncConfirmDialog(BuildContext context) async {
+Future<ConfirmAction> _asyncConfirmDialog(
+    BuildContext context, DataService dataService, String carId) async {
   return showDialog<ConfirmAction>(
     context: context,
     barrierDismissible: false, // user must tap button for close dialog!
@@ -30,8 +30,9 @@ Future<ConfirmAction> _asyncConfirmDialog(BuildContext context) async {
             child: const Text(
               'УДАЛИТЬ',
             ),
-            onPressed: () {
-              Navigator.of(context).pop(ConfirmAction.ACCEPT);
+            onPressed: () async {
+              await dataService.deleteCar(carId).then(
+                  (res) => Navigator.of(context).pop(ConfirmAction.ACCEPT));
             },
           )
         ],
@@ -45,6 +46,7 @@ class CarCard extends StatelessWidget {
   final Function() notifyCarsList;
 
   CarCard(this.car, {@required this.notifyCarsList});
+
   final DataService dataService = DataService();
   final TextEditingController _textFieldController = TextEditingController();
 
@@ -70,11 +72,7 @@ class CarCard extends StatelessWidget {
                     color: Colors.red,
                   ),
                   onPressed: () async {
-                    await _asyncConfirmDialog(context).then((res) =>
-                      dataService.deleteCar(car.carId).then((val) {
-                        notifyCarsList();
-                      })
-                    );
+                    await _asyncConfirmDialog(context, dataService, car.carId);
                   },
                 ),
               ],
@@ -164,11 +162,11 @@ class CarCard extends StatelessWidget {
                 child: Text(
                   'СОХРАНИТЬ',
                 ),
-                onPressed: () async{
+                onPressed: () async {
                   await dataService
                       .updateCar(car.carId, 'carMileage',
-                      _textFieldController.value)
-                  .then((res) {
+                          int.parse(_textFieldController.text))
+                      .then((res) {
                     notifyCarsList();
                     Navigator.of(context).pop();
                   });
