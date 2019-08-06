@@ -14,8 +14,46 @@ class CarCard extends StatelessWidget {
           Image.asset('images/nissan_note.jpg'),
           ListTile(
             title: Row(
+              mainAxisSize: MainAxisSize.max,
               children: <Widget>[
-                Text(car.carName),
+                Expanded(child: Text(car.carName)),
+                IconButton(
+                  icon: Icon(Icons.delete),
+                  onPressed: () {},
+                )
+              ],
+            ),
+            subtitle: Wrap(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: Text(car.carMark),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: Text(car.carModel),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: Text(car.carYear.toString() + ' г.'),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text('Пробег: ' + car.carMileage.toString() + ' км.'),
+                      GestureDetector(
+                        child: Icon(Icons.edit),
+                        onTap: () {},
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: Text('VIN: ' + car.carVin),
+                ),
               ],
             ),
           ),
