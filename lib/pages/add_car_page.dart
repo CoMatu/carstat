@@ -206,7 +206,11 @@ class _AddCarPageState extends State<AddCarPage> {
           ),
           actions: <Widget>[
             FlatButton(
-              child: Text('OK'),
+              child: Text('ОТМЕНА'),
+              onPressed: () => Navigator.pop(context),
+            ),
+            FlatButton(
+              child: Text('OK', style: TextStyle(color: Colors.black),),
               onPressed: () {
                 _dataService.addCar(car).then((res) {
                   Navigator.pushNamed(context, 'car_list_page');
