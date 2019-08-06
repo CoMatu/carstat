@@ -56,8 +56,19 @@ class CarCard extends StatelessWidget {
       elevation: 8,
       child: Column(
         children: <Widget>[
-          Image.asset('images/nissan_note.jpg'),
+          Container(
+              child: Image.asset('images/nissan_note.jpg'),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(15.0),
+              topRight: Radius.circular(15.0)
+            ),
+          ),),
           ListTile(
+            onTap: () {
+              Navigator.pushNamed(context, 'dashboard_page',
+                  arguments: car.carId);
+            },
             title: Row(
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
