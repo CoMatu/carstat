@@ -9,9 +9,15 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:math' as math;
 
+enum IconStatus {
+  Danger,
+  Warning,
+  Norm,
+  NotDeterminate
+}
+
 class DashboardPage extends StatefulWidget {
   const DashboardPage({this.onSignedOut});
-
   final VoidCallback onSignedOut;
 
   @override
@@ -21,7 +27,7 @@ class DashboardPage extends StatefulWidget {
 class _DashboardPageState extends State<DashboardPage>
     with TickerProviderStateMixin {
   AnimationController _controller;
-
+  IconStatus iconStatus = IconStatus.Danger;
   static const List<IconData> icons = const [
     FontAwesomeIcons.tools,
     FontAwesomeIcons.calendarPlus,
@@ -142,10 +148,7 @@ class _DashboardPageState extends State<DashboardPage>
                       },
                       contentPadding: EdgeInsets.symmetric(
                           vertical: 10.0, horizontal: 10.0),
-                      leading: CircleAvatar(
-                        child: Icon(FontAwesomeIcons.angry),
-                        radius: 32.0,
-                      ),
+                      leading: _iconSet(),
                       title: Text(
                         _entries[index].entryName,
                       ),
@@ -158,21 +161,47 @@ class _DashboardPageState extends State<DashboardPage>
                       EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
                   leading: CircleAvatar(
                     backgroundColor: Colors.green[200],
-                    child: Icon(
-                      FontAwesomeIcons.user,
-                      color: Colors.black87,
-                    ),
+                    child: Icon(Icons.person, color: Colors.black,),
                     radius: 32.0,
                   ),
                   title: Text(
                     'Добро пожаловать в TURBOSTAT!',
                   ),
                   subtitle:
-                      Text('Вы используете TURBOSTAT уже 555 дней. Спасибо!'),
+                      Text('Спасибо, что Вы с нами!'),
                 ),
               ],
             );
           },
         ));
+  }
+
+  _iconSet() {
+    switch(iconStatus) {
+      case IconStatus.NotDeterminate:
+        return CircleAvatar(
+          child: Icon(Icons.help_outline),
+          radius: 32.0,
+        );
+      case IconStatus.Danger:
+        return CircleAvatar(
+          child: Icon(Icons.warning),
+          radius: 32.0,
+          backgroundColor: Colors.red,
+        );
+        break;
+      case IconStatus.Warning:
+        return CircleAvatar(
+          child: Icon(Icons.assignment_late),
+          radius: 32.0,
+        );
+        break;
+      case IconStatus.Norm:
+        return CircleAvatar(
+          child: Icon(Icons.directions_car),
+          radius: 32.0,
+        );
+        break;
+    }
   }
 }

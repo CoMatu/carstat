@@ -41,7 +41,7 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
-                          Text('Дата последней операции: '),
+                          Text('Дата: '),
                         ],
                       ),
                       Row(children: <Widget>[
