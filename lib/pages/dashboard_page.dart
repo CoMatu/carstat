@@ -4,6 +4,7 @@ import 'package:carstat/models/entry.dart';
 import 'package:carstat/pages/add_entry_page.dart';
 import 'package:carstat/pages/add_operation_page.dart';
 import 'package:carstat/pages/entry_details_page.dart';
+import 'package:carstat/services/dashboard_service.dart';
 import 'package:carstat/services/data_service.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -32,6 +33,7 @@ class _DashboardPageState extends State<DashboardPage>
     FontAwesomeIcons.tools,
     FontAwesomeIcons.calendarPlus,
   ];
+  DashboardService dashboardService;
 
   static List<Entry> _entries = [];
 
@@ -56,6 +58,11 @@ class _DashboardPageState extends State<DashboardPage>
 
     _getEntries() async {
       _entries = await DataService().getEntries(carId);
+      var markers = dashboardService.getMarkers(_entries);
+      setState(() {
+
+      });
+
     }
 
     return Scaffold(
@@ -138,6 +145,7 @@ class _DashboardPageState extends State<DashboardPage>
                   physics: ScrollPhysics(),
                   itemCount: _entries.length,
                   itemBuilder: (context, index) {
+                    dashboardService;
                     return ListTile(
                       onTap: () {
                         Navigator.push(
@@ -185,9 +193,8 @@ class _DashboardPageState extends State<DashboardPage>
         );
       case IconStatus.Danger:
         return CircleAvatar(
-          child: Icon(Icons.warning),
+          child: Icon(Icons.warning, color: Colors.red,),
           radius: 32.0,
-          backgroundColor: Colors.red,
         );
         break;
       case IconStatus.Warning:

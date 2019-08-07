@@ -140,4 +140,15 @@ class DataService {
         .document()
         .setData(operationData);
   }
+
+  Future<void> getEntryOperations(Entry entry) async{
+    String _userId = await _firebaseAuth.currentUser();
+
+    Future<QuerySnapshot> _userDoc =
+    fs.where('userId', isEqualTo: _userId).getDocuments();
+    await _userDoc.then((res) {
+      docId = res.documents[0].documentID;
+    });
+
+  }
 }
