@@ -58,7 +58,7 @@ class _DashboardPageState extends State<DashboardPage>
 
     _getEntries() async {
       _entries = await DataService().getEntries(carId);
-      var markers = dashboardService.getMarkers(_entries);
+      var markers = dashboardService.getMarkers(_entries, carId);
       setState(() {
 
       });
