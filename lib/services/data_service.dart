@@ -47,10 +47,14 @@ class DataService {
     };
     fs.document(docId).collection('cars').document(_id).setData(data);
   }
-  
+
   Future<void> updateCar(String carId, String parameter, value) async {
     await getData();
-    fs.document(docId).collection('cars').document(carId).updateData({parameter: value});
+    fs
+        .document(docId)
+        .collection('cars')
+        .document(carId)
+        .updateData({parameter: value});
   }
 
   Future<void> deleteCar(String carId) async {
@@ -104,16 +108,16 @@ class DataService {
         .getDocuments();
 
     await _carEntries.then((res) {
-      res.documents.forEach((doc) {
+      for (int i = 0; i < res.documents.length; i++) {
         var entry = Entry();
-        entry.entryName = doc.data['entryName'];
-        entry.entryMileageLimit = doc.data['entryMileageLimit'];
-        entry.entryDateLimit = doc.data['entryDateLimit'];
-        entry.forChange = doc.data['forChange'];
-        entry.entryId = doc.data['entryId'];
+        entry.entryName = res.documents[i].data['entryName'];
+        entry.entryMileageLimit = res.documents[i].data['entryMileageLimit'];
+        entry.entryDateLimit = res.documents[i].data['entryDateLimit'];
+        entry.forChange = res.documents[i].data['forChange'];
+        entry.entryId = res.documents[i].data['entryId'];
 
         _entriesList.add(entry);
-      });
+      }
     });
 
     return _entriesList;
@@ -141,14 +145,37 @@ class DataService {
         .setData(operationData);
   }
 
-  Future<void> getEntryOperations(Entry entry) async{
+  Future<List<Operation>> getEntryOperations(Entry entry, String carId) async {
     String _userId = await _firebaseAuth.currentUser();
+    List<Operation> _operations = [];
 
     Future<QuerySnapshot> _userDoc =
-    fs.where('userId', isEqualTo: _userId).getDocuments();
+        fs.where('userId', isEqualTo: _userId).getDocuments();
     await _userDoc.then((res) {
       docId = res.documents[0].documentID;
     });
 
+    Future<QuerySnapshot> _entryOperations = fs
+        .document(docId)
+        .collection('cars')
+        .document(carId)
+        .collection('entries')
+        .document(entry.entryId)
+        .collection('operations')
+        .getDocuments();
+
+    await _entryOperations.then((val) {
+      var _operation = Operation();
+      for (int i = 0; i < val.documents.length; i++) {
+        _operation.entryId = entry.entryId;
+        _operation.operationNote = val.documents[i].data['operationNote'];
+        _operation.operationDate = val.documents[i].data['operationDate'];
+        _operation.operationMileage = val.documents[i].data['operationMileage'];
+        _operation.operationPartName =
+            val.documents[i].data['operationPartName'];
+        _operations.add(_operation);
+      }
+    });
+    return _operations;
   }
 }
