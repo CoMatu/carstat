@@ -59,9 +59,8 @@ class _DashboardPageState extends State<DashboardPage>
     _getEntries() async {
       _entries = await DataService().getEntries(carId);
       var markers = dashboardService.getMarkers(_entries, carId);
-      setState(() {
 
-      });
+      setState(() {});
 
     }
 
@@ -145,7 +144,6 @@ class _DashboardPageState extends State<DashboardPage>
                   physics: ScrollPhysics(),
                   itemCount: _entries.length,
                   itemBuilder: (context, index) {
-                    dashboardService;
                     return ListTile(
                       onTap: () {
                         Navigator.push(

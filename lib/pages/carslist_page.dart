@@ -65,7 +65,10 @@ class _CarsListPageState extends State<CarsListPage> {
         car.carName = results.documents[i].data['carName'];
         _cars.add(car);
       }
+
+      if(mounted) {
         setState(() {});
+      }
     });
     super.initState();
   }
