@@ -146,16 +146,13 @@ class DataService {
   }
 
   Future<List<Operation>> getEntryOperations(Entry entry, String carId) async {
-    print('in getEntryOperations');
     String _userId = await _firebaseAuth.currentUser();
     List<Operation> _operations = [];
-    print(_userId + ' in DataService');
     Future<QuerySnapshot> _userDoc =
         fs.where('userId', isEqualTo: _userId).getDocuments();
     await _userDoc.then((res) {
       docId = res.documents[0].documentID;
     });
-    print(docId + ' in DataService');
     Future<QuerySnapshot> _entryOperations = fs
         .document(docId)
         .collection('cars')

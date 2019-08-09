@@ -61,8 +61,6 @@ class _DashboardPageState extends State<DashboardPage>
 //      print('DDDDDDDDD' + _entries.length.toString());
       var _fer = await dashboardService.getMarkers(_entries, carId);
 
-      print(_fer);
-
       setState(() {});
 
     }
