@@ -170,7 +170,7 @@ class DataService {
       for (int i = 0; i < val.documents.length; i++) {
         _operation.entryId = entry.entryId;
         _operation.operationNote = val.documents[i].data['operationNote'];
-        _operation.operationDate = val.documents[i].data['operationDate'];
+        _operation.operationDate = val.documents[i].data['operationDate'].toDate();
         _operation.operationMileage = val.documents[i].data['operationMileage'];
         _operation.operationPartName =
             val.documents[i].data['operationPartName'];
