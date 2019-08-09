@@ -33,7 +33,7 @@ class _DashboardPageState extends State<DashboardPage>
     FontAwesomeIcons.tools,
     FontAwesomeIcons.calendarPlus,
   ];
-  DashboardService dashboardService;
+  DashboardService dashboardService = DashboardService();
 
   static List<Entry> _entries = [];
 
@@ -58,7 +58,10 @@ class _DashboardPageState extends State<DashboardPage>
 
     _getEntries() async {
       _entries = await DataService().getEntries(carId);
-      var markers = dashboardService.getMarkers(_entries, carId);
+//      print('DDDDDDDDD' + _entries.length.toString());
+      var _fer = await dashboardService.getMarkers(_entries, carId);
+
+      print(_fer);
 
       setState(() {});
 

@@ -8,9 +8,18 @@ class DashboardService {
   DataService dataService;
 
   getMarkers(List<Entry> entries, String carId) async{
+    print(entries[1].entryName);
+    List<Operation> _operations = [];
     for(int i = 0; i < entries.length; i++) {
-      List<Operation> _operations = await dataService
-          .getEntryOperations(entries[i], carId);
+      _operations = await dataService
+          .getEntryOperations(entries[i], carId).then((val) {
+        for(int i = 0; i < val.length; i++) {
+          var res = val[i].operationDate;
+          print(res);
+        }
+        return val;
+      });
     }
+
   }
 }
