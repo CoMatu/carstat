@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:carstat/components/car_card.dart';
 import 'package:carstat/components/drawer.dart';
 import 'package:carstat/components/main_appbar.dart';
@@ -8,37 +7,6 @@ import 'package:carstat/services/data_service.dart';
 
 enum ConfirmAction { CANCEL, ACCEPT }
 
-Future<ConfirmAction> _asyncConfirmDialog(BuildContext context) async {
-  return showDialog<ConfirmAction>(
-    context: context,
-    barrierDismissible: false, // user must tap button for close dialog!
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text('Удалить автомобиль?'),
-        content: const Text(
-            'Вы удалите автомобиль из списка ваших транспортных средств без возможности восстановления'),
-        actions: <Widget>[
-          FlatButton(
-            child: const Text('ОТМЕНА'),
-            onPressed: () {
-              Navigator.of(context).pop(ConfirmAction.CANCEL);
-            },
-          ),
-          FlatButton(
-            child: const Text(
-              'УДАЛИТЬ',
-              style: TextStyle(color: Colors.red),
-            ),
-            onPressed: () {
-              Navigator.of(context).pop(ConfirmAction.ACCEPT);
-            },
-          )
-        ],
-      );
-    },
-  );
-}
-
 class CarsListPage extends StatefulWidget {
   @override
   _CarsListPageState createState() => _CarsListPageState();
@@ -47,7 +15,6 @@ class CarsListPage extends StatefulWidget {
 class _CarsListPageState extends State<CarsListPage> {
   bool isLoaded = false;
   DataService dataService = DataService();
-  TextEditingController _textFieldController = TextEditingController();
   List<Car> _cars = [];
 
   @override
@@ -123,40 +90,6 @@ class _CarsListPageState extends State<CarsListPage> {
         )
       ],
     );
-  }
-
-  _displayDialog(BuildContext context, String documentID) async {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            content: TextField(
-              controller: _textFieldController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(hintText: "Введите текущий пробег"),
-              //TODO add validator for > 1 mln
-            ),
-            actions: <Widget>[
-              FlatButton(
-                child: Text(
-                  'ОТМЕНА',
-                  style: TextStyle(color: Colors.red),
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              FlatButton(
-                child: Text(
-                  'СОХРАНИТЬ',
-                  style: TextStyle(color: Colors.green),
-                ),
-                onPressed: () {
-                },
-              )
-            ],
-          );
-        });
   }
 
   _getFab() {

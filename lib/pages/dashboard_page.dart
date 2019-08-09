@@ -10,12 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:math' as math;
 
-enum IconStatus {
-  Danger,
-  Warning,
-  Norm,
-  NotDeterminate
-}
+enum IconStatus { Danger, Warning, Norm, NotDeterminate }
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({this.onSignedOut});
@@ -34,7 +29,6 @@ class _DashboardPageState extends State<DashboardPage>
     FontAwesomeIcons.calendarPlus,
   ];
   DashboardService dashboardService = DashboardService();
-
   static List<Entry> _entries = [];
 
   @override
@@ -47,7 +41,7 @@ class _DashboardPageState extends State<DashboardPage>
     super.initState();
   }
 
-  //TODO нет обновления после добавления регламента ТО
+  // TODO нет обновления после добавления регламента ТО
 
   @override
   Widget build(BuildContext context) {
@@ -58,11 +52,9 @@ class _DashboardPageState extends State<DashboardPage>
 
     _getEntries() async {
       _entries = await DataService().getEntries(carId);
-//      print('DDDDDDDDD' + _entries.length.toString());
-      var _fer = await dashboardService.getMarkers(_entries, carId);
-
-      setState(() {});
-
+      var _tiles = await dashboardService.getMarkers(_entries, carId);
+      print(_tiles);
+//      setState(() {});
     }
 
     return Scaffold(
@@ -167,15 +159,17 @@ class _DashboardPageState extends State<DashboardPage>
                   contentPadding:
                       EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
                   leading: CircleAvatar(
-                    backgroundColor: Colors.green[200],
-                    child: Icon(Icons.person, color: Colors.black,),
+                    backgroundColor: Colors.blue[200],
+                    child: Icon(
+                      Icons.person,
+                      color: Colors.black,
+                    ),
                     radius: 32.0,
                   ),
                   title: Text(
                     'Добро пожаловать в TURBOSTAT!',
                   ),
-                  subtitle:
-                      Text('Спасибо, что Вы с нами!'),
+                  subtitle: Text('Спасибо, что Вы с нами!'),
                 ),
               ],
             );
@@ -184,7 +178,7 @@ class _DashboardPageState extends State<DashboardPage>
   }
 
   _iconSet() {
-    switch(iconStatus) {
+    switch (iconStatus) {
       case IconStatus.NotDeterminate:
         return CircleAvatar(
           child: Icon(Icons.help_outline),
@@ -192,7 +186,10 @@ class _DashboardPageState extends State<DashboardPage>
         );
       case IconStatus.Danger:
         return CircleAvatar(
-          child: Icon(Icons.warning, color: Colors.red,),
+          child: Icon(
+            Icons.warning,
+            color: Colors.red,
+          ),
           radius: 32.0,
         );
         break;
