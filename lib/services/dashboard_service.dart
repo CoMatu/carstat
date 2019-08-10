@@ -12,14 +12,14 @@ class DashboardService {
     for (int i = 0; i < entries.length; i++) {
       List<Operation> _operations =
           await dataService.getEntryOperations(entries[i], carId);
-      _sortByDateTime(_operations);
-      _marker.add({'entryId': entries[i].entryId, 'operations': _operations});
+      if (_operations.length != 0) {
+        _operations.sort((a, b) {
+          return a.operationDate.millisecondsSinceEpoch
+              .compareTo(b.operationDate.millisecondsSinceEpoch);
+        });
+        _marker.add({'entry': entries[i],'operations': _operations});
+      }
+      return _marker;
     }
-    return _marker;
-  }
-
-  _sortByDateTime(List<Operation> operations) {
-    List<Operation> _sortedOperations = [];
-    
   }
 }
