@@ -1,6 +1,7 @@
 import 'package:carstat/components/drawer.dart';
 import 'package:carstat/components/main_appbar.dart';
 import 'package:carstat/models/entry.dart';
+import 'package:carstat/models/operation.dart';
 import 'package:carstat/pages/add_entry_page.dart';
 import 'package:carstat/pages/add_operation_page.dart';
 import 'package:carstat/pages/entry_details_page.dart';
@@ -30,6 +31,7 @@ class _DashboardPageState extends State<DashboardPage>
   ];
   DashboardService dashboardService = DashboardService();
   static List<Entry> _entries = [];
+  static List<dynamic> _tiles = [];
 
   @override
   void initState() {
@@ -52,8 +54,8 @@ class _DashboardPageState extends State<DashboardPage>
 
     _getEntries() async {
       _entries = await DataService().getEntries(carId);
-      var _tiles = await dashboardService.getMarkers(_entries, carId);
-      print(_tiles);
+      _tiles = await dashboardService.getMarkers(_entries, carId);
+//      print(_tiles);
 //      setState(() {});
     }
 
@@ -127,53 +129,59 @@ class _DashboardPageState extends State<DashboardPage>
             )),
         ),
         appBar: MainAppBar(),
-        body: FutureBuilder(
-          future: _getEntries(),
-          builder: (BuildContext ctx, AsyncSnapshot snapshot) {
-            return ListView(
-              children: <Widget>[
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: ScrollPhysics(),
-                  itemCount: _entries.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    EntryDetailsPage(_entries[index])));
+        body: ListView(
+          children: <Widget>[
+            FutureBuilder(
+              future: _getEntries(),
+              builder: (BuildContext ctx, AsyncSnapshot snapshot) {
+                if (snapshot.connectionState != ConnectionState.done) {
+                  return Center(child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: CircularProgressIndicator(),
+                  ));
+                }
+                return ListView.builder(
+                      shrinkWrap: true,
+                      physics: ScrollPhysics(),
+                      itemCount: _tiles.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => EntryDetailsPage(
+                                        _tiles[index]['entry'])));
+                          },
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 10.0),
+                          leading: _iconSet(),
+                          title: Text(
+                            _tiles[index]['entry'].entryName,
+                          ),
+                          subtitle: Text('Нет информации о проведении ТО'),
+                        );
                       },
-                      contentPadding: EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 10.0),
-                      leading: _iconSet(),
-                      title: Text(
-                        _entries[index].entryName,
-                      ),
-                      subtitle: Text('Нет информации о проведении ТО'),
                     );
-                  },
+              },
+            ),
+            ListTile(
+              contentPadding:
+                  EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+              leading: CircleAvatar(
+                backgroundColor: Colors.blue[200],
+                child: Icon(
+                  Icons.person,
+                  color: Colors.black,
                 ),
-                ListTile(
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-                  leading: CircleAvatar(
-                    backgroundColor: Colors.blue[200],
-                    child: Icon(
-                      Icons.person,
-                      color: Colors.black,
-                    ),
-                    radius: 32.0,
-                  ),
-                  title: Text(
-                    'Добро пожаловать в TURBOSTAT!',
-                  ),
-                  subtitle: Text('Спасибо, что Вы с нами!'),
-                ),
-              ],
-            );
-          },
+                radius: 32.0,
+              ),
+              title: Text(
+                'Добро пожаловать в TURBOSTAT!',
+              ),
+              subtitle: Text('Спасибо, что Вы с нами!'),
+            ),
+          ],
         ));
   }
 
