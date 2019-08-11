@@ -52,8 +52,6 @@ class _DashboardPageState extends State<DashboardPage>
     _getEntries() async {
       _entries = await DataService().getEntries(carId);
       _tiles = await dashboardService.getMarkers(_entries, carId);
-//      print(_tiles);
-//      setState(() {});
     }
 
     return Scaffold(

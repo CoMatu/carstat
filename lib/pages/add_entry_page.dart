@@ -25,7 +25,6 @@ class _AddEntryPageState extends State<AddEntryPage> {
 
   @override
   Widget build(BuildContext context) {
-    print('for add entry to car ID: $carId');
 
     return Scaffold(
       key: _scaffoldKey,

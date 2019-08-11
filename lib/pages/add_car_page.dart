@@ -210,7 +210,10 @@ class _AddCarPageState extends State<AddCarPage> {
               onPressed: () => Navigator.pop(context),
             ),
             FlatButton(
-              child: Text('OK', style: TextStyle(color: Colors.black),),
+              child: Text(
+                'OK',
+                style: TextStyle(color: Colors.black),
+              ),
               onPressed: () {
                 _dataService.addCar(car).then((res) {
                   Navigator.pushNamed(context, 'car_list_page');
@@ -219,13 +222,6 @@ class _AddCarPageState extends State<AddCarPage> {
             ),
           ],
         );
-
-        print("Имя авто: ${car.carName}");
-        print("Марка: ${car.carMark}");
-        print("Модель: ${car.carModel}");
-        print("Год выпуска: ${car.carYear}");
-        print("Пробег: ${car.carMileage}");
-        print("VIN: ${car.carVin}");
 
         showDialog(context: context, builder: (_) => alert);
       }
@@ -243,7 +239,7 @@ class _AddCarPageState extends State<AddCarPage> {
             children: <Widget>[
               Stepper(
                 physics:
-                ClampingScrollPhysics(), // без этого степпер не прокручивается!
+                    ClampingScrollPhysics(), // без этого степпер не прокручивается!
                 steps: steps,
                 controlsBuilder: (BuildContext context,
                     {VoidCallback onStepContinue, VoidCallback onStepCancel}) {
@@ -293,7 +289,10 @@ class _AddCarPageState extends State<AddCarPage> {
                     onPressed: () {
                       Navigator.pushNamed(context, 'car_list_page');
                     },
-                    child: Text('ОТМЕНА', style: TextStyle(color: Colors.red),),
+                    child: Text(
+                      'ОТМЕНА',
+                      style: TextStyle(color: Colors.red),
+                    ),
                   ),
                   FlatButton(
                     child: Text('СОХРАНИТЬ'),

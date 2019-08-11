@@ -25,8 +25,6 @@ class _MainScaffoldState extends State<MainScaffold> {
   }
 
   _getFAB() {
-    print(widget.body.toString());
-
     if (widget.body.toString() == 'DashboardPage') {
       return FloatingActionButton(
         child: Icon(FontAwesomeIcons.plus, color: Colors.blue,),

@@ -81,7 +81,6 @@ class _CarsListPageState extends State<CarsListPage> {
           itemCount: _cars.length,
           padding: EdgeInsets.all(5.0),
           itemBuilder: (context, index) {
-//            print(_cars[index].carName);
             return CarCard(_cars[index], notifyCarsList: _updateCarsList);
           },
         ),

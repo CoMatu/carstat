@@ -12,16 +12,8 @@ class DashboardService {
     for (int i = 0; i < entries.length; i++) {
       List<Operation> _operations =
           await dataService.getEntryOperations(entries[i], carId);
-          print(_operations);
-/*       if (_operations.length != 0) {
-        _operations.sort((a, b) {
-          return a.operationDate.millisecondsSinceEpoch
-              .compareTo(b.operationDate.millisecondsSinceEpoch);
-        });
- */
       _marker.add({'entry': entries[i], 'operations': _operations});
 
-      print(_marker);
     }
     return _marker;
   }
