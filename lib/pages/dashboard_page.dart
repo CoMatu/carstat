@@ -1,7 +1,6 @@
 import 'package:carstat/components/drawer.dart';
 import 'package:carstat/components/main_appbar.dart';
 import 'package:carstat/models/entry.dart';
-import 'package:carstat/models/operation.dart';
 import 'package:carstat/pages/add_entry_page.dart';
 import 'package:carstat/pages/add_operation_page.dart';
 import 'package:carstat/pages/entry_details_page.dart';
@@ -42,8 +41,6 @@ class _DashboardPageState extends State<DashboardPage>
 
     super.initState();
   }
-
-  // TODO нет обновления после добавления регламента ТО
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +148,7 @@ class _DashboardPageState extends State<DashboardPage>
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => EntryDetailsPage(
-                                        _tiles[index]['entry'])));
+                                        _tiles[index])));
                           },
                           contentPadding: EdgeInsets.symmetric(
                               vertical: 10.0, horizontal: 10.0),

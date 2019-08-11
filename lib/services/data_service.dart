@@ -163,11 +163,13 @@ class DataService {
         .getDocuments();
 
     await _entryOperations.then((val) {
-      var _operation = Operation();
       for (int i = 0; i < val.documents.length; i++) {
+        var _operation = Operation();
+
         _operation.entryId = entry.entryId;
         _operation.operationNote = val.documents[i].data['operationNote'];
-        _operation.operationDate = val.documents[i].data['operationDate'].toDate();
+        _operation.operationDate =
+            val.documents[i].data['operationDate'].toDate();
         _operation.operationMileage = val.documents[i].data['operationMileage'];
         _operation.operationPartName =
             val.documents[i].data['operationPartName'];
