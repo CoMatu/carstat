@@ -5,6 +5,7 @@ import 'package:carstat/services/validators/date_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'dart:async';
+import 'package:flutter/services.dart';
 
 import 'package:carstat/components/main_appbar.dart';
 import 'package:carstat/components/drawer.dart';
@@ -158,6 +159,12 @@ class _AddOperationPageState extends State<AddOperationPage> {
               Container(height: 30),
               TextFormField(
                 keyboardType: TextInputType.number,
+                validator: (value) {
+                  if(value.contains(',')){
+                    return 'Используйте точку . для разрядов';
+                  }
+                  return null;
+                },
                 onSaved: (val) => _operation.operationPrice = double.parse(val),
                 decoration: const InputDecoration(
                     labelText: 'Стоимость работ'),
@@ -165,6 +172,12 @@ class _AddOperationPageState extends State<AddOperationPage> {
               Container(height: 30),
               TextFormField(
                 keyboardType: TextInputType.number,
+                validator: (value) {
+                  if(value.contains(',')){
+                    return 'Используйте точку . для разрядов';
+                  }
+                  return null;
+                },
                 onSaved: (val) => _operation.partPrice = double.parse(val),
                 decoration: const InputDecoration(
                     labelText: 'Стоимость запчастей'),
