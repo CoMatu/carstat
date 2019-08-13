@@ -34,7 +34,7 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
     return Scaffold(
       appBar: MainAppBar(),
 //      drawer: MainDrawer(),
-      body: Column(
+      body: ListView(
         children: <Widget>[
           Card(
             child: ListTile(
@@ -157,6 +157,10 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                                   ),
                                 ],
                               ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: IconButton(icon: Icon(Icons.delete), onPressed: () {},),
                             )
                           ],
                         ),
