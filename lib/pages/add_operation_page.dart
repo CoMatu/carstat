@@ -157,6 +157,20 @@ class _AddOperationPageState extends State<AddOperationPage> {
               ),
               Container(height: 30),
               TextFormField(
+                keyboardType: TextInputType.number,
+                onSaved: (val) => _operation.operationPrice = double.parse(val),
+                decoration: const InputDecoration(
+                    labelText: 'Стоимость работ'),
+              ),
+              Container(height: 30),
+              TextFormField(
+                keyboardType: TextInputType.number,
+                onSaved: (val) => _operation.partPrice = double.parse(val),
+                decoration: const InputDecoration(
+                    labelText: 'Стоимость запчастей'),
+              ),
+              Container(height: 30),
+              TextFormField(
                 maxLines: 3,
                 keyboardType: TextInputType.text,
                 onSaved: (val) => _operation.operationNote = val,

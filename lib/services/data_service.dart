@@ -173,6 +173,8 @@ class DataService {
         _operation.operationMileage = val.documents[i].data['operationMileage'];
         _operation.operationPartName =
             val.documents[i].data['operationPartName'];
+        _operation.operationPrice = val.documents[i].data['operationPrice'];
+        _operation.partPrice = val.documents[i]['partPrice'];
         _operations.add(_operation);
       }
     });

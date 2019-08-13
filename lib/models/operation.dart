@@ -6,4 +6,6 @@ class Operation {
   String operationPartName;
   String operationNote;
   String entryId;
+  double partPrice;
+  double operationPrice;
 }
