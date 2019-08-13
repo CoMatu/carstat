@@ -36,9 +36,14 @@ class _AddOperationPageState extends State<AddOperationPage> {
   Future _chooseDate(BuildContext context, String initialDateString) async {
     var now = DateTime.now();
     var initialDate = convertToDate(initialDateString) ?? now;
+    assert(initialDate != null);
+    print(initialDate.toString());
     initialDate = (initialDate.year >= 2015 && initialDate.isBefore(now)
         ? initialDate
         : now);
+
+            print('after ' + initialDate.toString());
+
 
     var result = await showDatePicker(
       context: context,
@@ -46,17 +51,17 @@ class _AddOperationPageState extends State<AddOperationPage> {
       firstDate: DateTime(2015),
       lastDate: DateTime.now(),
     );
-
+    print('result ' + result.toString());
     if (result == null) return;
 
     setState(() {
-      _controller.text = DateFormat.yMd().format(result);
+      _controller.text = DateFormat('dd.MM.yyyy').format(result);
     });
   }
 
   DateTime convertToDate(String input) {
     try {
-      var d = DateFormat.yMd().parseStrict(input);
+      var d = DateFormat('dd.MM.yyyy').parseStrict(input);
       return d;
     } catch (e) {
       return null;
@@ -132,12 +137,13 @@ class _AddOperationPageState extends State<AddOperationPage> {
                       ? null
                       : 'Неправильный формат даты',
                   onSaved: (val) =>
-                      _operation.operationDate = convertToDate(val),
+                      _operation.operationDate = DateFormat('dd.MM.yyyy').parseStrict(val),
                 )),
                 IconButton(
                   icon: Icon(Icons.more_horiz),
                   tooltip: 'Выберите дату',
                   onPressed: (() {
+                    assert(_controller.text != null);
                     _chooseDate(context, _controller.text);
                   }),
                 ),
@@ -224,6 +230,7 @@ class _AddOperationPageState extends State<AddOperationPage> {
         backgroundColor: Colors.red,
       ));
     } else {
+      print(form.toString());
       form.save();
 
       DataService().addOperation(_operation, carId);

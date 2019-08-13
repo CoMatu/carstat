@@ -5,7 +5,7 @@ class DateValidator {
   DateTime convertToDate(String input) {
     try
     {
-      var d = new DateFormat.yMd().parseStrict(input);
+      var d = DateFormat('dd.MM.yyyy').parseStrict(input);
       return d;
     } catch (e) {
       return null;
