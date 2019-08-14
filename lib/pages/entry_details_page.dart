@@ -226,7 +226,7 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                                 Expanded(
                                   flex: 1,
                                   child: IconButton(
-                                    icon: Icon(Icons.delete),
+                                    icon: Icon(Icons.delete, color: Colors.red,),
                                     onPressed: () async {
                                       print(_operns[index].operationId);
                                       await _asyncConfirmDialog(

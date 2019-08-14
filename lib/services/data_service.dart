@@ -8,6 +8,7 @@ import 'package:carstat/services/auth_service.dart';
 
 class DataService {
   String docId;
+  String _userId;
   AuthService _firebaseAuth = AuthService();
 
   CollectionReference fs = Firestore.instance.collection('users');
@@ -20,7 +21,7 @@ class DataService {
   }
 
   getData() async {
-    String _userId = await _firebaseAuth.currentUser();
+    _userId = await _firebaseAuth.currentUser();
 
     Future<QuerySnapshot> _userDoc =
         fs.where('userId', isEqualTo: _userId).getDocuments();
@@ -91,7 +92,6 @@ class DataService {
   }
 
   Future<List<Entry>> getEntries(String carId) async {
-    String _userId = await _firebaseAuth.currentUser();
     List<Entry> _entriesList = [];
 
     Future<QuerySnapshot> _userDoc =
@@ -140,6 +140,8 @@ class DataService {
       'operationMileage': operation.operationMileage,
       'operationPartName': operation.operationPartName,
       'operationNote': operation.operationNote,
+      'partPrice': operation.partPrice ?? 0.0,
+      'operationPrice': operation.operationPrice ?? 0.0,
       'entryId': operation.entryId,
       'operationId': operationRef.documentID
     };
@@ -156,7 +158,6 @@ class DataService {
   }
 
   getEntryOperations(String entryId, String carId) async {
-    String _userId = await _firebaseAuth.currentUser();
     List<Operation> _operations = [];
     Future<QuerySnapshot> _userDoc =
         fs.where('userId', isEqualTo: _userId).getDocuments();
@@ -192,15 +193,17 @@ class DataService {
     return _operations;
   }
 
-  Future<void> deleteOperation(String carId, String entryId, String operationId) async{
+  Future<void> deleteOperation(
+      String carId, String entryId, String operationId) async {
     await getData();
-    fs.document(docId)
-    .collection('cars')
-    .document(carId)
-    .collection('entries')
-    .document(entryId)
-    .collection('operations')
-    .document(operationId)
-    .delete();
+    fs
+        .document(docId)
+        .collection('cars')
+        .document(carId)
+        .collection('entries')
+        .document(entryId)
+        .collection('operations')
+        .document(operationId)
+        .delete();
   }
 }

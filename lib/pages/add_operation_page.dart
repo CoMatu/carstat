@@ -17,7 +17,8 @@ class AddOperationPage extends StatefulWidget {
   AddOperationPage(this.carId, this.entries);
 
   @override
-  _AddOperationPageState createState() => _AddOperationPageState(carId, entries);
+  _AddOperationPageState createState() =>
+      _AddOperationPageState(carId, entries);
 }
 
 class _AddOperationPageState extends State<AddOperationPage> {
@@ -42,8 +43,7 @@ class _AddOperationPageState extends State<AddOperationPage> {
         ? initialDate
         : now);
 
-            print('after ' + initialDate.toString());
-
+    print('after ' + initialDate.toString());
 
     var result = await showDatePicker(
       context: context,
@@ -136,8 +136,8 @@ class _AddOperationPageState extends State<AddOperationPage> {
                   validator: (val) => DateValidator().isValidDate(val)
                       ? null
                       : 'Неправильный формат даты',
-                  onSaved: (val) =>
-                      _operation.operationDate = DateFormat('dd.MM.yyyy').parseStrict(val),
+                  onSaved: (val) => _operation.operationDate =
+                      DateFormat('dd.MM.yyyy').parseStrict(val),
                 )),
                 IconButton(
                   icon: Icon(Icons.more_horiz),
@@ -166,27 +166,26 @@ class _AddOperationPageState extends State<AddOperationPage> {
               TextFormField(
                 keyboardType: TextInputType.number,
                 validator: (value) {
-                  if(value.contains(',')){
+                  if (value.contains(',')) {
                     return 'Используйте точку . для разрядов';
                   }
                   return null;
                 },
                 onSaved: (val) => _operation.operationPrice = double.parse(val),
-                decoration: const InputDecoration(
-                    labelText: 'Стоимость работ'),
+                decoration: const InputDecoration(labelText: 'Стоимость работ'),
               ),
               Container(height: 30),
               TextFormField(
                 keyboardType: TextInputType.number,
                 validator: (value) {
-                  if(value.contains(',')){
+                  if (value.contains(',')) {
                     return 'Используйте точку . для разрядов';
                   }
                   return null;
                 },
                 onSaved: (val) => _operation.partPrice = double.parse(val),
-                decoration: const InputDecoration(
-                    labelText: 'Стоимость запчастей'),
+                decoration:
+                    const InputDecoration(labelText: 'Стоимость запчастей'),
               ),
               Container(height: 30),
               TextFormField(
@@ -238,3 +237,5 @@ class _AddOperationPageState extends State<AddOperationPage> {
     }
   }
 }
+
+// TODO: сделать изменение пробега при добавлении операций + проверять, чтобы каждый новый пробег был больше предыдущего

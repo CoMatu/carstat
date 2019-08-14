@@ -131,7 +131,7 @@ class _DashboardPageState extends State<DashboardPage>
               builder: (BuildContext ctx, AsyncSnapshot snapshot) {
                 if (snapshot.connectionState != ConnectionState.done) {
                   return Center(child: Padding(
-                    padding: const EdgeInsets.all(12.0),
+                    padding: const EdgeInsets.only(left: 12.0, right: 12.0, top: 35.0),
                     child: CircularProgressIndicator(),
                   ));
                 }
