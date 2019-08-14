@@ -8,4 +8,5 @@ class Operation {
   String entryId;
   double partPrice;
   double operationPrice;
+  String operationId;
 }

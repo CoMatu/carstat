@@ -126,12 +126,22 @@ class DataService {
   Future<void> addOperation(Operation operation, String carId) async {
     await getData();
     var entryId = operation.entryId;
+    var operationRef = fs
+        .document(docId)
+        .collection('cars')
+        .document(carId)
+        .collection('entries')
+        .document(entryId)
+        .collection('operations')
+        .document();
+
     var operationData = {
       'operationDate': operation.operationDate,
       'operationMileage': operation.operationMileage,
       'operationPartName': operation.operationPartName,
       'operationNote': operation.operationNote,
-      'entryId': operation.entryId
+      'entryId': operation.entryId,
+      'operationId': operationRef.documentID;
     };
 
     fs
