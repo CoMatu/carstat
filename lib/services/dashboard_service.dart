@@ -11,7 +11,7 @@ class DashboardService {
     // Получаю списки операций для регламентов ТО
     for (int i = 0; i < entries.length; i++) {
       List<Operation> _operations =
-          await dataService.getEntryOperations(entries[i], carId);
+          await dataService.getEntryOperations(entries[i].entryId, carId);
       _marker.add({'entry': entries[i], 'operations': _operations});
 
     }

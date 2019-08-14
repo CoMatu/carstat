@@ -151,11 +151,11 @@ class DataService {
         .collection('entries')
         .document(entryId)
         .collection('operations')
-        .document()
+        .document(operationRef.documentID)
         .setData(operationData);
   }
 
-  Future<List<Operation>> getEntryOperations(Entry entry, String carId) async {
+  getEntryOperations(String entryId, String carId) async {
     String _userId = await _firebaseAuth.currentUser();
     List<Operation> _operations = [];
     Future<QuerySnapshot> _userDoc =
@@ -168,7 +168,7 @@ class DataService {
         .collection('cars')
         .document(carId)
         .collection('entries')
-        .document(entry.entryId)
+        .document(entryId)
         .collection('operations')
         .getDocuments();
 
@@ -176,7 +176,7 @@ class DataService {
       for (int i = 0; i < val.documents.length; i++) {
         var _operation = Operation();
 
-        _operation.entryId = entry.entryId;
+        _operation.entryId = entryId;
         _operation.operationNote = val.documents[i].data['operationNote'];
         _operation.operationDate =
             val.documents[i].data['operationDate'].toDate();
@@ -185,9 +185,22 @@ class DataService {
             val.documents[i].data['operationPartName'];
         _operation.operationPrice = val.documents[i].data['operationPrice'];
         _operation.partPrice = val.documents[i]['partPrice'];
+        _operation.operationId = val.documents[i]['operationId'];
         _operations.add(_operation);
       }
     });
     return _operations;
+  }
+
+  Future<void> deleteOperation(String carId, String entryId, String operationId) async{
+    await getData();
+    fs.document(docId)
+    .collection('cars')
+    .document(carId)
+    .collection('entries')
+    .document(entryId)
+    .collection('operations')
+    .document(operationId)
+    .delete();
   }
 }
