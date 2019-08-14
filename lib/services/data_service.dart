@@ -141,7 +141,7 @@ class DataService {
       'operationPartName': operation.operationPartName,
       'operationNote': operation.operationNote,
       'entryId': operation.entryId,
-      'operationId': operationRef.documentID;
+      'operationId': operationRef.documentID
     };
 
     fs
