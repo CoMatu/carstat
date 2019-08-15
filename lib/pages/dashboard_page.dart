@@ -30,7 +30,7 @@ class _DashboardPageState extends State<DashboardPage>
   ];
   DashboardService dashboardService = DashboardService();
   static List<Entry> _entries = [];
-  static List<dynamic> _tiles = [];
+  static var _tiles = [];
 
   @override
   void initState() {
@@ -52,6 +52,8 @@ class _DashboardPageState extends State<DashboardPage>
     _getEntries() async {
       _entries = await DataService().getEntries(carId);
       _tiles = await dashboardService.getMarkers(_entries, carId);
+
+      print(_tiles);
     }
 
     return Scaffold(
