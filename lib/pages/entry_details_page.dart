@@ -173,8 +173,8 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                                       Container(
                                         child: Row(
                                           children: <Widget>[
-                                            Text(_operns[index]
-                                                .partPrice
+                                            Text((_operns[index]
+                                                .partPrice + _operns[index].operationPrice)
                                                 .toString()),
                                             Text(
                                               ' руб',
