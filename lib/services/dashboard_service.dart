@@ -29,6 +29,6 @@ class DashboardService {
     );
 
     final zipped = IterableZip([entries, opsForEntries]);
-    return zipped.map(([entry, ops]) => ({'entry': entry, 'operations': ops}));
+    return zipped.map((entry, [ops]) => ({'entry': entry, 'operations': ops}));
   }
 }

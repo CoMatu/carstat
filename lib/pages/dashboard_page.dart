@@ -30,7 +30,7 @@ class _DashboardPageState extends State<DashboardPage>
   ];
   DashboardService dashboardService = DashboardService();
   static List<Entry> _entries = [];
-  static var _tiles = [];
+  static var _tiles;
 
   @override
   void initState() {
@@ -137,6 +137,7 @@ class _DashboardPageState extends State<DashboardPage>
                     child: CircularProgressIndicator(),
                   ));
                 }
+                print('длина списка '+_tiles.length.toString());
                 return ListView.builder(
                       shrinkWrap: true,
                       physics: ScrollPhysics(),
@@ -148,7 +149,7 @@ class _DashboardPageState extends State<DashboardPage>
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => EntryDetailsPage(
-                                        _tiles[index], carId)));
+                                        _tiles, carId)));
                           },
                           contentPadding: EdgeInsets.symmetric(
                               vertical: 10.0, horizontal: 10.0),
