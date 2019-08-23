@@ -52,8 +52,6 @@ class _DashboardPageState extends State<DashboardPage>
     _getEntries() async {
       _entries = await DataService().getEntries(carId);
       _tiles = await dashboardService.getMarkers(_entries, carId);
-
-      print(_tiles);
     }
 
     return Scaffold(
@@ -149,13 +147,13 @@ class _DashboardPageState extends State<DashboardPage>
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => EntryDetailsPage(
-                                        _tiles, carId)));
+                                        _tiles[index], carId)));
                           },
                           contentPadding: EdgeInsets.symmetric(
                               vertical: 10.0, horizontal: 10.0),
                           leading: _iconSet(),
                           title: Text(
-                            _tiles.toString(),
+                            _tiles[index]['entry'].entryName,
                           ),
                           subtitle: Text('Нет информации о проведении ТО'),
                         );
