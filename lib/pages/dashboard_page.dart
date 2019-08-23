@@ -1,6 +1,8 @@
 import 'package:carstat/components/drawer.dart';
 import 'package:carstat/components/main_appbar.dart';
+import 'package:carstat/models/car.dart';
 import 'package:carstat/models/entry.dart';
+import 'package:carstat/models/operation.dart';
 import 'package:carstat/pages/add_entry_page.dart';
 import 'package:carstat/pages/add_operation_page.dart';
 import 'package:carstat/pages/entry_details_page.dart';
@@ -23,7 +25,7 @@ class DashboardPage extends StatefulWidget {
 class _DashboardPageState extends State<DashboardPage>
     with TickerProviderStateMixin {
   AnimationController _controller;
-  IconStatus iconStatus = IconStatus.Danger;
+  IconStatus iconStatus;
   static const List<IconData> icons = const [
     FontAwesomeIcons.tools,
     FontAwesomeIcons.calendarPlus,
@@ -47,7 +49,8 @@ class _DashboardPageState extends State<DashboardPage>
     Color backgroundColor = Colors.yellow;
     Color foregroundColor = Colors.black87;
 
-    final String carId = ModalRoute.of(context).settings.arguments;
+    final Car car = ModalRoute.of(context).settings.arguments;
+    final String carId = car.carId;
 
     _getEntries() async {
       _entries = await DataService().getEntries(carId);
@@ -135,12 +138,13 @@ class _DashboardPageState extends State<DashboardPage>
                     child: CircularProgressIndicator(),
                   ));
                 }
-                print('длина списка '+_tiles.length.toString());
                 return ListView.builder(
                       shrinkWrap: true,
                       physics: ScrollPhysics(),
                       itemCount: _tiles.length,
                       itemBuilder: (context, index) {
+                        iconStatus = IconStatus.Danger;
+
                         return ListTile(
                           onTap: () {
                             Navigator.push(
@@ -151,7 +155,7 @@ class _DashboardPageState extends State<DashboardPage>
                           },
                           contentPadding: EdgeInsets.symmetric(
                               vertical: 10.0, horizontal: 10.0),
-                          leading: _iconSet(),
+                          leading: _iconSet(_tiles[index]),
                           title: Text(
                             _tiles[index]['entry'].entryName,
                           ),
@@ -181,11 +185,24 @@ class _DashboardPageState extends State<DashboardPage>
         ));
   }
 
-  _iconSet() {
+  _iconSet(til) {
+    List<Operation> tiles = til['operations'];
+
+    if (tiles.length == 0) {
+      iconStatus = IconStatus.NotDeterminate;
+    }
+    tiles.sort((a, b) {
+      return a.operationMileage.compareTo(b.operationMileage);
+    });
+
+
     switch (iconStatus) {
       case IconStatus.NotDeterminate:
         return CircleAvatar(
-          child: Icon(Icons.help_outline),
+          child: Icon(
+              Icons.help_outline,
+            color: Colors.orange,
+          ),
           radius: 32.0,
         );
       case IconStatus.Danger:

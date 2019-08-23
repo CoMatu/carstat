@@ -67,7 +67,7 @@ class CarCard extends StatelessWidget {
           ListTile(
             onTap: () {
               Navigator.pushNamed(context, 'dashboard_page',
-                  arguments: car.carId);
+                  arguments: car);
             },
             title: Row(
               mainAxisSize: MainAxisSize.max,

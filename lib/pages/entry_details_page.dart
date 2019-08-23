@@ -99,7 +99,7 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                 children: <Widget>[
                   Text(
                     'Эту операцию необходимо выполнять каждые '
-                    '${tile['entry'].entryDateLimit} месяца или '
+                    '${tile['entry'].entryDateLimit} мес или '
                     '${tile['entry'].entryMileageLimit} км пробега (в зависимости от '
                     'того, что наступит раньше)',
                   ),
