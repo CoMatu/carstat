@@ -155,7 +155,7 @@ class _DashboardPageState extends State<DashboardPage>
                               vertical: 10.0, horizontal: 10.0),
                           leading: _iconSet(),
                           title: Text(
-                            _tiles[index]['entry'].entryName,
+                            _tiles.toString(),
                           ),
                           subtitle: Text('Нет информации о проведении ТО'),
                         );
