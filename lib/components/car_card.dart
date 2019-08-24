@@ -77,20 +77,28 @@ class _CarCardState extends State<CarCard> {
   }
 
   getAutoImage() {
-    return Center(
-      child: Row(
-        children: <Widget>[
-          FloatingActionButton(
-            onPressed: getImageFromCam,
-            tooltip: 'Pick Image',
-            child: Icon(Icons.add_a_photo),
-          ),
-          FloatingActionButton(
-            onPressed: getImageFromGallery,
-            tooltip: 'Pick Image',
-            child: Icon(Icons.wallpaper),
-          ),
-        ],
+    return Container(
+      child: Center(
+        child: Wrap(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: FloatingActionButton(
+                onPressed: getImageFromCam,
+                tooltip: 'Pick Image',
+                child: Icon(Icons.add_a_photo),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: FloatingActionButton(
+                onPressed: getImageFromGallery,
+                tooltip: 'Pick Image',
+                child: Icon(Icons.wallpaper),
+              ),
+            ),
+          ],
+        ),
       ),
     )
         //Image.asset('images/nissan_note.jpg')
