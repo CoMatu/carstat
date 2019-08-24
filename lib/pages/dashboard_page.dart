@@ -11,6 +11,7 @@ import 'package:carstat/services/data_service.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:math' as math;
+import 'package:intl/intl.dart';
 
 enum IconStatus { Danger, Warning, Norm, NotDeterminate }
 
@@ -33,6 +34,7 @@ class _DashboardPageState extends State<DashboardPage>
   DashboardService dashboardService = DashboardService();
   static List<Entry> _entries = [];
   static var _tiles;
+  var now = DateTime.now();
 
   @override
   void initState() {
@@ -133,36 +135,38 @@ class _DashboardPageState extends State<DashboardPage>
               future: _getEntries(),
               builder: (BuildContext ctx, AsyncSnapshot snapshot) {
                 if (snapshot.connectionState != ConnectionState.done) {
-                  return Center(child: Padding(
-                    padding: const EdgeInsets.only(left: 12.0, right: 12.0, top: 35.0),
+                  return Center(
+                      child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 12.0, right: 12.0, top: 35.0),
                     child: CircularProgressIndicator(),
                   ));
                 }
                 return ListView.builder(
-                      shrinkWrap: true,
-                      physics: ScrollPhysics(),
-                      itemCount: _tiles.length,
-                      itemBuilder: (context, index) {
-                        iconStatus = IconStatus.Danger;
+                  shrinkWrap: true,
+                  physics: ScrollPhysics(),
+                  itemCount: _tiles.length,
+                  itemBuilder: (context, index) {
+                    iconStatus = IconStatus.Danger;
 
-                        return ListTile(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => EntryDetailsPage(
-                                        _tiles[index], carId)));
-                          },
-                          contentPadding: EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 10.0),
-                          leading: _iconSet(_tiles[index]),
-                          title: Text(
-                            _tiles[index]['entry'].entryName,
-                          ),
-                          subtitle: Text('Нет информации о проведении ТО'),
-                        );
+                    return ListTile(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    EntryDetailsPage(_tiles[index], carId)));
                       },
+                      contentPadding: EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 10.0),
+                      leading: _iconSet(_tiles[index], _entries[index], car),
+                      title: Text(
+                        _tiles[index]['entry'].entryName,
+                      ),
+                      subtitle: Text('Нет информации о проведении ТО'),
                     );
+                  },
+                );
               },
             ),
             ListTile(
@@ -185,22 +189,40 @@ class _DashboardPageState extends State<DashboardPage>
         ));
   }
 
-  _iconSet(til) {
-    List<Operation> tiles = til['operations'];
+  _iconSet(til, Entry ent, Car car) {
+    List<Operation> _tiles = til['operations'];
+    DateTime lastDate;
+    int dayLimit = ent.entryDateLimit*30;
+    int lastMileage;
 
-    if (tiles.length == 0) {
-      iconStatus = IconStatus.NotDeterminate;
-    }
-    tiles.sort((a, b) {
-      return a.operationMileage.compareTo(b.operationMileage);
+    _tiles.sort((a, b) {
+      return b.operationDate.millisecondsSinceEpoch
+          .compareTo(a.operationDate.millisecondsSinceEpoch);
     });
 
+    if (_tiles.length != 0) {
+      lastDate = _tiles[0].operationDate;
+    }
+
+    if (_tiles.length == 0) {
+      iconStatus = IconStatus.NotDeterminate;
+    }
+    _tiles.sort((a, b) {
+      return b.operationMileage.compareTo(a.operationMileage);
+    });
+
+    if(_tiles.length != 0) {
+      lastMileage = _tiles[0].operationMileage;
+      print(lastMileage);
+    }
+
+    for (int i = 0; i < _tiles.length; i++) {}
 
     switch (iconStatus) {
       case IconStatus.NotDeterminate:
         return CircleAvatar(
           child: Icon(
-              Icons.help_outline,
+            Icons.help_outline,
             color: Colors.orange,
           ),
           radius: 32.0,
