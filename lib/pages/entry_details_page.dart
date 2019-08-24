@@ -134,7 +134,7 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                               children: <Widget>[
                                 Expanded(flex: 1, child: CircleAvatar()),
                                 Expanded(
-                                  flex: 3,
+                                  flex: 4,
                                   child: Column(
                                     children: <Widget>[
                                       Container(
@@ -167,7 +167,7 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                                   ),
                                 ),
                                 Expanded(
-                                  flex: 2,
+                                  flex: 3,
                                   child: Column(
                                     children: <Widget>[
                                       Container(

@@ -269,6 +269,7 @@ class _DashboardPageState extends State<DashboardPage>
         return CircleAvatar(
           child: Icon(
             Icons.assignment_late,
+            color: Colors.blue,
             size: 32.0,
           ),
           radius: 32.0,

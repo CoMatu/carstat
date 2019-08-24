@@ -131,9 +131,15 @@ class _CarCardState extends State<CarCard> {
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
                 Expanded(child: Text(widget.car.carName)),
-                Text(
-                  'редактировать',
-                  style: TextStyle(fontSize: 12.0, color: Colors.black38),
+                FlatButton(
+                  child: Text(
+                    'Изменить',
+                    style: TextStyle(fontSize: 12.0, color: Colors.black26),
+                  ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, 'edit_car_page',
+                        arguments: widget.car);
+                  },
                 ),
                 IconButton(
                   icon: Icon(
