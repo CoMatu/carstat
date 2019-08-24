@@ -36,6 +36,8 @@ class _DashboardPageState extends State<DashboardPage>
   static var _tiles;
   var now = DateTime.now();
 
+  String tileMessage;
+
   @override
   void initState() {
     _controller = new AnimationController(
@@ -163,7 +165,7 @@ class _DashboardPageState extends State<DashboardPage>
                       title: Text(
                         _tiles[index]['entry'].entryName,
                       ),
-                      subtitle: Text('Нет информации о проведении ТО'),
+                      subtitle: Text(tileMessage),
                     );
                   },
                 );
@@ -192,31 +194,56 @@ class _DashboardPageState extends State<DashboardPage>
   _iconSet(til, Entry ent, Car car) {
     List<Operation> _tiles = til['operations'];
     DateTime lastDate;
-    int dayLimit = ent.entryDateLimit*30;
-    int lastMileage;
-
-    _tiles.sort((a, b) {
-      return b.operationDate.millisecondsSinceEpoch
-          .compareTo(a.operationDate.millisecondsSinceEpoch);
-    });
-
-    if (_tiles.length != 0) {
-      lastDate = _tiles[0].operationDate;
-    }
+    int dayLimit = ent.entryDateLimit * 30;
+    int daysFromLast; // прошло дней с последнего ТО
+    int daysOver; // на сколько дней пропустили ТО
+    int daysRemain; // осталось дней до следующего ТО
+    int lastMileage; // пробег на дату последнего ТО
+    int mileageFromLast; // пробег с момента последнего ТО
+    int mileageRemain; //
+    tileMessage = '';
 
     if (_tiles.length == 0) {
       iconStatus = IconStatus.NotDeterminate;
-    }
-    _tiles.sort((a, b) {
-      return b.operationMileage.compareTo(a.operationMileage);
-    });
+      tileMessage = 'Нет информации о проведении ТО';
+    } else {
+      _tiles.sort((a, b) {
+        return b.operationDate.millisecondsSinceEpoch
+            .compareTo(a.operationDate.millisecondsSinceEpoch);
+      });
+      lastDate = _tiles[0].operationDate;
 
-    if(_tiles.length != 0) {
+      _tiles.sort((a, b) {
+        return b.operationMileage.compareTo(a.operationMileage);
+      });
       lastMileage = _tiles[0].operationMileage;
-      print(lastMileage);
-    }
+      mileageFromLast = car.carMileage - lastMileage;
 
-    for (int i = 0; i < _tiles.length; i++) {}
+      if (mileageFromLast >= ent.entryMileageLimit) {
+        // проверка на пробег сверх лимита
+        iconStatus = IconStatus.Danger;
+        tileMessage =
+            'Вы пропустили операцию ТО, пробег сверх нормы составил $mileageFromLast км';
+      } else {
+        daysFromLast = now.difference(lastDate).inDays;
+        if (daysFromLast >= dayLimit) {
+          daysOver = daysFromLast - dayLimit;
+          iconStatus = IconStatus.Danger;
+          tileMessage = 'Вы пропустили операцию ТО на $daysOver дней';
+        } else {
+          daysRemain = dayLimit - daysFromLast;
+          mileageRemain = lastMileage + ent.entryMileageLimit - car.carMileage;
+          tileMessage =
+              'До следующего ТО осталось $daysRemain дней или $mileageRemain км пробега';
+
+          if (daysRemain <= 30) {
+            iconStatus = IconStatus.Warning;
+          } else {
+            iconStatus = IconStatus.Norm;
+          }
+        }
+      }
+    }
 
     switch (iconStatus) {
       case IconStatus.NotDeterminate:
