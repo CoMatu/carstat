@@ -85,6 +85,7 @@ class _CarCardState extends State<CarCard> {
               padding: const EdgeInsets.all(8.0),
               child: FloatingActionButton(
                 onPressed: getImageFromCam,
+                heroTag: null,
                 tooltip: 'Pick Image',
                 child: Icon(Icons.add_a_photo),
               ),
@@ -93,6 +94,7 @@ class _CarCardState extends State<CarCard> {
               padding: const EdgeInsets.all(8.0),
               child: FloatingActionButton(
                 onPressed: getImageFromGallery,
+                heroTag: null,
                 tooltip: 'Pick Image',
                 child: Icon(Icons.wallpaper),
               ),
