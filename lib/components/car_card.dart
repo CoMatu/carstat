@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'package:carstat/models/car.dart';
 import 'package:carstat/services/data_service.dart';
@@ -59,10 +60,12 @@ class _CarCardState extends State<CarCard> {
   final TextEditingController _textFieldController = TextEditingController();
 
   File _image;
+  String _fileName;
 
   Future getImageFromCam() async {
     // for camera
-    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+    final File image = await ImagePicker.pickImage(source: ImageSource.camera);
+    _saveImage(image);
     setState(() {
       _image = image;
     });
@@ -70,9 +73,19 @@ class _CarCardState extends State<CarCard> {
 
   Future getImageFromGallery() async {
     // for gallery
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    final File image = await ImagePicker.pickImage(source: ImageSource.gallery);
     setState(() {
       _image = image;
+    });
+  }
+
+  Future _saveImage(File image) async {
+    _fileName = widget.car.carId + '.png';
+    final directory = await getApplicationDocumentsDirectory();
+    final String path = directory.path;
+    final File imageFile = await image.copy('$path/_fileName');
+    setState(() {
+      _image = imageFile;
     });
   }
 
@@ -254,4 +267,5 @@ class _CarCardState extends State<CarCard> {
           );
         });
   }
+
 }
