@@ -11,7 +11,6 @@ import 'package:carstat/services/data_service.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:math' as math;
-import 'package:intl/intl.dart';
 
 enum IconStatus { Danger, Warning, Norm, NotDeterminate }
 
@@ -178,7 +177,8 @@ class _DashboardPageState extends State<DashboardPage>
                 backgroundColor: Colors.blue[200],
                 child: Icon(
                   Icons.person,
-                  color: Colors.black,
+                  color: Colors.white,
+                  size: 32.0,
                 ),
                 radius: 32.0,
               ),
@@ -251,6 +251,7 @@ class _DashboardPageState extends State<DashboardPage>
           child: Icon(
             Icons.help_outline,
             color: Colors.orange,
+            size: 32.0,
           ),
           radius: 32.0,
         );
@@ -259,19 +260,27 @@ class _DashboardPageState extends State<DashboardPage>
           child: Icon(
             Icons.warning,
             color: Colors.red,
+            size: 32.0,
           ),
           radius: 32.0,
         );
         break;
       case IconStatus.Warning:
         return CircleAvatar(
-          child: Icon(Icons.assignment_late),
+          child: Icon(
+            Icons.assignment_late,
+            size: 32.0,
+          ),
           radius: 32.0,
         );
         break;
       case IconStatus.Norm:
         return CircleAvatar(
-          child: Icon(Icons.directions_car),
+          child: Icon(
+            Icons.directions_car,
+            color: Colors.green,
+            size: 32.0,
+          ),
           radius: 32.0,
         );
         break;

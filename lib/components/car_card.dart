@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 
 import 'package:carstat/models/car.dart';
 import 'package:carstat/services/data_service.dart';
+import 'package:image_picker/image_picker.dart';
 
 enum ConfirmAction { CANCEL, ACCEPT }
 
@@ -41,14 +43,59 @@ Future<ConfirmAction> _asyncConfirmDialog(
   );
 }
 
-class CarCard extends StatelessWidget {
+class CarCard extends StatefulWidget {
   final Car car;
   final Function() notifyCarsList;
 
   CarCard(this.car, {@required this.notifyCarsList});
 
+  @override
+  _CarCardState createState() => _CarCardState();
+}
+
+class _CarCardState extends State<CarCard> {
   final DataService dataService = DataService();
+
   final TextEditingController _textFieldController = TextEditingController();
+
+  File _image;
+
+  Future getImageFromCam() async {
+    // for camera
+    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+    setState(() {
+      _image = image;
+    });
+  }
+
+  Future getImageFromGallery() async {
+    // for gallery
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      _image = image;
+    });
+  }
+
+  getAutoImage() {
+    return Center(
+      child: Row(
+        children: <Widget>[
+          FloatingActionButton(
+            onPressed: getImageFromCam,
+            tooltip: 'Pick Image',
+            child: Icon(Icons.add_a_photo),
+          ),
+          FloatingActionButton(
+            onPressed: getImageFromGallery,
+            tooltip: 'Pick Image',
+            child: Icon(Icons.wallpaper),
+          ),
+        ],
+      ),
+    )
+        //Image.asset('images/nissan_note.jpg')
+        ;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,22 +104,23 @@ class CarCard extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Container(
-              child: Image.asset('images/nissan_note.jpg'),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(15.0),
-              topRight: Radius.circular(15.0)
+            child: getAutoImage(),
+            // Image.asset('images/nissan_note.jpg'),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(15.0),
+                  topRight: Radius.circular(15.0)),
             ),
-          ),),
+          ),
           ListTile(
             onTap: () {
               Navigator.pushNamed(context, 'dashboard_page',
-                  arguments: car);
+                  arguments: widget.car);
             },
             title: Row(
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
-                Expanded(child: Text(car.carName)),
+                Expanded(child: Text(widget.car.carName)),
                 Text(
                   'редактировать',
                   style: TextStyle(fontSize: 12.0, color: Colors.black38),
@@ -83,7 +131,8 @@ class CarCard extends StatelessWidget {
                     color: Colors.red,
                   ),
                   onPressed: () async {
-                    await _asyncConfirmDialog(context, dataService, car.carId);
+                    await _asyncConfirmDialog(
+                        context, dataService, widget.car.carId);
                   },
                 ),
               ],
@@ -101,15 +150,15 @@ class CarCard extends StatelessWidget {
                       children: <Widget>[
                         Padding(
                           padding: const EdgeInsets.only(right: 8.0),
-                          child: Text(car.carMark),
+                          child: Text(widget.car.carMark),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(right: 8.0),
-                          child: Text(car.carModel),
+                          child: Text(widget.car.carModel),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(right: 8.0),
-                          child: Text(car.carYear.toString() + ' г.'),
+                          child: Text(widget.car.carYear.toString() + ' г.'),
                         ),
                       ],
                     ),
@@ -119,7 +168,9 @@ class CarCard extends StatelessWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        Text('Пробег: ' + car.carMileage.toString() + ' км.'),
+                        Text('Пробег: ' +
+                            widget.car.carMileage.toString() +
+                            ' км.'),
                         Container(
                           padding: EdgeInsets.only(left: 8.0),
                           child: GestureDetector(
@@ -128,7 +179,7 @@ class CarCard extends StatelessWidget {
                               color: Colors.green,
                             ),
                             onTap: () {
-                              _displayDialog(context, car.carId);
+                              _displayDialog(context, widget.car.carId);
                             },
                           ),
                         ),
@@ -137,7 +188,7 @@ class CarCard extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(right: 8.0),
-                    child: Text('VIN: ' + car.carVin),
+                    child: Text('VIN: ' + widget.car.carVin),
                   ),
                 ],
               ),
@@ -157,7 +208,7 @@ class CarCard extends StatelessWidget {
               controller: _textFieldController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(hintText: "Введите текущий пробег"),
-              //TODO add validator for > 1 mln
+              // TODO add validator for > 1 mln
             ),
             actions: <Widget>[
               FlatButton(
@@ -175,10 +226,10 @@ class CarCard extends StatelessWidget {
                 ),
                 onPressed: () async {
                   await dataService
-                      .updateCar(car.carId, 'carMileage',
+                      .updateCar(widget.car.carId, 'carMileage',
                           int.parse(_textFieldController.text))
                       .then((res) {
-                    notifyCarsList();
+                    widget.notifyCarsList();
                     Navigator.of(context).pop();
                   });
                 },
