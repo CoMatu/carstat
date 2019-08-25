@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:carstat/components/main_appbar.dart';
+import 'package:carstat/models/car.dart';
 import 'package:carstat/models/operation.dart';
 import 'package:carstat/services/data_service.dart';
 import 'package:flutter/material.dart';
@@ -50,27 +51,67 @@ Future<ConfirmAction> _asyncConfirmDialog(
   );
 }
 
+Future<ConfirmAction> _asyncDeleteDialog(
+    BuildContext context,
+    DataService dataService,
+    Car car,
+    String entryId) async {
+  return showDialog<ConfirmAction>(
+    context: context,
+    barrierDismissible: false, // user must tap button for close dialog!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Удалить запись?'),
+        content: const Text(
+            'Вы удалите текущую запись и все связанные с ней данные без возможности восстановления'),
+        actions: <Widget>[
+          FlatButton(
+            child: const Text(
+              'ОТМЕНА',
+              style: TextStyle(color: Colors.black),
+            ),
+            onPressed: () {
+              Navigator.of(context).pop(ConfirmAction.CANCEL);
+            },
+          ),
+          FlatButton(
+            child: const Text(
+              'УДАЛИТЬ',
+            ),
+            onPressed: () async {
+              await dataService
+                  .deleteEntry(car.carId, entryId)
+                  .then(
+                      (res) => Navigator.pushNamed(context, 'dashboard_page', arguments: car));
+            },
+          )
+        ],
+      );
+    },
+  );
+}
+
 class EntryDetailsPage extends StatefulWidget {
   final tile;
-  final String carId;
+  final Car car;
 
-  EntryDetailsPage(this.tile, this.carId);
+  EntryDetailsPage(this.tile, this.car);
 
   @override
-  _EntryDetailsPageState createState() => _EntryDetailsPageState(tile, carId);
+  _EntryDetailsPageState createState() => _EntryDetailsPageState(tile, car);
 }
 
 class _EntryDetailsPageState extends State<EntryDetailsPage> {
   final tile;
-  final String carId;
+  final Car car;
   String entryId;
   DataService dataService = DataService();
   List<Operation> _operns = [];
 
-  _EntryDetailsPageState(this.tile, this.carId);
+  _EntryDetailsPageState(this.tile, this.car);
 
   Future<void> getOperations(String entryId) async{
-    _operns = await dataService.getEntryOperations(entryId, carId);
+    _operns = await dataService.getEntryOperations(entryId, car.carId);
     _operns.sort((a, b) {
       return b.operationDate.millisecondsSinceEpoch
           .compareTo(a.operationDate.millisecondsSinceEpoch);
@@ -91,20 +132,43 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
       body: ListView(
         children: <Widget>[
           Card(
-            child: ListTile(
-              title: Column(
-                children: <Widget>[Text(tile['entry'].entryName), Divider()],
-              ),
-              subtitle: Column(
-                children: <Widget>[
-                  Text(
-                    'Эту операцию необходимо выполнять каждые '
-                    '${tile['entry'].entryDateLimit} мес или '
-                    '${tile['entry'].entryMileageLimit} км пробега (в зависимости от '
-                    'того, что наступит раньше)',
+            child: Column(
+              children: <Widget>[
+                ListTile(
+                  title: Column(
+                    children: <Widget>[Text(tile['entry'].entryName), Divider()],
                   ),
-                ],
-              ),
+                  subtitle: Column(
+                    children: <Widget>[
+                      Text(
+                        'Эту операцию необходимо выполнять каждые '
+                        '${tile['entry'].entryDateLimit} мес или '
+                        '${tile['entry'].entryMileageLimit} км пробега (в зависимости от '
+                        'того, что наступит раньше)',
+                      ),
+                    ],
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    FlatButton(
+                      onPressed: () {
+                        _asyncDeleteDialog(context, dataService, car, tile['entry'].entryId);
+                      },
+                      child: Text(
+                        'УДАЛИТЬ',
+                        style: TextStyle(color: Colors.red),
+                      ),
+                    ),
+                    FlatButton(
+                      child: Text('ИЗМЕНИТЬ'),
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+
+              ],
             ),
           ),
           FutureBuilder(
@@ -232,7 +296,7 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                                       await _asyncConfirmDialog(
                                           context,
                                           dataService,
-                                          carId,
+                                          car.carId,
                                           _operns[index].entryId,
                                           _operns[index].operationId);
                                       setState(() {

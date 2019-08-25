@@ -223,4 +223,16 @@ class DataService {
         .document(operationId)
         .delete();
   }
+
+  Future<void> deleteEntry(String carId, String entryId) async{
+    await getData();
+    fs
+        .document(docId)
+        .collection('cars')
+        .document(carId)
+        .collection('entries')
+        .document(entryId)
+        .delete();
+
+  }
 }

@@ -156,7 +156,7 @@ class _DashboardPageState extends State<DashboardPage>
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    EntryDetailsPage(_tiles[index], carId)));
+                                    EntryDetailsPage(_tiles[index], car)));
                       },
                       contentPadding: EdgeInsets.symmetric(
                           vertical: 10.0, horizontal: 10.0),
