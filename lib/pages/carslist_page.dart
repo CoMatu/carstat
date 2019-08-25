@@ -100,5 +100,3 @@ class _CarsListPageState extends State<CarsListPage> {
     );
   }
 }
-
-// TODO: сделать страницу обновления информации об автомобиле

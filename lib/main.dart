@@ -1,5 +1,6 @@
 import 'package:carstat/pages/add_car_page.dart';
 import 'package:carstat/pages/edit_car_page.dart';
+import 'package:carstat/pages/edit_entry_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -23,7 +24,8 @@ class MyApp extends StatelessWidget {
           'dashboard_page': (context) => DashboardPage(),
           'car_list_page': (context) => CarsListPage(),
           'add_car_page': (context) => AddCarPage(),
-          'edit_car_page': (context) => EditCarPage()
+          'edit_car_page': (context) => EditCarPage(),
+          'edit_entry_page': (context) => EditEntryPage(),
         },
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,

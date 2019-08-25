@@ -235,4 +235,20 @@ class DataService {
         .delete();
 
   }
+
+  Future<void> updateEntry(Car car, Entry entry) async{
+    await getData();
+    var data = {
+    'entryName': entry.entryName,
+    'entryMileageLimit': entry.entryMileageLimit,
+    'entryDateLimit': entry.entryDateLimit
+  };
+    fs
+        .document(docId)
+        .collection('cars')
+        .document(car.carId)
+        .collection('entries')
+        .document(entry.entryId)
+        .updateData(data);
+  }
 }

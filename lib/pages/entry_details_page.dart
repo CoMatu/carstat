@@ -163,7 +163,9 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                     ),
                     FlatButton(
                       child: Text('ИЗМЕНИТЬ'),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, 'edit_entry_page', arguments: [tile['entry'], car]);
+                      },
                     ),
                   ],
                 ),
