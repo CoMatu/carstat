@@ -107,6 +107,7 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
   String entryId;
   DataService dataService = DataService();
   List<Operation> _operns = [];
+  NumberFormat _numberFormat;
 
   _EntryDetailsPageState(this.tile, this.car);
 
@@ -121,6 +122,7 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
   @override
   void initState() {
     initializeDateFormatting("ru_RU", null);
+    _numberFormat = NumberFormat("### ###.##", "ru_RU");
     super.initState();
   }
 
@@ -190,6 +192,7 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                   var f = DateFormat('dd.MM.yyyy');
                   final littleTextStyle =
                   TextStyle(fontSize: 8.0, color: Colors.black38);
+                  var partPrice = _numberFormat.format(_operns[index].partPrice);
                   return Card(
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
@@ -256,7 +259,7 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                                               style: littleTextStyle,
                                             ),
                                             Text(
-                                              _operns[index].partPrice.toString(),
+                                              partPrice,
                                               style: littleTextStyle,
                                             ),
                                             Text(
