@@ -49,13 +49,30 @@ class DataService {
     fs.document(docId).collection('cars').document(_id).setData(data);
   }
 
-  Future<void> updateCar(String carId, String parameter, value) async {
+  Future<void> updateCarParameter(String carId, String parameter, value) async {
     await getData();
     fs
         .document(docId)
         .collection('cars')
         .document(carId)
         .updateData({parameter: value});
+  }
+
+  Future<void> updateCar(Car car) async {
+    await getData();
+    var data = {
+      'carVin': car.carVin,
+      'carModel': car.carModel,
+      'carName': car.carName,
+      'carMark': car.carMark,
+      'carYear': car.carYear,
+      'carMileage': car.carMileage,
+    };
+    fs
+        .document(docId)
+        .collection('cars')
+        .document(car.carId)
+        .updateData(data);
   }
 
   Future<void> deleteCar(String carId) async {

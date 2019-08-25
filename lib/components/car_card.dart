@@ -62,6 +62,23 @@ class _CarCardState extends State<CarCard> {
   File _image;
   String _fileName;
 
+/*
+
+  @override
+  void initState() {
+    getImage();
+    super.initState();
+  }
+*/
+
+  Future getImage() async {
+    _fileName = widget.car.carId + '.png';
+    final dir = await getApplicationDocumentsDirectory();
+    final String path = dir.path + '/' + _fileName;
+    final File image = File(path);
+    _image = image;
+  }
+
   Future getImageFromCam() async {
     // for camera
     final File image = await ImagePicker.pickImage(source: ImageSource.camera);
@@ -80,42 +97,53 @@ class _CarCardState extends State<CarCard> {
   }
 
   Future _saveImage(File image) async {
+    if (image == null) return;
     _fileName = widget.car.carId + '.png';
     final directory = await getApplicationDocumentsDirectory();
     final String path = directory.path;
-    final File imageFile = await image.copy('$path/_fileName');
+    final File imageFile = await image.copy('$path/$_fileName');
     setState(() {
       _image = imageFile;
     });
   }
 
-  getAutoImage() {
+  getAutoImage(File image) {
     return Container(
-      child: Center(
-        child: Wrap(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: FloatingActionButton(
-                onPressed: getImageFromCam,
-                heroTag: null,
-                tooltip: 'Pick Image',
-                child: Icon(Icons.add_a_photo),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: FloatingActionButton(
-                onPressed: getImageFromGallery,
-                heroTag: null,
-                tooltip: 'Pick Image',
-                child: Icon(Icons.wallpaper),
-              ),
-            ),
-          ],
-        ),
-      ),
-    )
+            child: !image.existsSync()
+                ? Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Изображение не выбрано',
+                          style: TextStyle(color: Colors.black26),
+                        ),
+                      ),
+                      Wrap(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: FloatingActionButton(
+                              onPressed: getImageFromCam,
+                              heroTag: null,
+                              tooltip: 'Pick Image',
+                              child: Icon(Icons.add_a_photo),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: FloatingActionButton(
+                              onPressed: getImageFromGallery,
+                              heroTag: null,
+                              tooltip: 'Pick Image',
+                              child: Icon(Icons.wallpaper),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  )
+                : Image.file(image))
         //Image.asset('images/nissan_note.jpg')
         ;
   }
@@ -127,7 +155,20 @@ class _CarCardState extends State<CarCard> {
       child: Column(
         children: <Widget>[
           Container(
-            child: getAutoImage(),
+            child: FutureBuilder(
+              future: getImage(),
+              builder: ((BuildContext ctx, AsyncSnapshot snapshot) {
+                if (snapshot.connectionState != ConnectionState.done) {
+                  return Center(
+                      child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 12.0, right: 12.0, top: 35.0),
+                    child: CircularProgressIndicator(),
+                  ));
+                }
+                return getAutoImage(_image);
+              }),
+            ),
             // Image.asset('images/nissan_note.jpg'),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
@@ -255,7 +296,7 @@ class _CarCardState extends State<CarCard> {
                 ),
                 onPressed: () async {
                   await dataService
-                      .updateCar(widget.car.carId, 'carMileage',
+                      .updateCarParameter(widget.car.carId, 'carMileage',
                           int.parse(_textFieldController.text))
                       .then((res) {
                     widget.notifyCarsList();
@@ -267,5 +308,4 @@ class _CarCardState extends State<CarCard> {
           );
         });
   }
-
 }
