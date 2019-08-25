@@ -130,7 +130,6 @@ class _LoginPageState extends State<LoginPage> {
         ),
         FlatButton(
           child: Text('Регистрация', style: TextStyle(fontSize: 14.0, color: Colors.blueAccent)),
-          //TODO регистрация не влезает при вызове клавиатуры - идет переполнение
           onPressed: moveToRegister,
         ),
       ];

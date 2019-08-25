@@ -33,7 +33,6 @@ class _EditEntryPageState extends State<EditEntryPage> {
     _entry = _data[0];
     _car = _data[1];
 
-    // TODO: implement build
     return Scaffold(
       key: _scaffoldKey,
       appBar: MainAppBar(),
