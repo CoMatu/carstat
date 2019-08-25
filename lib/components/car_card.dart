@@ -91,6 +91,7 @@ class _CarCardState extends State<CarCard> {
   Future getImageFromGallery() async {
     // for gallery
     final File image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    _saveImage(image);
     setState(() {
       _image = image;
     });
