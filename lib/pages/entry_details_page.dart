@@ -51,11 +51,8 @@ Future<ConfirmAction> _asyncConfirmDialog(
   );
 }
 
-Future<ConfirmAction> _asyncDeleteDialog(
-    BuildContext context,
-    DataService dataService,
-    Car car,
-    String entryId) async {
+Future<ConfirmAction> _asyncDeleteDialog(BuildContext context,
+    DataService dataService, Car car, String entryId) async {
   return showDialog<ConfirmAction>(
     context: context,
     barrierDismissible: false, // user must tap button for close dialog!
@@ -79,10 +76,9 @@ Future<ConfirmAction> _asyncDeleteDialog(
               'УДАЛИТЬ',
             ),
             onPressed: () async {
-              await dataService
-                  .deleteEntry(car.carId, entryId)
-                  .then(
-                      (res) => Navigator.pushNamed(context, 'dashboard_page', arguments: car));
+              await dataService.deleteEntry(car.carId, entryId).then((res) =>
+                  Navigator.pushNamed(context, 'dashboard_page',
+                      arguments: car));
             },
           )
         ],
@@ -111,7 +107,7 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
 
   _EntryDetailsPageState(this.tile, this.car);
 
-  Future<void> getOperations(String entryId) async{
+  Future<void> getOperations(String entryId) async {
     _operns = await dataService.getEntryOperations(entryId, car.carId);
     _operns.sort((a, b) {
       return b.operationDate.millisecondsSinceEpoch
@@ -122,7 +118,7 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
   @override
   void initState() {
     initializeDateFormatting("ru_RU", null);
-    _numberFormat = NumberFormat("### ###.##", "ru_RU");
+    _numberFormat = NumberFormat.currency(locale: 'ru_RU');
     super.initState();
   }
 
@@ -138,7 +134,10 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
               children: <Widget>[
                 ListTile(
                   title: Column(
-                    children: <Widget>[Text(tile['entry'].entryName), Divider()],
+                    children: <Widget>[
+                      Text(tile['entry'].entryName),
+                      Divider()
+                    ],
                   ),
                   subtitle: Column(
                     children: <Widget>[
@@ -156,7 +155,8 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                   children: <Widget>[
                     FlatButton(
                       onPressed: () {
-                        _asyncDeleteDialog(context, dataService, car, tile['entry'].entryId);
+                        _asyncDeleteDialog(
+                            context, dataService, car, tile['entry'].entryId);
                       },
                       child: Text(
                         'УДАЛИТЬ',
@@ -166,12 +166,12 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                     FlatButton(
                       child: Text('ИЗМЕНИТЬ'),
                       onPressed: () {
-                        Navigator.pushNamed(context, 'edit_entry_page', arguments: [tile['entry'], car]);
+                        Navigator.pushNamed(context, 'edit_entry_page',
+                            arguments: [tile['entry'], car]);
                       },
                     ),
                   ],
                 ),
-
               ],
             ),
           ),
@@ -179,7 +179,8 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
             future: getOperations(tile['entry'].entryId),
             builder: (BuildContext ctx, AsyncSnapshot snapshot) {
               if (snapshot.connectionState != ConnectionState.done) {
-                return Center(child: Padding(
+                return Center(
+                    child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: CircularProgressIndicator(),
                 ));
@@ -191,8 +192,13 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                 itemBuilder: (BuildContext context, index) {
                   var f = DateFormat('dd.MM.yyyy');
                   final littleTextStyle =
-                  TextStyle(fontSize: 8.0, color: Colors.black38);
-                  var partPrice = _numberFormat.format(_operns[index].partPrice);
+                      TextStyle(fontSize: 8.0, color: Colors.black38);
+                  String partPrice =
+                      _numberFormat.format(_operns[index].partPrice);
+                  String totalPrice = _numberFormat.format((_operns[index].partPrice +
+                      _operns[index]
+                          .operationPrice));
+                  String operationPrice = _numberFormat.format(_operns[index].operationPrice);
                   return Card(
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
@@ -222,8 +228,8 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                                         child: Column(
                                           children: <Widget>[
                                             Text(_operns[index]
-                                                .operationMileage
-                                                .toString() +
+                                                    .operationMileage
+                                                    .toString() +
                                                 ' км'),
                                             Text(
                                               'пробег',
@@ -235,19 +241,14 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                                     ],
                                   ),
                                 ),
-                                Container(
-//                                  flex: 3,
+                                Expanded(
+                                  flex: 3,
                                   child: Column(
                                     children: <Widget>[
                                       Container(
                                         child: Row(
                                           children: <Widget>[
-                                            Text((_operns[index]
-                                                .partPrice + _operns[index].operationPrice)
-                                                .toString()),
-                                            Text(
-                                              ' руб',
-                                            )
+                                            Text(totalPrice),
                                           ],
                                         ),
                                       ),
@@ -262,10 +263,6 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                                               partPrice,
                                               style: littleTextStyle,
                                             ),
-                                            Text(
-                                              ' руб',
-                                              style: littleTextStyle,
-                                            )
                                           ],
                                         ),
                                       ),
@@ -276,16 +273,10 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                                               'Работа: ',
                                               style: littleTextStyle,
                                             ),
-                                            Text(
-                                              _operns[index]
-                                                  .operationPrice
-                                                  .toString(),
+                                            Text(operationPrice
+                                                  ,
                                               style: littleTextStyle,
                                             ),
-                                            Text(
-                                              ' руб',
-                                              style: littleTextStyle,
-                                            )
                                           ],
                                         ),
                                       ),
@@ -295,7 +286,10 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                                 Expanded(
                                   flex: 1,
                                   child: IconButton(
-                                    icon: Icon(Icons.delete, color: Colors.red,),
+                                    icon: Icon(
+                                      Icons.delete,
+                                      color: Colors.red,
+                                    ),
                                     onPressed: () async {
                                       print(_operns[index].operationId);
                                       await _asyncConfirmDialog(
@@ -304,9 +298,7 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                                           car.carId,
                                           _operns[index].entryId,
                                           _operns[index].operationId);
-                                      setState(() {
-
-                                      });
+                                      setState(() {});
                                     },
                                   ),
                                 )
@@ -331,8 +323,8 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                                     Expanded(
                                       flex: 3,
                                       child: Container(
-                                        child:
-                                        Text(_operns[index].operationPartName),
+                                        child: Text(
+                                            _operns[index].operationPartName),
                                       ),
                                     ),
                                   ],
@@ -374,7 +366,6 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                   );
                 },
               );
-
             },
           ),
         ],

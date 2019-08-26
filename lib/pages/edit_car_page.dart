@@ -24,8 +24,6 @@ class _EditCarPageState extends State<EditCarPage> {
     _dataService.updateCar(car).then((_) {
       Navigator.pushNamed(context, 'car_list_page');
     });
-
-
   }
 
   @override
