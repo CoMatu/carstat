@@ -1,4 +1,3 @@
-import 'package:carstat/components/drawer.dart';
 import 'package:carstat/components/main_appbar.dart';
 import 'package:carstat/models/car.dart';
 import 'package:carstat/models/entry.dart';

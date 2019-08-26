@@ -7,6 +7,7 @@ import 'package:carstat/services/data_service.dart';
 import 'package:carstat/pages/login_page.dart';
 import 'package:carstat/services/auth_provider.dart';
 import 'package:carstat/services/auth_service.dart';
+import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class StartPage extends StatefulWidget {
@@ -33,8 +34,11 @@ class _StartPageState extends State<StartPage> {
   }
 
   void _updateStatus(PermissionStatus status) {
-    if(status != PermissionStatus.granted) {
-      _askPermission();
+    if(status != _status) {
+      setState(() {
+        print(status);
+        _status = status;
+      });
     }
   }
 
@@ -44,12 +48,18 @@ class _StartPageState extends State<StartPage> {
 
   void _onStatusRequested(Map<PermissionGroup, PermissionStatus> statuses) {
     final status = statuses[PermissionGroup.locationWhenInUse];
-    _updateStatus(status);
+    print('status ' + status.toString());
+    if(status != PermissionStatus.granted) {
+      PermissionHandler().requestPermissions([PermissionGroup.locationWhenInUse]);
+    } else {
+      _updateStatus(status);
+    }
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    _askPermission();
     final BaseAuth auth = AuthProvider.of(context).auth;
     auth.currentUser().then((String userId) {
       setState(() {
