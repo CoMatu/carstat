@@ -3,7 +3,6 @@ import 'package:carstat/pages/carslist_page.dart';
 import 'package:carstat/pages/start_page.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:carstat/services/auth_provider.dart';
 import 'package:carstat/services/auth_service.dart';
