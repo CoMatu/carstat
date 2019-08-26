@@ -145,7 +145,6 @@ class _CarCardState extends State<CarCard> {
                     ],
                   )
                 : Image.file(image))
-        //Image.asset('images/nissan_note.jpg')
         ;
   }
 

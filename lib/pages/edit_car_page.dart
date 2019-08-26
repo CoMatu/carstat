@@ -63,6 +63,7 @@ class _EditCarPageState extends State<EditCarPage> {
               TextFormField(
                 keyboardType: TextInputType.text,
                 initialValue: car.carModel,
+                onSaved: (val) => car.carModel = val,
                 decoration: const InputDecoration(
                   labelText: 'Модель автомобиля',
                 ),

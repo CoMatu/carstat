@@ -242,7 +242,7 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                                   ),
                                 ),
                                 Expanded(
-                                  flex: 3,
+                                  flex: 4,
                                   child: Column(
                                     children: <Widget>[
                                       Container(

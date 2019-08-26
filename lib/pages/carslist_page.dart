@@ -67,7 +67,7 @@ class _CarsListPageState extends State<CarsListPage> {
     return Scaffold(
       appBar: MainAppBar(),
       drawer: MainDrawer(),
-      floatingActionButton: _getFab(),
+//      floatingActionButton: _getFab(),
       body: _carList(),
     );
   }
@@ -91,6 +91,7 @@ class _CarsListPageState extends State<CarsListPage> {
     );
   }
 
+/*
   _getFab() {
     return FloatingActionButton(
       child: Icon(Icons.add),
@@ -99,4 +100,5 @@ class _CarsListPageState extends State<CarsListPage> {
       },
     );
   }
+*/
 }
