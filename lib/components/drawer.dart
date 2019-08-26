@@ -1,5 +1,6 @@
 import 'package:carstat/pages/add_car_page.dart';
 import 'package:carstat/pages/carslist_page.dart';
+import 'package:carstat/pages/start_page.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -16,7 +17,7 @@ class MainDrawer extends StatelessWidget {
     try {
       final BaseAuth auth = AuthProvider.of(context).auth;
       await auth.signOut();
-      onSignedOut();
+      StartPage();
     } catch (e) {
       print(e);
     }
@@ -50,8 +51,8 @@ class MainDrawer extends StatelessWidget {
           ListTile(
               title: Text('Выход из аккаунта'),
               trailing: Icon(FontAwesomeIcons.signOutAlt),
-              onTap: () {
-                _signOut(context);
+              onTap: () async{
+                await _signOut(context);
                 Navigator.of(context).pop();
                 Navigator.pushNamed(context, 'start_page');
               }),

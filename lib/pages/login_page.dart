@@ -17,8 +17,9 @@ class PasswordFieldValidator {
 }
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({this.onSignedIn});
+  const LoginPage({this.onSignedIn, this.onSignedOut});
   final VoidCallback onSignedIn;
+  final VoidCallback onSignedOut;
 
   @override
   State<StatefulWidget> createState() => _LoginPageState();
