@@ -8,11 +8,11 @@ buildscript {
 
         // Google Sign-In
         classpath 'com.android.tools.build:gradle:3.3.1'
-        classpath 'com.google.gms:google-services:4.2.0'
+        classpath 'com.google.gms:google-services:4.3.1'
 
         // Flutter Auth
         classpath 'com.android.tools.build:gradle:3.3.1'
-        classpath 'com.google.gms:google-services:4.2.0'
+        classpath 'com.google.gms:google-services:4.3.1'
     }
 }
 

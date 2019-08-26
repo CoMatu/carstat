@@ -9,13 +9,13 @@ import 'package:carstat/services/auth_provider.dart';
 import 'package:carstat/services/auth_service.dart';
 
 class MainDrawer extends StatelessWidget {
-  MainDrawer({this.onSignedOut});
+  MainDrawer({this.onSignedOut, this.auth});
 
   final VoidCallback onSignedOut;
+  BaseAuth auth;
 
   Future<void> _signOut(BuildContext context) async {
     try {
-      final BaseAuth auth = AuthProvider.of(context).auth;
       await auth.signOut();
       StartPage();
     } catch (e) {
@@ -25,6 +25,7 @@ class MainDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    auth = AuthProvider.of(context).auth;
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -33,19 +34,25 @@ class MainDrawer extends StatelessWidget {
           ListTile(
             title: Text('Мои автомобили'),
             trailing: Icon(Icons.directions_car),
-            onTap: () {
+            onTap: () async{
               Navigator.of(context).pop();
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => CarsListPage()));
+              var user = await auth.currentUser();
+              if(user != null){
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CarsListPage()));
+              }
             },
           ),
           ListTile(
             title: Text('Добавить автомобиль'),
             trailing: Icon(Icons.add, color: Colors.red,),
-            onTap: () {
+            onTap: () async{
               Navigator.of(context).pop();
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => AddCarPage()));
+              var user = await auth.currentUser();
+              if(user != null) {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => AddCarPage()));
+              }
             },
           ),
           ListTile(
