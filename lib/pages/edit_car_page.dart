@@ -124,7 +124,11 @@ class _EditCarPageState extends State<EditCarPage> {
     final String path = dir.path + '/' + _fileName;
     final File image = File(path);
 
-    await image.delete();
+    final _snackbar = SnackBar(content: Text('Фотография удалена'), backgroundColor: Colors.orange,);
+
+    await image.delete().then((res) {
+      _scaffoldKey.currentState.showSnackBar(_snackbar);
+    });
 
   }
 }
