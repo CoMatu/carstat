@@ -72,6 +72,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
               Container(height: 30),
               TextFormField(
                 keyboardType: TextInputType.number,
+                initialValue: '12',
                 validator: (val) => NumberValidator().numberValidator(val),
                 onSaved: (val) => _entry.entryDateLimit = int.parse(val),
                 decoration:
@@ -80,6 +81,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
               Container(height: 30),
               TextFormField(
                 keyboardType: TextInputType.number,
+                initialValue: '15000',
                 validator: (val) => NumberValidator().numberValidator(val),
                 onSaved: (val) => _entry.entryMileageLimit = int.parse(val),
                 decoration: const InputDecoration(

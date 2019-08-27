@@ -152,6 +152,7 @@ class _AddOperationPageState extends State<AddOperationPage> {
               Container(height: 30),
               TextFormField(
                 keyboardType: TextInputType.number,
+                initialValue: '0',
                 onSaved: (val) => _operation.operationMileage = int.parse(val),
                 decoration:
                     const InputDecoration(labelText: 'Текущий пробег, км'),
@@ -159,6 +160,7 @@ class _AddOperationPageState extends State<AddOperationPage> {
               Container(height: 30),
               TextFormField(
                 keyboardType: TextInputType.text,
+                initialValue: '',
                 onSaved: (val) => _operation.operationPartName = val,
                 decoration: const InputDecoration(
                     labelText: 'Расходный материал / запчасть'),
@@ -166,6 +168,7 @@ class _AddOperationPageState extends State<AddOperationPage> {
               Container(height: 30),
               TextFormField(
                 keyboardType: TextInputType.number,
+                initialValue: '0',
                 validator: (value) {
                   if (value.contains(',')) {
                     return 'Используйте точку . для разрядов';
@@ -178,6 +181,7 @@ class _AddOperationPageState extends State<AddOperationPage> {
               Container(height: 30),
               TextFormField(
                 keyboardType: TextInputType.number,
+                initialValue: '0',
                 validator: (value) {
                   if (value.contains(',')) {
                     return 'Используйте точку . для разрядов';
@@ -192,6 +196,7 @@ class _AddOperationPageState extends State<AddOperationPage> {
               TextFormField(
                 maxLines: 3,
                 keyboardType: TextInputType.text,
+                initialValue: '',
                 onSaved: (val) => _operation.operationNote = val,
                 decoration: const InputDecoration(labelText: 'Заметки'),
               ),

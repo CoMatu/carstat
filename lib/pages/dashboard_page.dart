@@ -288,3 +288,5 @@ class _DashboardPageState extends State<DashboardPage>
     }
   }
 }
+
+// TODO добавить кнопку "ДОБАВИТЬ НАПОМИНАНИЕ В КАЛЕНДАРЬ"
