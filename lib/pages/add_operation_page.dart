@@ -1,12 +1,11 @@
-import 'package:carstat/models/entry.dart';
-import 'package:carstat/models/operation.dart';
-import 'package:carstat/services/data_service.dart';
-import 'package:carstat/services/validators/date_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
-
+import 'package:carstat/models/entry.dart';
+import 'package:carstat/models/operation.dart';
+import 'package:carstat/services/data_service.dart';
+import 'package:carstat/services/validators/date_validator.dart';
 import 'package:carstat/components/main_appbar.dart';
 import 'package:carstat/components/drawer.dart';
 
@@ -99,9 +98,8 @@ class _AddOperationPageState extends State<AddOperationPage> {
                 builder: (FormFieldState<String> state) {
                   return InputDecorator(
                     decoration: InputDecoration(
-                      labelText: 'Выберите проверку из списка',
-                      labelStyle: TextStyle(fontSize: 22.0)
-                    ),
+                        labelText: 'Выберите проверку из списка',
+                        labelStyle: TextStyle(fontSize: 22.0)),
                     isEmpty: _operation.entryId == '',
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton<String>(

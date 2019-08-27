@@ -231,7 +231,6 @@ class _AddCarPageState extends State<AddCarPage> {
       }
     }
 
-    //TODO add validator не записывает с пустыми полями
     return Scaffold(
       appBar: MainAppBar(),
       drawer: MainDrawer(),
