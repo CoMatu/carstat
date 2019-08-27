@@ -203,6 +203,7 @@ class _CarCardState extends State<CarCard> {
                   onPressed: () async {
                     await _asyncConfirmDialog(
                         context, dataService, widget.car.carId);
+                    Navigator.pushNamed(context, 'car_list_page');
                   },
                 ),
               ],
