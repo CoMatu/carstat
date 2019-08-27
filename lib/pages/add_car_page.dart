@@ -39,6 +39,7 @@ class _AddCarPageState extends State<AddCarPage> {
         content: TextFormField(
           focusNode: _focusNode,
           keyboardType: TextInputType.text,
+          initialValue: 'Моя машина',
           autocorrect: false,
           onSaved: (String value) {
             car.carName = value;
@@ -63,6 +64,7 @@ class _AddCarPageState extends State<AddCarPage> {
         content: TextFormField(
           focusNode: _focusNode,
           keyboardType: TextInputType.text,
+          initialValue: '',
           autocorrect: false,
           onSaved: (String value) {
             car.carMark = value;
@@ -86,6 +88,7 @@ class _AddCarPageState extends State<AddCarPage> {
         content: TextFormField(
           focusNode: _focusNode,
           keyboardType: TextInputType.text,
+          initialValue: '',
           autocorrect: false,
           onSaved: (String value) {
             car.carModel = value;
@@ -109,6 +112,7 @@ class _AddCarPageState extends State<AddCarPage> {
         content: TextFormField(
           focusNode: _focusNode,
           keyboardType: TextInputType.number,
+          initialValue: '',
           autocorrect: false,
           onSaved: (String value) {
             car.carYear = int.parse(value);
@@ -132,6 +136,7 @@ class _AddCarPageState extends State<AddCarPage> {
         content: TextFormField(
           focusNode: _focusNode,
           keyboardType: TextInputType.number,
+          initialValue: '0',
           autocorrect: false,
           onSaved: (String value) {
             car.carMileage = int.parse(value);
@@ -155,6 +160,7 @@ class _AddCarPageState extends State<AddCarPage> {
         content: TextFormField(
           focusNode: _focusNode,
           keyboardType: TextInputType.text,
+          initialValue: '',
           autocorrect: false,
           onSaved: (String value) {
             car.carVin = value;
