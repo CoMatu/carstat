@@ -100,6 +100,7 @@ class _AddOperationPageState extends State<AddOperationPage> {
                   return InputDecorator(
                     decoration: InputDecoration(
                       labelText: 'Выберите проверку из списка',
+                      labelStyle: TextStyle(fontSize: 22.0)
                     ),
                     isEmpty: _operation.entryId == '',
                     child: DropdownButtonHideUnderline(

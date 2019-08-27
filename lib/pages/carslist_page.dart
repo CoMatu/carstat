@@ -102,3 +102,5 @@ class _CarsListPageState extends State<CarsListPage> {
   }
 */
 }
+
+// TODO сделать предупреждение о работе с локальной копией БД если нет соединения
