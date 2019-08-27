@@ -107,6 +107,7 @@ class _AddOperationPageState extends State<AddOperationPage> {
                       child: DropdownButton<String>(
                         value: _operation.entryId,
                         isDense: true,
+                        isExpanded: true,
                         onChanged: (String newValue) {
                           setState(() {
                             _operation.entryId = newValue;
