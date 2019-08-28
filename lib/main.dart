@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
     return AuthProvider(
       auth: AuthService(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         routes: {
           'start_page': (context) => StartPage(),
           'dashboard_page': (context) => DashboardPage(),
