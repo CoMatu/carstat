@@ -1,3 +1,4 @@
+import 'package:carstat/pages/add_car.dart';
 import 'package:carstat/pages/add_car_page.dart';
 import 'package:carstat/pages/carslist_page.dart';
 import 'package:carstat/pages/start_page.dart';
@@ -91,7 +92,7 @@ class _MainDrawerState extends State<MainDrawer> {
                   var user = await MainDrawer.auth.currentUser();
                   if (user != null) {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => AddCarPage()));
+                        MaterialPageRoute(builder: (context) => AddCar()));
                   }
                 },
               ),
