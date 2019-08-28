@@ -8,7 +8,7 @@ class AddCarPage extends StatefulWidget {
   @override
   _AddCarPageState createState() => _AddCarPageState();
 }
-
+// Страница не используется из-за проблем с Stapper() или фокус ноде
 class _AddCarPageState extends State<AddCarPage> {
   int currStep = 0;
   static var _focusNode = new FocusNode();
