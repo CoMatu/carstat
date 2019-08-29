@@ -66,12 +66,14 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> googleSignIn() async {
-    if(validateAndSave()) {
-      try {
-        GoogleSignInAccount googleSignInAccount;
-      } catch (e) {
-        print('Error: $e');
-      }
+    try {
+      final BaseAuth auth = AuthProvider.of(context).auth;
+      final String userEmail = await auth.signInWithGoogle();
+      print(userEmail);
+      widget.onSignedIn();
+
+    } catch (e) {
+      print('Error: $e');
     }
   }
 
@@ -114,6 +116,8 @@ class _LoginPageState extends State<LoginPage> {
 
   List<Widget> buildInputs() {
     return <Widget>[
+      Text('ВХОД В ПРИЛОЖЕНИЕ:', style: TextStyle(fontWeight: FontWeight.bold),),
+      Divider(),
       TextFormField(
         key: Key('email'),
         decoration: InputDecoration(labelText: 'Email'),
@@ -151,7 +155,9 @@ class _LoginPageState extends State<LoginPage> {
               Text('ВХОД ЧЕРЕЗ GOOGLE')
             ],
           ),
-          onPressed: () {},
+          onPressed: () {
+            googleSignIn();
+          },
           color: Colors.yellow,
         ),
         Container(height: 20.0,),

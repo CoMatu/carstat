@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "337246895110-eugpsga5ri4bln4ng2bndt0ggeum4119.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.carstat.carstat",
+            "certificate_hash": "6758d81d3b5bba9651d7e40f48f396028a6f5567"
+          }
+        },
+        {
           "client_id": "337246895110-hthve3b6qjcli2jhnkevcdep3sc76vn9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
