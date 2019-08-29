@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:carstat/services/auth_service.dart';
 import 'package:carstat/services/auth_provider.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class EmailFieldValidator {
   static String validate(String value) {

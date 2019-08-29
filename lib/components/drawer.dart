@@ -1,5 +1,4 @@
 import 'package:carstat/pages/add_car.dart';
-import 'package:carstat/pages/add_car_page.dart';
 import 'package:carstat/pages/carslist_page.dart';
 import 'package:carstat/pages/start_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
