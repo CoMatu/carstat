@@ -144,6 +144,7 @@ class _LoginPageState extends State<LoginPage> {
           color: Colors.yellow,
           highlightColor: Colors.orange[400],
         ),
+/*
         Container(height: 20.0,),
         RaisedButton(
           key: Key('googleSignIn'),
@@ -159,6 +160,7 @@ class _LoginPageState extends State<LoginPage> {
           },
           color: Colors.yellow,
         ),
+*/
         Container(height: 20.0,),
         RaisedButton(
           child: Text('РЕГИСТРАЦИЯ', ),
