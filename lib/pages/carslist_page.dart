@@ -21,7 +21,7 @@ class _CarsListPageState extends State<CarsListPage> {
   void initState() {
     dataService.getData().then((results) {
       var _count = results.documents.length;
-      for(int i = 0; i < _count; i++) {
+      for (int i = 0; i < _count; i++) {
         Car car = Car();
         car.carId = results.documents[i].data['carId'];
         car.carVin = results.documents[i].data['carVin'];
@@ -33,7 +33,7 @@ class _CarsListPageState extends State<CarsListPage> {
         _cars.add(car);
       }
 
-      if(mounted) {
+      if (mounted) {
         setState(() {});
       }
     });
@@ -45,7 +45,7 @@ class _CarsListPageState extends State<CarsListPage> {
       var _count = results.documents.length;
       _cars = [];
 
-      for(int i = 0; i < _count; i++) {
+      for (int i = 0; i < _count; i++) {
         Car car = Car();
         car.carId = results.documents[i].data['carId'];
         print(car.carId);
@@ -57,8 +57,8 @@ class _CarsListPageState extends State<CarsListPage> {
         car.carName = results.documents[i].data['carName'];
         _cars.add(car);
       }
-        print('after delete -' + _cars.length.toString());
-        setState(() {});
+      print('after delete -' + _cars.length.toString());
+      setState(() {});
     });
   }
 
@@ -68,8 +68,27 @@ class _CarsListPageState extends State<CarsListPage> {
       appBar: MainAppBar(),
       drawer: MainDrawer(),
 //      floatingActionButton: _getFab(),
-      body: _carList(),
+      body: _getBody(),
     );
+  }
+
+  Widget _getBody() {
+    if (_cars.length == 0) {
+      return Container(
+        child: Card(
+          margin: EdgeInsets.all(16.0),
+          child: ListTile(
+            title: Text('Для начала работы с программой Вам нужно добавить хотя бы один автомобиль:', style: TextStyle(fontSize: 20),),
+            subtitle: RaisedButton(child: Text('ДОБАВИТЬ АВТО'),
+            onPressed: () {
+              Navigator.pushNamed(context, 'add_car_page');
+            }, color: Colors.yellow,),
+          ),
+        ),
+      );
+    } else {
+      return _carList();
+    }
   }
 
   Widget _carList() {
@@ -91,16 +110,15 @@ class _CarsListPageState extends State<CarsListPage> {
     );
   }
 
-/*
-  _getFab() {
+/*   _getFab() {
     return FloatingActionButton(
       child: Icon(Icons.add),
       onPressed: () {
         Navigator.pushNamed(context, 'add_car_page');
       },
     );
-  }
-*/
+  } */
+
 }
 
 // TODO сделать предупреждение о работе с локальной копией БД если нет соединения

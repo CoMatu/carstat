@@ -1,4 +1,4 @@
-import 'package:carstat/pages/add_car_page.dart';
+import 'package:carstat/pages/add_car.dart';
 import 'package:carstat/pages/edit_car_page.dart';
 import 'package:carstat/pages/edit_entry_page.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
           'start_page': (context) => StartPage(),
           'dashboard_page': (context) => DashboardPage(),
           'car_list_page': (context) => CarsListPage(),
-          'add_car_page': (context) => AddCarPage(),
+          'add_car_page': (context) => AddCar(),
           'edit_car_page': (context) => EditCarPage(),
           'edit_entry_page': (context) => EditEntryPage(),
         },
