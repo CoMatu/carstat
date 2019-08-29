@@ -16,7 +16,7 @@ abstract class BaseAuth {
 
 class AuthService implements BaseAuth {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final GoogleSignIn googleSignIn = new GoogleSignIn();
+  final GoogleSignIn googleSignIn = GoogleSignIn();
 
   @override
   Future<String> signInWithEmailAndPassword(
