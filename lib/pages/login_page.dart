@@ -1,5 +1,4 @@
 import 'package:carstat/components/main_appbar.dart';
-import 'package:carstat/components/main_scafford.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:carstat/services/auth_service.dart';
@@ -146,7 +145,7 @@ class _LoginPageState extends State<LoginPage> {
           color: Colors.yellow,
           highlightColor: Colors.orange[400],
         ),
-/*
+
         Container(height: 20.0,),
         RaisedButton(
           key: Key('googleSignIn'),
@@ -162,7 +161,7 @@ class _LoginPageState extends State<LoginPage> {
           },
           color: Colors.yellow,
         ),
-*/
+
         Container(height: 20.0,),
         RaisedButton(
           child: Text('РЕГИСТРАЦИЯ', ),
