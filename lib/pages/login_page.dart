@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:carstat/services/auth_service.dart';
 import 'package:carstat/services/auth_provider.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class EmailFieldValidator {
   static String validate(String value) {
@@ -64,6 +65,16 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  Future<void> googleSignIn() async {
+    if(validateAndSave()) {
+      try {
+        GoogleSignInAccount googleSignInAccount;
+      } catch (e) {
+        print('Error: $e');
+      }
+    }
+  }
+
   void moveToRegister() {
     formKey.currentState.reset();
     setState(() {
@@ -83,13 +94,16 @@ class _LoginPageState extends State<LoginPage> {
     return MainScaffold(
       body: ListView(
         children: <Widget>[
-          Container(
-            padding: EdgeInsets.all(16.0),
-            child: Form(
-              key: formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: buildInputs() + buildSubmitButtons(),
+          Card(
+            margin: EdgeInsets.all(16.0),
+            child: Container(
+              padding: EdgeInsets.all(16.0),
+              child: Form(
+                key: formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: buildInputs() + buildSubmitButtons(),
+                ),
               ),
             ),
           )
@@ -119,18 +133,31 @@ class _LoginPageState extends State<LoginPage> {
   List<Widget> buildSubmitButtons() {
     if (_formType == FormType.login) {
       return <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: RaisedButton(
-            key: Key('signIn'),
-            child: Text('ВХОД', style: TextStyle()),
-            onPressed: validateAndSubmit,
-            color: Colors.yellow,
-            highlightColor: Colors.orange[400],
-          ),
+        Container(height: 30.0,),
+        RaisedButton(
+          key: Key('signIn'),
+          child: Text('ВХОД', style: TextStyle()),
+          onPressed: validateAndSubmit,
+          color: Colors.yellow,
+          highlightColor: Colors.orange[400],
         ),
-        FlatButton(
-          child: Text('Регистрация', style: TextStyle(fontSize: 14.0, color: Colors.blueAccent)),
+        Container(height: 20.0,),
+        RaisedButton(
+          key: Key('googleSignIn'),
+          child: Wrap(
+            children: <Widget>[
+              Image.asset('images/google_logo.png', height: 15.0,),
+              Container(width: 10.0,),
+              Text('ВХОД ЧЕРЕЗ GOOGLE')
+            ],
+          ),
+          onPressed: () {},
+          color: Colors.yellow,
+        ),
+        Container(height: 20.0,),
+        RaisedButton(
+          child: Text('РЕГИСТРАЦИЯ', ),
+          color: Colors.yellow,
           onPressed: moveToRegister,
         ),
       ];
@@ -146,7 +173,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
         FlatButton(
-          child: Text('Есть аккаунт? Войти', style: TextStyle(fontSize: 14.0, color: Colors.blueAccent)),
+          child: Text('Есть аккаунт? Войти', style: TextStyle(fontSize: 14.0, color: Colors.green)),
           onPressed: moveToLogin,
         ),
       ];
