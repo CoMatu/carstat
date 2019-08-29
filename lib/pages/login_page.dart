@@ -1,3 +1,4 @@
+import 'package:carstat/components/main_appbar.dart';
 import 'package:carstat/components/main_scafford.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -92,7 +93,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MainScaffold(
+    return Scaffold(
+      appBar: MainAppBar(),
       body: ListView(
         children: <Widget>[
           Card(
