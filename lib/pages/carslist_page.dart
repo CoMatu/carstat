@@ -32,7 +32,7 @@ class _CarsListPageState extends State<CarsListPage> {
         car.carName = results.documents[i].data['carName'];
         _cars.add(car);
       }
-
+      isLoaded = true;
       if (mounted) {
         setState(() {});
       }
@@ -73,21 +73,32 @@ class _CarsListPageState extends State<CarsListPage> {
   }
 
   Widget _getBody() {
-    if (_cars.length == 0) {
-      return Container(
-        child: Card(
-          margin: EdgeInsets.all(16.0),
-          child: ListTile(
-            title: Text('Для начала работы с программой Вам нужно добавить хотя бы один автомобиль:', style: TextStyle(fontSize: 20),),
-            subtitle: RaisedButton(child: Text('ДОБАВИТЬ АВТО'),
-            onPressed: () {
-              Navigator.pushNamed(context, 'add_car_page');
-            }, color: Colors.yellow,),
-          ),
-        ),
+    if(!isLoaded) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Center(child: CircularProgressIndicator()),
+        ],
       );
     } else {
-      return _carList();
+      if (_cars.length == 0) {
+        return Container(
+          child: Card(
+            margin: EdgeInsets.all(16.0),
+            child: ListTile(
+              title: Text('Для начала работы с программой Вам нужно добавить хотя бы один автомобиль:', style: TextStyle(fontSize: 20),),
+              subtitle: RaisedButton(child: Text('ДОБАВИТЬ АВТО'),
+                onPressed: () {
+                  Navigator.pushNamed(context, 'add_car_page');
+                }, color: Colors.yellow,),
+            ),
+          ),
+        );
+      } else {
+        return _carList();
+      }
+
     }
   }
 
