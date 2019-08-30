@@ -111,7 +111,7 @@ class _MainDrawerState extends State<MainDrawer> {
                       onTap: () async {
                         await _signOut(context);
                         Navigator.of(context).pop();
-                        Navigator.pushNamed(context, 'start_page');
+                        Navigator.pushReplacementNamed(context, 'start_page');
                       }),
                 ],
               ),
