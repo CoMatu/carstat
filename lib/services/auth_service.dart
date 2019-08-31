@@ -51,9 +51,9 @@ class AuthService implements BaseAuth {
     GoogleSignInAuthentication gSA = await googleSignInAccount.authentication;
     final AuthCredential credential = GoogleAuthProvider.getCredential(
         idToken: gSA.idToken, accessToken: gSA.accessToken);
-    FirebaseUser user = await _firebaseAuth.signInWithCredential(credential);
+    final FirebaseUser user = await _firebaseAuth.signInWithCredential(credential);
     print('Выполнен вход как ${user.displayName}');
 
-    return user.email;
+    return user?.uid;
   }
 }

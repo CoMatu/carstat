@@ -21,7 +21,10 @@ class DataService {
   }
 
   getData() async {
-    _userId = await _firebaseAuth.currentUser();
+    _userId = await _firebaseAuth.currentUser().then((res) {
+      print('current user for GetData is $res');
+      return res;
+    });
 
     Future<QuerySnapshot> _userDoc =
         fs.where('userId', isEqualTo: _userId).getDocuments();
@@ -68,11 +71,7 @@ class DataService {
       'carYear': car.carYear,
       'carMileage': car.carMileage,
     };
-    fs
-        .document(docId)
-        .collection('cars')
-        .document(car.carId)
-        .updateData(data);
+    fs.document(docId).collection('cars').document(car.carId).updateData(data);
   }
 
   Future<void> deleteCar(String carId) async {
@@ -104,38 +103,42 @@ class DataService {
         .collection('entries')
         .document(entryRef.documentID)
         .setData(entryData);
-
-//        .setData(entryData);
   }
 
   Future<List<Entry>> getEntries(String carId) async {
+    _userId = await _firebaseAuth.currentUser();
     List<Entry> _entriesList = [];
 
-    Future<QuerySnapshot> _userDoc =
-        fs.where('userId', isEqualTo: _userId).getDocuments();
-    await _userDoc.then((res) {
-      docId = res.documents[0].documentID;
-    });
+    if (_userId != null) { // проверка на ноль при выходе из аккаунта
+      Future<QuerySnapshot> _userDoc =
+          fs.where('userId', isEqualTo: _userId).getDocuments();
+      await _userDoc.then((res) {
+        docId = res.documents[0].documentID;
+        print('doc Id: $docId');
+        print('car Id: $carId');
+        print('user ID: $_userId');
+      });
 
-    Future<QuerySnapshot> _carEntries = fs
-        .document(docId)
-        .collection('cars')
-        .document(carId)
-        .collection('entries')
-        .getDocuments();
+      Future<QuerySnapshot> _carEntries = fs
+          .document(docId)
+          .collection('cars')
+          .document(carId)
+          .collection('entries')
+          .getDocuments();
 
-    await _carEntries.then((res) {
-      for (int i = 0; i < res.documents.length; i++) {
-        var entry = Entry();
-        entry.entryName = res.documents[i].data['entryName'];
-        entry.entryMileageLimit = res.documents[i].data['entryMileageLimit'];
-        entry.entryDateLimit = res.documents[i].data['entryDateLimit'];
-        entry.forChange = res.documents[i].data['forChange'];
-        entry.entryId = res.documents[i].data['entryId'];
-
-        _entriesList.add(entry);
-      }
-    });
+      await _carEntries.then((res) {
+        for (int i = 0; i < res.documents.length; i++) {
+          var entry = Entry();
+          entry.entryName = res.documents[i].data['entryName'];
+          entry.entryMileageLimit = res.documents[i].data['entryMileageLimit'];
+          entry.entryDateLimit = res.documents[i].data['entryDateLimit'];
+          entry.forChange = res.documents[i].data['forChange'];
+          entry.entryId = res.documents[i].data['entryId'];
+          print(entry.entryName);
+          _entriesList.add(entry);
+        }
+      });
+    }
 
     return _entriesList;
   }
@@ -224,7 +227,7 @@ class DataService {
         .delete();
   }
 
-  Future<void> deleteEntry(String carId, String entryId) async{
+  Future<void> deleteEntry(String carId, String entryId) async {
     await getData();
     fs
         .document(docId)
@@ -233,16 +236,15 @@ class DataService {
         .collection('entries')
         .document(entryId)
         .delete();
-
   }
 
-  Future<void> updateEntry(Car car, Entry entry) async{
+  Future<void> updateEntry(Car car, Entry entry) async {
     await getData();
     var data = {
-    'entryName': entry.entryName,
-    'entryMileageLimit': entry.entryMileageLimit,
-    'entryDateLimit': entry.entryDateLimit
-  };
+      'entryName': entry.entryName,
+      'entryMileageLimit': entry.entryMileageLimit,
+      'entryDateLimit': entry.entryDateLimit
+    };
     fs
         .document(docId)
         .collection('cars')

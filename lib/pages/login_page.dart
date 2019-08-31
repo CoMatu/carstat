@@ -56,6 +56,7 @@ class _LoginPageState extends State<LoginPage> {
         } else {
           final String userId = await auth.createUserWithEmailAndPassword(_email, _password);
           print('Registered user: $userId');
+
         }
         widget.onSignedIn();
       } catch (e) {
@@ -67,8 +68,8 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> googleSignIn() async {
     try {
       final BaseAuth auth = AuthProvider.of(context).auth;
-      final String userEmail = await auth.signInWithGoogle();
-      print(userEmail);
+      final String userId = await auth.signInWithGoogle();
+      print('Signed as $userId');
       widget.onSignedIn();
 
     } catch (e) {
