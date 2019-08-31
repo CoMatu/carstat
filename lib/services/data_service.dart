@@ -114,9 +114,6 @@ class DataService {
           fs.where('userId', isEqualTo: _userId).getDocuments();
       await _userDoc.then((res) {
         docId = res.documents[0].documentID;
-        print('doc Id: $docId');
-        print('car Id: $carId');
-        print('user ID: $_userId');
       });
 
       Future<QuerySnapshot> _carEntries = fs
