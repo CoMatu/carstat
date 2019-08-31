@@ -279,7 +279,6 @@ class _CarCardState extends State<CarCard> {
               controller: _textFieldController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(hintText: "Введите текущий пробег"),
-              // TODO add validator for > 1 mln
             ),
             actions: <Widget>[
               FlatButton(

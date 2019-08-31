@@ -96,7 +96,7 @@ class _DashboardPageState extends State<DashboardPage>
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  AddOperationPage(carId, _entries)));
+                                  AddOperationPage(car, _entries)));
                     }
                   },
                 ),

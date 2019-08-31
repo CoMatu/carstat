@@ -175,6 +175,7 @@ class DataService {
   }
 
   getEntryOperations(String entryId, String carId) async {
+    _userId = await _firebaseAuth.currentUser();
     List<Operation> _operations = [];
     Future<QuerySnapshot> _userDoc =
         fs.where('userId', isEqualTo: _userId).getDocuments();
