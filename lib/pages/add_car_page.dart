@@ -195,7 +195,7 @@ class _AddCarPageState extends State<AddCarPage> {
         formState.save();
 
         var alert = AlertDialog(
-          title: Text("Details"),
+          title: Text('Проверить информацию:'),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[

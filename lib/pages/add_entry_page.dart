@@ -29,7 +29,6 @@ class _AddEntryPageState extends State<AddEntryPage> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: MainAppBar(),
-      drawer: MainDrawer(),
       body: SafeArea(
         top: false,
         bottom: false,

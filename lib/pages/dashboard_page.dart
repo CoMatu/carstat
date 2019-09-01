@@ -10,21 +10,19 @@ import 'package:carstat/services/dashboard_service.dart';
 import 'package:carstat/services/data_service.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'dart:math' as math;
 
 enum IconStatus { Danger, Warning, Norm, NotDeterminate }
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({this.onSignedOut});
+
   final VoidCallback onSignedOut;
 
   @override
   _DashboardPageState createState() => _DashboardPageState();
 }
 
-class _DashboardPageState extends State<DashboardPage>
-    with TickerProviderStateMixin {
-  AnimationController _controller;
+class _DashboardPageState extends State<DashboardPage> {
   IconStatus iconStatus;
   static const List<IconData> icons = const [
     FontAwesomeIcons.tools,
@@ -38,19 +36,7 @@ class _DashboardPageState extends State<DashboardPage>
   String tileMessage;
 
   @override
-  void initState() {
-    _controller = new AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 500),
-    );
-
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    Color backgroundColor = Colors.yellow;
-    Color foregroundColor = Colors.black87;
 
     final Car car = ModalRoute.of(context).settings.arguments;
     final String carId = car.carId;
@@ -62,74 +48,68 @@ class _DashboardPageState extends State<DashboardPage>
 
     return Scaffold(
         drawer: MainDrawer(),
-        floatingActionButton: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: List.generate(icons.length, (int index) {
-            Widget child = Container(
-              height: 70.0,
-              width: 56.0,
-              alignment: FractionalOffset.topCenter,
-              child: ScaleTransition(
-                scale: CurvedAnimation(
-                  parent: _controller,
-                  curve: Interval(0.0, 1.0 - index / icons.length / 2.0,
-                      curve: Curves.easeOut),
-                ),
-                child: FloatingActionButton(
-                  heroTag: null,
-                  backgroundColor: backgroundColor,
-                  mini: true,
-                  child: Icon(
-                    icons[index],
-                    color: foregroundColor,
-                    size: 18,
-                  ),
-                  onPressed: () {
-                    // выбираем куда переход по индексу в списке иконок icons
-                    if (index == 1) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => AddEntryPage(carId)));
-                    } else {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  AddOperationPage(car, _entries)));
-                    }
-                  },
-                ),
-              ),
-            );
-            return child;
-          }).toList()
-            ..add(FloatingActionButton(
-              onPressed: () {
-                if (_controller.isDismissed) {
-                  _controller.forward();
-                } else {
-                  _controller.reverse();
-                }
-              },
-              heroTag: null,
-              child: AnimatedBuilder(
-                  animation: _controller,
-                  builder: (BuildContext context, Widget child) {
-                    return Transform(
-                      transform:
-                          Matrix4.rotationZ(_controller.value * 0.5 * math.pi),
-                      alignment: FractionalOffset.center,
-                      child: Icon(
-                        _controller.isDismissed
-                            ? Icons.add
-                            : FontAwesomeIcons.times,
-                      ),
-                    );
-                  }),
-            )),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            _modalBottomSheet(context, car);
+          },
+          child: Icon(Icons.add),
         ),
         appBar: MainAppBar(),
+        bottomNavigationBar: BottomAppBar(
+          shape: CircularNotchedRectangle(),
+          child: Container(
+            height: 75,
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+/*
+                IconButton(
+                  iconSize: 30.0,
+                  padding: EdgeInsets.only(left: 28.0),
+                  icon: Icon(Icons.home),
+                  onPressed: () {
+                    setState(() {
+//                      _myPage.jumpToPage(0);
+                    });
+                  },
+                ),
+                IconButton(
+                  iconSize: 30.0,
+                  padding: EdgeInsets.only(right: 28.0),
+                  icon: Icon(Icons.search),
+                  onPressed: () {
+                    setState(() {
+//                      _myPage.jumpToPage(1);
+                    });
+                  },
+                ),
+                IconButton(
+                  iconSize: 30.0,
+                  padding: EdgeInsets.only(left: 28.0),
+                  icon: Icon(Icons.notifications),
+                  onPressed: () {
+                    setState(() {
+//                      _myPage.jumpToPage(2);
+                    });
+                  },
+                ),
+                IconButton(
+                  iconSize: 30.0,
+                  padding: EdgeInsets.only(right: 28.0),
+                  icon: Icon(Icons.list),
+                  onPressed: () {
+                    setState(() {
+//                      _myPage.jumpToPage(3);
+                    });
+                  },
+                )
+*/
+              ],
+            ),
+          ),
+        ),
         body: ListView(
           children: <Widget>[
             FutureBuilder(
@@ -287,6 +267,46 @@ class _DashboardPageState extends State<DashboardPage>
         break;
     }
   }
-}
 
-// TODO добавить кнопку "ДОБАВИТЬ НАПОМИНАНИЕ В КАЛЕНДАРЬ"
+  _modalBottomSheet(context, Car car) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext ctx) {
+          return Container(
+            child: Wrap(
+              children: <Widget>[
+                Container(
+                  height: 20.0,
+                ),
+                ListTile(
+                  title: Text('Добавить регламент ТО'),
+                  leading: Icon(FontAwesomeIcons.calendarPlus),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AddEntryPage(car.carId)));
+                  },
+                ),
+                ListTile(
+                  title: Text('Записать операцию ТО'),
+                  leading: Icon(FontAwesomeIcons.tools),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                AddOperationPage(car, _entries)));
+                  },
+                ),
+                Container(
+                  height: 20.0,
+                )
+              ],
+            ),
+          );
+        });
+  }
+}

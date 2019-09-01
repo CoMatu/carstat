@@ -62,15 +62,6 @@ class _CarCardState extends State<CarCard> {
   File _image;
   String _fileName;
 
-/*
-
-  @override
-  void initState() {
-    getImage();
-    super.initState();
-  }
-*/
-
   Future getImage() async {
     _fileName = widget.car.carId + '.png';
     final dir = await getApplicationDocumentsDirectory();
