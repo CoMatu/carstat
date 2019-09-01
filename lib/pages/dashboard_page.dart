@@ -47,7 +47,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
     return Scaffold(
         drawer: MainDrawer(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+//        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             _modalBottomSheet(context, car);
@@ -55,6 +55,7 @@ class _DashboardPageState extends State<DashboardPage> {
           child: Icon(Icons.add),
         ),
         appBar: MainAppBar(),
+/*
         bottomNavigationBar: BottomAppBar(
           shape: CircularNotchedRectangle(),
           child: Container(
@@ -63,6 +64,7 @@ class _DashboardPageState extends State<DashboardPage> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
+*/
 /*
                 IconButton(
                   iconSize: 30.0,
@@ -104,11 +106,13 @@ class _DashboardPageState extends State<DashboardPage> {
                     });
                   },
                 )
-*/
+*//*
+
               ],
             ),
           ),
         ),
+*/
         body: ListView(
           children: <Widget>[
             FutureBuilder(
@@ -299,6 +303,11 @@ class _DashboardPageState extends State<DashboardPage> {
                             builder: (context) =>
                                 AddOperationPage(car, _entries)));
                   },
+                ),
+                ListTile(
+                  title: Text('ОТМЕНА'),
+                  leading: Icon(FontAwesomeIcons.arrowLeft),
+                  onTap: () => Navigator.pop(context),
                 ),
                 Container(
                   height: 20.0,
