@@ -35,16 +35,15 @@ class _DashboardPageState extends State<DashboardPage> {
 
   String tileMessage;
 
+  _getEntries(String carId) async {
+    _entries = await DataService().getEntries(carId);
+    _tiles = await dashboardService.getMarkers(_entries, carId);
+  }
+
   @override
   Widget build(BuildContext context) {
-
     final Car car = ModalRoute.of(context).settings.arguments;
     final String carId = car.carId;
-
-    _getEntries() async {
-      _entries = await DataService().getEntries(carId);
-      _tiles = await dashboardService.getMarkers(_entries, carId);
-    }
 
     return Scaffold(
         drawer: MainDrawer(),
@@ -113,7 +112,7 @@ class _DashboardPageState extends State<DashboardPage> {
         body: ListView(
           children: <Widget>[
             FutureBuilder(
-              future: _getEntries(),
+              future: _getEntries(carId),
               builder: (BuildContext ctx, AsyncSnapshot snapshot) {
                 if (snapshot.connectionState != ConnectionState.done) {
                   return Center(

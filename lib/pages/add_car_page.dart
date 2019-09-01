@@ -21,7 +21,6 @@ class _AddCarPageState extends State<AddCarPage> {
     super.initState();
     _focusNode.addListener(() {
       setState(() {});
-      print('Has focus: $_focusNode.hasFocus');
     });
   }
 

@@ -20,6 +20,7 @@ class _CarsListPageState extends State<CarsListPage> {
   @override
   void initState() {
     dataService.getData().then((results) {
+      isLoaded = false;
       var _count = results.documents.length;
       for (int i = 0; i < _count; i++) {
         Car car = Car();
@@ -41,6 +42,8 @@ class _CarsListPageState extends State<CarsListPage> {
   }
 
   void _updateCarsList() {
+    isLoaded = false;
+
     dataService.getData().then((results) {
       var _count = results.documents.length;
       _cars = [];
@@ -57,6 +60,7 @@ class _CarsListPageState extends State<CarsListPage> {
         car.carName = results.documents[i].data['carName'];
         _cars.add(car);
       }
+      isLoaded = true;
       setState(() {});
     });
   }
