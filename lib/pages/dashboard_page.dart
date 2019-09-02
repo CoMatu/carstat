@@ -106,7 +106,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     });
                   },
                 )
-*//*
+*/ /*
 
               ],
             ),
@@ -276,43 +276,51 @@ class _DashboardPageState extends State<DashboardPage> {
         context: context,
         builder: (BuildContext ctx) {
           return Container(
-            child: Wrap(
-              children: <Widget>[
-                Container(
-                  height: 20.0,
-                ),
-                ListTile(
-                  title: Text('Добавить регламент ТО'),
-                  leading: Icon(FontAwesomeIcons.calendarPlus),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => AddEntryPage(car.carId)));
-                  },
-                ),
-                ListTile(
-                  title: Text('Записать операцию ТО'),
-                  leading: Icon(FontAwesomeIcons.tools),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                AddOperationPage(car, _entries)));
-                  },
-                ),
-                ListTile(
-                  title: Text('ОТМЕНА'),
-                  leading: Icon(FontAwesomeIcons.arrowLeft),
-                  onTap: () => Navigator.pop(context),
-                ),
-                Container(
-                  height: 20.0,
-                )
-              ],
+            color: Color(0xFF737373),
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Theme.of(context).canvasColor,
+                  borderRadius: BorderRadius.only(
+                      topLeft: const Radius.circular(20),
+                      topRight: const Radius.circular(20))),
+              child: Wrap(
+                children: <Widget>[
+                  Container(
+                    height: 20.0,
+                  ),
+                  ListTile(
+                    title: Text('Добавить регламент ТО'),
+                    leading: Icon(FontAwesomeIcons.calendarPlus),
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AddEntryPage(car.carId)));
+                    },
+                  ),
+                  ListTile(
+                    title: Text('Записать операцию ТО'),
+                    leading: Icon(FontAwesomeIcons.tools),
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  AddOperationPage(car, _entries)));
+                    },
+                  ),
+                  ListTile(
+                    title: Text('ОТМЕНА'),
+                    leading: Icon(FontAwesomeIcons.arrowLeft),
+                    onTap: () => Navigator.pop(context),
+                  ),
+                  Container(
+                    height: 10.0,
+                  )
+                ],
+              ),
             ),
           );
         });

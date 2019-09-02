@@ -2,9 +2,7 @@ import 'package:carstat/models/entry.dart';
 import 'package:carstat/services/data_service.dart';
 import 'package:carstat/services/validators/number_validator.dart';
 import 'package:flutter/material.dart';
-
 import 'package:carstat/components/main_appbar.dart';
-import 'package:carstat/components/drawer.dart';
 
 class AddEntryPage extends StatefulWidget {
   final String carId;
