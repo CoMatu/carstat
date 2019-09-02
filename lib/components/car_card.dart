@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:carstat/generated/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -16,13 +17,12 @@ Future<ConfirmAction> _asyncConfirmDialog(
     barrierDismissible: false, // user must tap button for close dialog!
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text('Удалить автомобиль?'),
-        content: const Text(
-            'Вы удалите автомобиль из списка ваших транспортных средств без возможности восстановления'),
+        title: Text(S.of(context).car_card_alert_dialog_title),
+        content: Text(S.of(context).car_card_content_text),
         actions: <Widget>[
           FlatButton(
-            child: const Text(
-              'ОТМЕНА',
+            child: Text(
+              S.of(context).button_cancel,
               style: TextStyle(color: Colors.black),
             ),
             onPressed: () {
@@ -30,8 +30,8 @@ Future<ConfirmAction> _asyncConfirmDialog(
             },
           ),
           FlatButton(
-            child: const Text(
-              'УДАЛИТЬ',
+            child: Text(
+              S.of(context).button_delete,
             ),
             onPressed: () async {
               await dataService.deleteCar(carId).then(

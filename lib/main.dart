@@ -1,3 +1,4 @@
+import 'package:carstat/generated/i18n.dart';
 import 'package:carstat/pages/add_car.dart';
 import 'package:carstat/pages/edit_car_page.dart';
 import 'package:carstat/pages/edit_entry_page.dart';
@@ -29,13 +30,12 @@ class MyApp extends StatelessWidget {
           'edit_entry_page': (context) => EditEntryPage(),
         },
         localizationsDelegates: [
+          S.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
         ],
-        supportedLocales: [
-          const Locale('ru', 'RU'), // include country code too
-        ],
-        title: 'carstat',
+        supportedLocales: S.delegate.supportedLocales,
+        title: 'TurboStat',
         theme: ThemeData(
           primarySwatch: Colors.yellow,
         ),
