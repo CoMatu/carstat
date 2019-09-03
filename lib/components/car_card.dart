@@ -141,6 +141,7 @@ class _CarCardState extends State<CarCard> {
 
   @override
   Widget build(BuildContext context) {
+    String _mileage = widget.car.carMileage.toString();
     return Card(
       elevation: 8,
       child: Column(
@@ -178,7 +179,7 @@ class _CarCardState extends State<CarCard> {
                 Expanded(child: Text(widget.car.carName)),
                 FlatButton(
                   child: Text(
-                    'Изменить',
+                    S.of(context).car_card_change,
                     style: TextStyle(fontSize: 12.0, color: Colors.black26),
                   ),
                   onPressed: () {
@@ -230,9 +231,7 @@ class _CarCardState extends State<CarCard> {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        Text('Пробег: ' +
-                            widget.car.carMileage.toString() +
-                            ' км.'),
+                        Text(S.of(context).car_card_mileage(_mileage)),
                         Container(
                           padding: EdgeInsets.only(left: 8.0),
                           child: GestureDetector(
@@ -269,12 +268,12 @@ class _CarCardState extends State<CarCard> {
             content: TextField(
               controller: _textFieldController,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(hintText: "Введите текущий пробег"),
+              decoration: InputDecoration(hintText: S.of(context).car_card_enter_current_mileage),
             ),
             actions: <Widget>[
               FlatButton(
                 child: Text(
-                  'ОТМЕНА',
+                  S.of(context).button_cancel,
                   style: TextStyle(color: Colors.black),
                 ),
                 onPressed: () {
@@ -283,7 +282,7 @@ class _CarCardState extends State<CarCard> {
               ),
               FlatButton(
                 child: Text(
-                  'СОХРАНИТЬ',
+                  S.of(context).button_save,
                 ),
                 onPressed: () async {
                   await dataService

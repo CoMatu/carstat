@@ -1,8 +1,30 @@
 {
   "button_cancel": "CANCEL",
   "button_delete": "DELETE",
+  "button_save": "SAVE",
 
   "car_card_alert_dialog_title": "Remove a car from the list?",
   "car_card_content_text": "You will remove the car from the list of vehicles without the possibility of recovery",
-  "car_card_no_image_selected": "No image selected"
+  "car_card_no_image_selected": "No image selected",
+  "car_card_mileage": "Mileage: $mileage km",
+  "car_card_enter_current_mileage": "Enter current mileage",
+  "car_card_change": "Change",
+
+  "drawer_not_logged": "Not logged in",
+  "drawer_my_cars": "My cars",
+  "drawer_add_car": "Add car",
+  "drawer_logout": "Logout",
+
+  "form_warning_fill_info": "Fill in the required information",
+  "form_alert_details": "Details",
+  "form_alert_car_name": "Car name: $name",
+  "form_alert_car_mark": "Car mark: $mark",
+  "form_alert_car_model": "Car model: $model",
+  "form_alert_car_year": "Car year: $year",
+  "form_alert_car_mileage": "Mileage: $mileage",
+  "form_initial_my_car": "My Car",
+  "form_validator_car_name": "Please, enter a car name",
+  "form_decorator_car_name": "Choose a car name",
+
+  "add_car_page_description": "On this page you must enter information about your car:"
 }

@@ -1,5 +1,6 @@
 import 'package:carstat/components/drawer.dart';
 import 'package:carstat/components/main_appbar.dart';
+import 'package:carstat/generated/i18n.dart';
 import 'package:carstat/models/car.dart';
 import 'package:carstat/services/data_service.dart';
 import 'package:flutter/material.dart';
@@ -27,27 +28,27 @@ class _AddCarState extends State<AddCar> {
       final FormState formState = _formKey.currentState;
 
       if (!formState.validate()) {
-        showSnackBarMessage('Заполните необходимую информацию');
+        showSnackBarMessage(S.of(context).form_warning_fill_info);
       } else {
         formState.save();
 
         var alert = AlertDialog(
-          title: Text("Details"),
+          title: Text(S.of(context).form_alert_details),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text("Имя авто: ${car.carName}"),
-                Text("Марка: ${car.carMark}"),
-                Text("Модель: ${car.carModel}"),
-                Text("Год выпуска: ${car.carYear}"),
-                Text("Пробег: ${car.carMileage}"),
+                Text(S.of(context).form_alert_car_name(car.carName)),
+                Text(S.of(context).form_alert_car_mark(car.carMark)),
+                Text(S.of(context).form_alert_car_model(car.carModel)),
+                Text(S.of(context).form_alert_car_year(car.carYear.toString())),
+                Text(S.of(context).form_alert_car_mileage(car.carMileage.toString())),
                 Text("VIN: ${car.carVin}"),
               ],
             ),
           ),
           actions: <Widget>[
             FlatButton(
-              child: Text('ОТМЕНА'),
+              child: Text(S.of(context).button_cancel),
               onPressed: () => Navigator.pop(context),
             ),
             FlatButton(
@@ -80,12 +81,12 @@ class _AddCarState extends State<AddCar> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
-                child: Text('На этой странице необходимо ввести информацию о Вашем автомобиле:', style: TextStyle(fontSize: 16.0),),
+                child: Text(S.of(context).add_car_page_description, style: TextStyle(fontSize: 16.0),),
               ),
               TextFormField(
                 focusNode: _focusNode,
                 keyboardType: TextInputType.text,
-                initialValue: 'Моя машина',
+                initialValue: S.of(context).form_initial_my_car,
                 autocorrect: false,
                 onSaved: (String value) {
                   car.carName = value;
@@ -93,12 +94,12 @@ class _AddCarState extends State<AddCar> {
                 maxLines: 1,
                 validator: (value) {
                   if (value.isEmpty || value.length < 1) {
-                    return 'Пожалуйста, введите название';
+                    return S.of(context).form_validator_car_name;
                   }
                   return null;
                 },
                 decoration: InputDecoration(
-                    labelText: 'Придумайте название авто',
+                    labelText: S.of(context).form_decorator_car_name,
                     labelStyle: TextStyle(
                       decorationStyle: TextDecorationStyle.solid,
                     )),
@@ -202,12 +203,12 @@ class _AddCarState extends State<AddCar> {
                       Navigator.pushNamed(context, 'car_list_page');
                     },
                     child: Text(
-                      'ОТМЕНА',
+                      S.of(context).button_cancel,
                       style: TextStyle(color: Colors.red),
                     ),
                   ),
                   FlatButton(
-                    child: Text('СОХРАНИТЬ'),
+                    child: Text(S.of(context).button_save),
                     onPressed: _submitDetails,
                   ),
                 ],

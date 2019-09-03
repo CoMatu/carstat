@@ -21,10 +21,30 @@ class S implements WidgetsLocalizations {
   @override
   TextDirection get textDirection => TextDirection.ltr;
 
+  String get add_car_page_description => "On this page you must enter information about your car:";
   String get button_cancel => "CANCEL";
   String get button_delete => "DELETE";
+  String get button_save => "SAVE";
   String get car_card_alert_dialog_title => "Remove a car from the list?";
+  String get car_card_change => "Change";
   String get car_card_content_text => "You will remove the car from the list of vehicles without the possibility of recovery";
+  String get car_card_enter_current_mileage => "Enter current mileage";
+  String get car_card_no_image_selected => "No image selected";
+  String get drawer_add_car => "Add car";
+  String get drawer_logout => "Logout";
+  String get drawer_my_cars => "My cars";
+  String get drawer_not_logged => "Not logged in";
+  String get form_alert_details => "Details";
+  String get form_decorator_car_name => "Choose a car name";
+  String get form_initial_my_car => "My Car";
+  String get form_validator_car_name => "Please, enter a car name";
+  String get form_warning_fill_info => "Fill in the required information";
+  String car_card_mileage(String mileage) => "Mileage: $mileage km";
+  String form_alert_car_mark(String mark) => "Car mark: $mark";
+  String form_alert_car_mileage(String mileage) => "Mileage: $mileage";
+  String form_alert_car_model(String model) => "Car model: $model";
+  String form_alert_car_name(String name) => "Car name: $name";
+  String form_alert_car_year(String year) => "Car year: $year";
 }
 
 class $ru extends S {
@@ -34,13 +54,53 @@ class $ru extends S {
   TextDirection get textDirection => TextDirection.ltr;
 
   @override
-  String get car_card_alert_dialog_title => "Удалить автомобиль из списка?";
+  String get drawer_my_cars => "Мои автомобили";
+  @override
+  String get form_alert_details => "Детали";
+  @override
+  String get drawer_add_car => "Добавить автомобиль";
   @override
   String get car_card_content_text => "Вы удалите автомобиль из списка транспортных средств без возможности восстановления";
   @override
+  String get form_validator_car_name => "Пожалуйста, введите название";
+  @override
+  String get add_car_page_description => "На этой странице необходимо ввести информацию о Вашем автомобиле:";
+  @override
+  String get button_save => "СОХРАНИТЬ";
+  @override
+  String get form_warning_fill_info => "Заполните необходимую информацию";
+  @override
+  String get form_decorator_car_name => "Придумайте название авто";
+  @override
+  String get car_card_enter_current_mileage => "Введите текущий пробег";
+  @override
+  String get form_initial_my_car => "Моя машина";
+  @override
+  String get car_card_alert_dialog_title => "Удалить автомобиль из списка?";
+  @override
+  String get car_card_change => "Изменить";
+  @override
+  String get car_card_no_image_selected => "Изображение не выбрано";
+  @override
+  String get drawer_logout => "Выход из аккаунта";
+  @override
   String get button_delete => "УДАЛИТЬ";
   @override
+  String get drawer_not_logged => "Вход не выполнен";
+  @override
   String get button_cancel => "ОТМЕНА";
+  @override
+  String form_alert_car_year(String year) => "Год выпуска: $year";
+  @override
+  String form_alert_car_mileage(String mileage) => "Пробег: $mileage";
+  @override
+  String form_alert_car_model(String model) => "Модель: $model";
+  @override
+  String form_alert_car_mark(String mark) => "Марка: $mark";
+  @override
+  String form_alert_car_name(String name) => "Имя: $name";
+  @override
+  String car_card_mileage(String mileage) => "Пробег: $mileage км";
 }
 
 class $en extends S {

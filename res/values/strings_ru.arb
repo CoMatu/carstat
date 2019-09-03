@@ -1,8 +1,31 @@
 {
   "button_cancel": "ОТМЕНА",
   "button_delete": "УДАЛИТЬ",
+  "button_save": "СОХРАНИТЬ",
 
   "car_card_alert_dialog_title": "Удалить автомобиль из списка?",
   "car_card_content_text": "Вы удалите автомобиль из списка транспортных средств без возможности восстановления",
-    "car_card_no_image_selected": "Изображение не выбрано"
+  "car_card_no_image_selected": "Изображение не выбрано",
+  "car_card_mileage": "Пробег: $mileage км",
+  "car_card_enter_current_mileage": "Введите текущий пробег",
+  "car_card_change": "Изменить",
+
+  "drawer_not_logged": "Вход не выполнен",
+  "drawer_my_cars": "Мои автомобили",
+  "drawer_add_car": "Добавить автомобиль",
+  "drawer_logout": "Выход из аккаунта",
+
+  "form_warning_fill_info": "Заполните необходимую информацию",
+  "form_alert_details": "Детали",
+  "form_alert_car_name": "Имя: $name",
+  "form_alert_car_mark": "Марка: $mark",
+  "form_alert_car_model": "Модель: $model",
+  "form_alert_car_year": "Год выпуска: $year",
+  "form_alert_car_mileage": "Пробег: $mileage",
+  "form_initial_my_car": "Моя машина",
+  "form_validator_car_name": "Пожалуйста, введите название",
+  "form_decorator_car_name": "Придумайте название авто",
+
+  "add_car_page_description": "На этой странице необходимо ввести информацию о Вашем автомобиле:"
+
 }

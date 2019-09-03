@@ -1,3 +1,4 @@
+import 'package:carstat/generated/i18n.dart';
 import 'package:carstat/pages/add_car.dart';
 import 'package:carstat/pages/carslist_page.dart';
 import 'package:carstat/pages/start_page.dart';
@@ -44,7 +45,7 @@ class _MainDrawerState extends State<MainDrawer> {
     if (_firebaseUser != null) {
       return _firebaseUser.email;
     } else {
-      return "Вход не выполнен";
+      return S.of(context).drawer_not_logged;
     }
   }
 
@@ -68,7 +69,7 @@ class _MainDrawerState extends State<MainDrawer> {
                         fit: BoxFit.fitWidth)),
               ),
               ListTile(
-                title: Text('Мои автомобили'),
+                title: Text(S.of(context).drawer_my_cars),
                 trailing: Icon(Icons.directions_car),
                 onTap: () async {
                   Navigator.of(context).pop();
@@ -82,7 +83,7 @@ class _MainDrawerState extends State<MainDrawer> {
                 },
               ),
               ListTile(
-                title: Text('Добавить автомобиль'),
+                title: Text(S.of(context).drawer_add_car),
                 trailing: Icon(
                   Icons.add,
                 ),
@@ -106,7 +107,7 @@ class _MainDrawerState extends State<MainDrawer> {
                 children: <Widget>[
                   Divider(),
                   ListTile(
-                      title: Text('Выход из аккаунта'),
+                      title: Text(S.of(context).drawer_logout),
                       trailing: Icon(Icons.exit_to_app),
                       onTap: () async {
                         await _signOut(context);
