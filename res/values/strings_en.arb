@@ -4,4 +4,5 @@
 
   "car_card_alert_dialog_title": "Remove a car from the list?",
   "car_card_content_text": "You will remove the car from the list of vehicles without the possibility of recovery",
+  "car_card_no_image_selected": "No image selected"
 }

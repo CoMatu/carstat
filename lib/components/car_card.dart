@@ -107,7 +107,7 @@ class _CarCardState extends State<CarCard> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          'Изображение не выбрано',
+                          S.of(context).car_card_no_image_selected,
                           style: TextStyle(color: Colors.black26),
                         ),
                       ),
