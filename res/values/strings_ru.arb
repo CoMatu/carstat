@@ -23,8 +23,20 @@
   "form_alert_car_year": "Год выпуска: $year",
   "form_alert_car_mileage": "Пробег: $mileage",
   "form_initial_my_car": "Моя машина",
+
   "form_validator_car_name": "Пожалуйста, введите название",
+  "form_validator_car_mark": "Пожалуйста, введите марку автомобиля",
+  "form_validator_car_model": "Пожалуйста, введите модель авто",
+  "form_validator_car_year": "Пожалуйста, введите год выпуска",
+  "form_validator_car_mileage": "Пожалуйста, введите текущий пробег",
+  "form_validator_car_vin": "Пожалуйста, введите VIN",
+
   "form_decorator_car_name": "Придумайте название авто",
+  "form_decorator_car_mark": "Введите марку автомобиля",
+  "form_decorator_car_model": "Введите модель автомобиля",
+  "form_decorator_car_year": "Введите год выпуска",
+  "form_decorator_car_mileage": "Введите текущий пробег",
+  "form_decorator_car_vin": "Введите VIN",
 
   "add_car_page_description": "На этой странице необходимо ввести информацию о Вашем автомобиле:"
 

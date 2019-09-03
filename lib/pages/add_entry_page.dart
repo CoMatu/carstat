@@ -1,3 +1,4 @@
+import 'package:carstat/generated/i18n.dart';
 import 'package:carstat/models/entry.dart';
 import 'package:carstat/services/data_service.dart';
 import 'package:carstat/services/validators/number_validator.dart';
@@ -54,7 +55,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  Text('Проверка'),
+                  Text(S.of(context).form_switch_check),
                   Switch(
                     value: _forChange,
                     onChanged: (value) {
@@ -63,7 +64,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
                       });
                     },
                   ),
-                  Text('Замена')
+                  Text(S.of(context).form_switch_replacement)
                 ],
               ),
               Container(height: 30),
@@ -92,11 +93,11 @@ class _AddEntryPageState extends State<AddEntryPage> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: Text('ОТМЕНА', style: TextStyle(color: Colors.red),),
+                    child: Text(S.of(context).button_cancel, style: TextStyle(color: Colors.red),),
                   ),
                   FlatButton(
                     onPressed: _submitForm,
-                    child: Text('СОХРАНИТЬ'),
+                    child: Text(S.of(context).button_save),
                   )
                 ],
               )

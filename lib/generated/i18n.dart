@@ -35,9 +35,21 @@ class S implements WidgetsLocalizations {
   String get drawer_my_cars => "My cars";
   String get drawer_not_logged => "Not logged in";
   String get form_alert_details => "Details";
+  String get form_decorator_car_mark => "Enter a car mark";
+  String get form_decorator_car_mileage => "Enter a current mileage";
+  String get form_decorator_car_model => "Enter a car model";
   String get form_decorator_car_name => "Choose a car name";
+  String get form_decorator_car_vin => "Enter a VIN code";
+  String get form_decorator_car_year => "Enter a car year";
   String get form_initial_my_car => "My Car";
+  String get form_switch_check => "Check";
+  String get form_switch_replacement => "Replacement";
+  String get form_validator_car_mark => "Please, enter a car mark";
+  String get form_validator_car_mileage => "Please, enter a current mileage";
+  String get form_validator_car_model => "Please, enter a car model";
   String get form_validator_car_name => "Please, enter a car name";
+  String get form_validator_car_vin => "Please, enter a VIN code";
+  String get form_validator_car_year => "Please, enter a car year";
   String get form_warning_fill_info => "Fill in the required information";
   String car_card_mileage(String mileage) => "Mileage: $mileage km";
   String form_alert_car_mark(String mark) => "Car mark: $mark";
@@ -54,45 +66,65 @@ class $ru extends S {
   TextDirection get textDirection => TextDirection.ltr;
 
   @override
+  String get form_decorator_car_mileage => "Введите текущий пробег";
+  @override
+  String get form_decorator_car_vin => "Введите VIN";
+  @override
   String get drawer_my_cars => "Мои автомобили";
   @override
   String get form_alert_details => "Детали";
   @override
   String get drawer_add_car => "Добавить автомобиль";
   @override
-  String get car_card_content_text => "Вы удалите автомобиль из списка транспортных средств без возможности восстановления";
+  String get form_validator_car_year => "Пожалуйста, введите год выпуска";
   @override
   String get form_validator_car_name => "Пожалуйста, введите название";
   @override
-  String get add_car_page_description => "На этой странице необходимо ввести информацию о Вашем автомобиле:";
+  String get form_decorator_car_mark => "Введите марку автомобиля";
   @override
   String get button_save => "СОХРАНИТЬ";
   @override
-  String get form_warning_fill_info => "Заполните необходимую информацию";
-  @override
   String get form_decorator_car_name => "Придумайте название авто";
   @override
-  String get car_card_enter_current_mileage => "Введите текущий пробег";
+  String get form_validator_car_model => "Пожалуйста, введите модель авто";
   @override
   String get form_initial_my_car => "Моя машина";
   @override
   String get car_card_alert_dialog_title => "Удалить автомобиль из списка?";
   @override
-  String get car_card_change => "Изменить";
+  String get form_validator_car_mileage => "Пожалуйста, введите текущий пробег";
   @override
   String get car_card_no_image_selected => "Изображение не выбрано";
   @override
-  String get drawer_logout => "Выход из аккаунта";
-  @override
   String get button_delete => "УДАЛИТЬ";
+  @override
+  String get form_decorator_car_year => "Введите год выпуска";
+  @override
+  String get car_card_content_text => "Вы удалите автомобиль из списка транспортных средств без возможности восстановления";
+  @override
+  String get add_car_page_description => "На этой странице необходимо ввести информацию о Вашем автомобиле:";
+  @override
+  String get form_warning_fill_info => "Заполните необходимую информацию";
+  @override
+  String get car_card_enter_current_mileage => "Введите текущий пробег";
+  @override
+  String get form_validator_car_mark => "Пожалуйста, введите марку автомобиля";
+  @override
+  String get car_card_change => "Изменить";
+  @override
+  String get form_decorator_car_model => "Введите модель автомобиля";
+  @override
+  String get drawer_logout => "Выход из аккаунта";
   @override
   String get drawer_not_logged => "Вход не выполнен";
   @override
   String get button_cancel => "ОТМЕНА";
   @override
-  String form_alert_car_year(String year) => "Год выпуска: $year";
+  String get form_validator_car_vin => "Пожалуйста, введите VIN";
   @override
   String form_alert_car_mileage(String mileage) => "Пробег: $mileage";
+  @override
+  String form_alert_car_year(String year) => "Год выпуска: $year";
   @override
   String form_alert_car_model(String model) => "Модель: $model";
   @override

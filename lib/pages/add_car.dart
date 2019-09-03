@@ -114,12 +114,12 @@ class _AddCarState extends State<AddCar> {
                 maxLines: 1,
                 validator: (value) {
                   if (value.isEmpty || value.length < 1) {
-                    return 'Пожалуйста, введите марку авто';
+                    return S.of(context).form_validator_car_mark;
                   }
                   return null;
                 },
                 decoration: InputDecoration(
-                  labelText: 'Введите марку автомобиля',
+                  labelText: S.of(context).form_decorator_car_mark,
                 ),
               ),
               TextFormField(
@@ -132,12 +132,12 @@ class _AddCarState extends State<AddCar> {
                 maxLines: 1,
                 validator: (value) {
                   if (value.isEmpty || value.length < 1) {
-                    return 'Пожалуйста, введите модель авто';
+                    return S.of(context).form_validator_car_model;
                   }
                   return null;
                 },
                 decoration: InputDecoration(
-                  labelText: 'Введите модель автомобиля',
+                  labelText: S.of(context).form_validator_car_model,
                 ),
               ),
               TextFormField(
@@ -150,12 +150,12 @@ class _AddCarState extends State<AddCar> {
                 maxLines: 1,
                 validator: (value) {
                   if (value.isEmpty || value.length < 1) {
-                    return 'Пожалуйста, введите год выпуска';
+                    return S.of(context).form_validator_car_year;
                   }
                   return null;
                 },
                 decoration: InputDecoration(
-                  labelText: 'Введите год выпуска',
+                  labelText: S.of(context).form_decorator_car_year,
                 ),
               ),
               TextFormField(
@@ -168,12 +168,12 @@ class _AddCarState extends State<AddCar> {
                 maxLines: 1,
                 validator: (value) {
                   if (value.isEmpty || value.length < 1) {
-                    return 'Пожалуйста, введите текущий пробег';
+                    return S.of(context).form_validator_car_mileage;
                   }
                   return null;
                 },
                 decoration: InputDecoration(
-                  labelText: 'Введите текущий пробег',
+                  labelText: S.of(context).form_decorator_car_mileage,
                 ),
               ),
               TextFormField(
@@ -186,12 +186,12 @@ class _AddCarState extends State<AddCar> {
                 maxLines: 1,
                 validator: (value) {
                   if (value.isEmpty || value.length < 1) {
-                    return 'Пожалуйста, введите VIN';
+                    return S.of(context).form_validator_car_vin;
                   }
                   return null;
                 },
                 decoration: InputDecoration(
-                  labelText: 'Введите VIN',
+                  labelText: S.of(context).form_decorator_car_vin,
                 ),
               ),
               Container(height: 30.0,),

@@ -23,8 +23,21 @@
   "form_alert_car_year": "Car year: $year",
   "form_alert_car_mileage": "Mileage: $mileage",
   "form_initial_my_car": "My Car",
+  "form_switch_replacement": "Replacement",
+  "form_switch_check": "Check",
   "form_validator_car_name": "Please, enter a car name",
+  "form_validator_car_mark": "Please, enter a car mark",
+  "form_validator_car_model": "Please, enter a car model",
+  "form_validator_car_year": "Please, enter a car year",
+  "form_validator_car_mileage": "Please, enter a current mileage",
+  "form_validator_car_vin": "Please, enter a VIN code",
+
   "form_decorator_car_name": "Choose a car name",
+  "form_decorator_car_mark": "Enter a car mark",
+  "form_decorator_car_model": "Enter a car model",
+  "form_decorator_car_year": "Enter a car year",
+  "form_decorator_car_mileage": "Enter a current mileage",
+  "form_decorator_car_vin": "Enter a VIN code",
 
   "add_car_page_description": "On this page you must enter information about your car:"
 }
