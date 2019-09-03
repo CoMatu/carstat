@@ -92,6 +92,8 @@ class $ru extends S {
   @override
   String get car_card_alert_dialog_title => "Удалить автомобиль из списка?";
   @override
+  String get form_switch_check => "Проверка";
+  @override
   String get form_validator_car_mileage => "Пожалуйста, введите текущий пробег";
   @override
   String get car_card_no_image_selected => "Изображение не выбрано";
@@ -115,6 +117,8 @@ class $ru extends S {
   String get form_decorator_car_model => "Введите модель автомобиля";
   @override
   String get drawer_logout => "Выход из аккаунта";
+  @override
+  String get form_switch_replacement => "Замена";
   @override
   String get drawer_not_logged => "Вход не выполнен";
   @override

@@ -23,6 +23,8 @@
   "form_alert_car_year": "Год выпуска: $year",
   "form_alert_car_mileage": "Пробег: $mileage",
   "form_initial_my_car": "Моя машина",
+  "form_switch_replacement": "Замена",
+  "form_switch_check": "Проверка",
 
   "form_validator_car_name": "Пожалуйста, введите название",
   "form_validator_car_mark": "Пожалуйста, введите марку автомобиля",
