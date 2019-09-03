@@ -1,0 +1,7 @@
+{
+  "button_cancel": "CANCEL",
+  "button_delete": "DELETE",
+
+  "car_card_alert_dialog_title": "Remove a car from the list?",
+  "car_card_content_text": "You will remove the car from the list of vehicles without the possibility of recovery",
+}
