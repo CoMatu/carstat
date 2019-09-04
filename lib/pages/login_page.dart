@@ -6,17 +6,16 @@ import 'package:carstat/services/auth_service.dart';
 import 'package:carstat/services/auth_provider.dart';
 
 class EmailFieldValidator {
-  EmailFieldValidator(this.context);
   BuildContext context;
-
+  EmailFieldValidator(this.context);
   String validate(String value) {
     return value.isEmpty ? S.of(context).enter_email : null;
   }
 }
 
 class PasswordFieldValidator {
-  PasswordFieldValidator(this.context);
   BuildContext context;
+  PasswordFieldValidator(this.context);
   String validate(String value) {
     return value.isEmpty ? S.of(context).enter_password : null;
   }
@@ -24,6 +23,7 @@ class PasswordFieldValidator {
 
 class LoginPage extends StatefulWidget {
   const LoginPage({this.onSignedIn, this.onSignedOut});
+
   final VoidCallback onSignedIn;
   final VoidCallback onSignedOut;
 
@@ -38,6 +38,7 @@ enum FormType {
 
 class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> key = GlobalKey<ScaffoldState>();
 
   String _email;
   String _password;
@@ -57,29 +58,38 @@ class _LoginPageState extends State<LoginPage> {
       try {
         final BaseAuth auth = AuthProvider.of(context).auth;
         if (_formType == FormType.login) {
-          final String userId = await auth.signInWithEmailAndPassword(_email, _password);
+          final String userId =
+              await auth.signInWithEmailAndPassword(_email, _password);
           print('Signed in: $userId');
         } else {
-          final String userId = await auth.createUserWithEmailAndPassword(_email, _password);
+          final String userId =
+              await auth.createUserWithEmailAndPassword(_email, _password);
           print('Registered user: $userId');
-
         }
         widget.onSignedIn();
       } catch (e) {
-        print('Error: $e');
+        print('Error with email: $e');
+        _showSnackBar(e);
       }
     }
+  }
+
+  void _showSnackBar(e) {
+    key.currentState.showSnackBar(SnackBar(
+      content: Text(e.toString()),
+      backgroundColor: Colors.red,
+    ));
   }
 
   Future<void> googleSignIn() async {
     try {
       final BaseAuth auth = AuthProvider.of(context).auth;
       final String userId = await auth.signInWithGoogle();
-      print('Signed as $userId');
+      print('Signed with Google as $userId');
       widget.onSignedIn();
-
     } catch (e) {
-      print('Error: $e');
+      print('Error with Google: $e');
+      _showSnackBar(e);
     }
   }
 
@@ -100,30 +110,33 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MainAppBar(),
-      body: ListView(
-        children: <Widget>[
-          Card(
-            margin: EdgeInsets.all(16.0),
-            child: Container(
-              padding: EdgeInsets.all(16.0),
-              child: Form(
-                key: formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: buildInputs() + buildSubmitButtons(),
+      key: key,
+        appBar: MainAppBar(),
+        body: ListView(
+          children: <Widget>[
+            Card(
+              margin: EdgeInsets.all(16.0),
+              child: Container(
+                padding: EdgeInsets.all(16.0),
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: buildInputs() + buildSubmitButtons(),
+                  ),
                 ),
               ),
-            ),
-          )
-        ],
-      )
-    );
+            )
+          ],
+        ));
   }
 
   List<Widget> buildInputs() {
     return <Widget>[
-      Text(S.of(context).login, style: TextStyle(fontWeight: FontWeight.bold),),
+      Text(
+        S.of(context).login,
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
       Divider(),
       TextFormField(
         key: Key('email'),
@@ -144,7 +157,9 @@ class _LoginPageState extends State<LoginPage> {
   List<Widget> buildSubmitButtons() {
     if (_formType == FormType.login) {
       return <Widget>[
-        Container(height: 30.0,),
+        Container(
+          height: 30.0,
+        ),
         RaisedButton(
           key: Key('signIn'),
           child: Text(S.of(context).signin, style: TextStyle()),
@@ -152,26 +167,33 @@ class _LoginPageState extends State<LoginPage> {
           color: Colors.yellow,
           highlightColor: Colors.orange[400],
         ),
-
-        Container(height: 20.0,),
+        Container(
+          height: 20.0,
+        ),
         RaisedButton(
           key: Key('googleSignIn'),
           child: Wrap(
             children: <Widget>[
-              Image.asset('images/google_logo.png', height: 15.0,),
-              Container(width: 10.0,),
+              Image.asset(
+                'images/google_logo.png',
+                height: 15.0,
+              ),
+              Container(
+                width: 10.0,
+              ),
               Text(S.of(context).signin_with_google)
             ],
           ),
-          onPressed: () {
-            googleSignIn();
-          },
+          onPressed: googleSignIn,
           color: Colors.yellow,
         ),
-
-        Container(height: 20.0,),
+        Container(
+          height: 20.0,
+        ),
         RaisedButton(
-          child: Text(S.of(context).registration, ),
+          child: Text(
+            S.of(context).registration,
+          ),
           color: Colors.yellow,
           onPressed: moveToRegister,
         ),
@@ -188,7 +210,8 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
         FlatButton(
-          child: Text(S.of(context).already_have_account, style: TextStyle(fontSize: 14.0, color: Colors.green)),
+          child: Text(S.of(context).already_have_account,
+              style: TextStyle(fontSize: 14.0, color: Colors.green)),
           onPressed: moveToLogin,
         ),
       ];
