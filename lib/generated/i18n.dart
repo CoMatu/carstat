@@ -26,6 +26,7 @@ class S implements WidgetsLocalizations {
   String get add_maintenance_operation => "Write maintenance operation";
   String get add_maintenance_regular => "Add regular maintenance";
   String get add_operation_page_description => "On this page, it is necessary to record the performed inspection or maintenance operation, odometer value, used consumables or spare parts";
+  String get already_have_account => "Already have an account? Sign in";
   String get button_add_car => "ADD CAR";
   String get button_cancel => "CANCEL";
   String get button_delete => "DELETE";
@@ -82,10 +83,14 @@ class S implements WidgetsLocalizations {
   String get form_warning_fill_info => "Fill in the required information";
   String get image_deleted => "Image deleted";
   String get km => " km";
+  String get login => "SIGN IN:";
   String get new_image_info => "* a new image can be selected on the list of your cars page";
   String get odometer => "odometer";
   String get parts => "Parts: ";
   String get password => "Password";
+  String get registration => "CREATE ACCOUNT";
+  String get signin => "SIGN IN";
+  String get signin_with_google => "SIGN IN WITH GOOGLE";
   String get snack_bar_message_warning => "The form is filled incorrectly! Correct the mistakes";
   String get works => "Works: ";
   String car_card_mileage(String mileage) => "Mileage: $mileage km";
@@ -139,6 +144,8 @@ class $ru extends S {
   @override
   String get form_decorator_part_name => "Расходные материалы / запчасти";
   @override
+  String get signin => "ВХОД";
+  @override
   String get car_card_no_image_selected => "Изображение не выбрано";
   @override
   String get form_decorator_value_parts => "Стоимость запчастей";
@@ -166,6 +173,8 @@ class $ru extends S {
   String get parts => "Запчасти:";
   @override
   String get form_decorator_car_model => "Введите модель автомобиля";
+  @override
+  String get registration => "СОЗДАТЬ АККАУНТ";
   @override
   String get form_switch_replacement => "Замена";
   @override
@@ -195,6 +204,8 @@ class $ru extends S {
   @override
   String get button_save => "СОХРАНИТЬ";
   @override
+  String get login => "ВХОД В ПРИЛОЖЕНИЕ:";
+  @override
   String get form_decorator_maintenance_name => "Название проверки или вида ТО";
   @override
   String get form_validator_car_model => "Пожалуйста, введите модель авто";
@@ -223,6 +234,8 @@ class $ru extends S {
   @override
   String get button_add_car => "ДОБАВИТЬ АВТО";
   @override
+  String get already_have_account => "Есть аккаунт? Войти";
+  @override
   String get car_card_enter_current_mileage => "Введите текущий пробег";
   @override
   String get enter_email => "Введите Email";
@@ -236,6 +249,8 @@ class $ru extends S {
   String get new_image_info => "* новую фотографию можно выбрать на странице списка Ваших машин";
   @override
   String get drawer_not_logged => "Вход не выполнен";
+  @override
+  String get signin_with_google => "ВХОД ЧЕРЕЗ GOOGLE";
   @override
   String get form_validator_car_vin => "Пожалуйста, введите VIN";
   @override

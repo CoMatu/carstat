@@ -75,5 +75,10 @@
   "entry_details_page_description": "Эту операцию ТО необходимо выполнять каждые $entryDateLimit2 мес или $entryMileageLimit2 км (в зависимости от того, что наступит раньше)",
   "enter_email": "Введите Email",
   "enter_password": "Введите пароль",
-  "password": "Пароль"
+  "password": "Пароль",
+  "login": "ВХОД В ПРИЛОЖЕНИЕ:",
+  "signin": "ВХОД",
+  "signin_with_google": "ВХОД ЧЕРЕЗ GOOGLE",
+  "registration": "СОЗДАТЬ АККАУНТ",
+  "already_have_account": "Есть аккаунт? Войти"
 }

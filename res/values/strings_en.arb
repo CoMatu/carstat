@@ -75,5 +75,10 @@
   "entry_details_page_description": "This maintenance must be performed every $entryDateLimit2 months or $entryMileageLimit2 kilometers (whichever comes first)",
   "enter_email": "Enter Email",
   "enter_password": "Enter Password",
-  "password": "Password"
+  "password": "Password",
+  "login": "SIGN IN:",
+  "signin": "SIGN IN",
+  "signin_with_google": "SIGN IN WITH GOOGLE",
+  "registration": "CREATE ACCOUNT",
+  "already_have_account": "Already have an account? Sign in"
 }

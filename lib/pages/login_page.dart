@@ -1,7 +1,7 @@
-import 'package:carstat/components/main_appbar.dart';
-import 'package:carstat/generated/i18n.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:carstat/components/main_appbar.dart';
+import 'package:carstat/generated/i18n.dart';
 import 'package:carstat/services/auth_service.dart';
 import 'package:carstat/services/auth_provider.dart';
 
@@ -123,7 +123,7 @@ class _LoginPageState extends State<LoginPage> {
 
   List<Widget> buildInputs() {
     return <Widget>[
-      Text('ВХОД В ПРИЛОЖЕНИЕ:', style: TextStyle(fontWeight: FontWeight.bold),),
+      Text(S.of(context).login, style: TextStyle(fontWeight: FontWeight.bold),),
       Divider(),
       TextFormField(
         key: Key('email'),
@@ -147,7 +147,7 @@ class _LoginPageState extends State<LoginPage> {
         Container(height: 30.0,),
         RaisedButton(
           key: Key('signIn'),
-          child: Text('ВХОД', style: TextStyle()),
+          child: Text(S.of(context).signin, style: TextStyle()),
           onPressed: validateAndSubmit,
           color: Colors.yellow,
           highlightColor: Colors.orange[400],
@@ -160,7 +160,7 @@ class _LoginPageState extends State<LoginPage> {
             children: <Widget>[
               Image.asset('images/google_logo.png', height: 15.0,),
               Container(width: 10.0,),
-              Text('ВХОД ЧЕРЕЗ GOOGLE')
+              Text(S.of(context).signin_with_google)
             ],
           ),
           onPressed: () {
@@ -171,7 +171,7 @@ class _LoginPageState extends State<LoginPage> {
 
         Container(height: 20.0,),
         RaisedButton(
-          child: Text('РЕГИСТРАЦИЯ', ),
+          child: Text(S.of(context).registration, ),
           color: Colors.yellow,
           onPressed: moveToRegister,
         ),
@@ -181,14 +181,14 @@ class _LoginPageState extends State<LoginPage> {
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: RaisedButton(
-            child: Text('ЗАРЕГИСТРИРОВАТЬ', style: TextStyle()),
+            child: Text(S.of(context).registration, style: TextStyle()),
             onPressed: validateAndSubmit,
             color: Colors.yellow,
             highlightColor: Colors.orange[400],
           ),
         ),
         FlatButton(
-          child: Text('Есть аккаунт? Войти', style: TextStyle(fontSize: 14.0, color: Colors.green)),
+          child: Text(S.of(context).already_have_account, style: TextStyle(fontSize: 14.0, color: Colors.green)),
           onPressed: moveToLogin,
         ),
       ];
