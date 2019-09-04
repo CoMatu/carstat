@@ -1,18 +1,24 @@
 import 'package:carstat/components/main_appbar.dart';
+import 'package:carstat/generated/i18n.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:carstat/services/auth_service.dart';
 import 'package:carstat/services/auth_provider.dart';
 
 class EmailFieldValidator {
-  static String validate(String value) {
-    return value.isEmpty ? 'Введите Email' : null;
+  EmailFieldValidator(this.context);
+  BuildContext context;
+
+  String validate(String value) {
+    return value.isEmpty ? S.of(context).enter_email : null;
   }
 }
 
 class PasswordFieldValidator {
-  static String validate(String value) {
-    return value.isEmpty ? 'Введите пароль' : null;
+  PasswordFieldValidator(this.context);
+  BuildContext context;
+  String validate(String value) {
+    return value.isEmpty ? S.of(context).enter_password : null;
   }
 }
 
@@ -122,14 +128,14 @@ class _LoginPageState extends State<LoginPage> {
       TextFormField(
         key: Key('email'),
         decoration: InputDecoration(labelText: 'Email'),
-        validator: EmailFieldValidator.validate,
+        validator: EmailFieldValidator(context).validate,
         onSaved: (String value) => _email = value,
       ),
       TextFormField(
         key: Key('password'),
-        decoration: InputDecoration(labelText: 'Пароль'),
+        decoration: InputDecoration(labelText: S.of(context).password),
         obscureText: true,
-        validator: PasswordFieldValidator.validate,
+        validator: PasswordFieldValidator(context).validate,
         onSaved: (String value) => _password = value,
       ),
     ];

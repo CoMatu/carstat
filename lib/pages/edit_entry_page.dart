@@ -1,4 +1,5 @@
 import 'package:carstat/components/main_appbar.dart';
+import 'package:carstat/generated/i18n.dart';
 import 'package:carstat/models/car.dart';
 import 'package:carstat/models/entry.dart';
 import 'package:carstat/services/data_service.dart';
@@ -44,30 +45,30 @@ class _EditEntryPageState extends State<EditEntryPage> {
               Padding(
                 padding: const EdgeInsets.only(top: 16.0, bottom: 8.0),
                 child: Text(
-                    'Редактировать информацию вида технического обслуживания:'),
+                    S.of(context).edit_entry_page_title),
               ),
               TextFormField(
                 keyboardType: TextInputType.text,
                 initialValue: _entry.entryName,
                 onSaved: (val) => _entry.entryName = val,
-                decoration: const InputDecoration(
-                  labelText: 'Название вида ТО',
+                decoration: InputDecoration(
+                  labelText: S.of(context).form_decorator_maintenance_name,
                 ),
               ),
               TextFormField(
                 keyboardType: TextInputType.text,
                 initialValue: _entry.entryDateLimit.toString(),
                 onSaved: (val) => _entry.entryDateLimit = int.parse(val),
-                decoration: const InputDecoration(
-                  labelText: 'Периодичность выполнения, месяцев',
+                decoration: InputDecoration(
+                  labelText: S.of(context).form_decorator_maintenance_interval,
                 ),
               ),
               TextFormField(
                 keyboardType: TextInputType.text,
                 initialValue: _entry.entryMileageLimit.toString(),
                 onSaved: (val) => _entry.entryMileageLimit = int.parse(val),
-                decoration: const InputDecoration(
-                  labelText: 'Периодичность выполнения, км',
+                decoration: InputDecoration(
+                  labelText: S.of(context).form_decorator_maintenance_interval_km,
                 ),
               ),
               Container(
@@ -81,12 +82,12 @@ class _EditEntryPageState extends State<EditEntryPage> {
                       Navigator.pop(context);
                     },
                     child: Text(
-                      'ОТМЕНА',
+                      S.of(context).button_cancel,
                       style: TextStyle(color: Colors.red),
                     ),
                   ),
                   FlatButton(
-                    child: Text('СОХРАНИТЬ'),
+                    child: Text(S.of(context).button_save),
                     onPressed: () {
                       _submitDetails();
                     },

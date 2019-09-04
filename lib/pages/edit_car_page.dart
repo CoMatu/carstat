@@ -1,7 +1,7 @@
 import 'dart:io';
-
 import 'package:carstat/components/drawer.dart';
 import 'package:carstat/components/main_appbar.dart';
+import 'package:carstat/generated/i18n.dart';
 import 'package:carstat/models/car.dart';
 import 'package:carstat/services/data_service.dart';
 import 'package:flutter/material.dart';
@@ -42,54 +42,54 @@ class _EditCarPageState extends State<EditCarPage> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(top: 16.0, bottom: 8.0),
-                child: Text('Редактировать информацию об авто:'),
+                child: Text(S.of(context).edit_car_page_title),
               ),
               TextFormField(
                 keyboardType: TextInputType.text,
                 initialValue: car.carName,
                 onSaved: (val) => car.carName = val,
-                decoration: const InputDecoration(
-                  labelText: 'Название автомобиля',
+                decoration: InputDecoration(
+                  labelText: S.of(context).form_decorator_car_name,
                 ),
               ),
               TextFormField(
                 keyboardType: TextInputType.text,
                 initialValue: car.carMark,
                 onSaved: (val) => car.carMark = val,
-                decoration: const InputDecoration(
-                  labelText: 'Марка автомобиля',
+                decoration: InputDecoration(
+                  labelText: S.of(context).form_decorator_car_mark,
                 ),
               ),
               TextFormField(
                 keyboardType: TextInputType.text,
                 initialValue: car.carModel,
                 onSaved: (val) => car.carModel = val,
-                decoration: const InputDecoration(
-                  labelText: 'Модель автомобиля',
+                decoration: InputDecoration(
+                  labelText: S.of(context).form_decorator_car_model,
                 ),
               ),
               TextFormField(
                 keyboardType: TextInputType.text,
                 initialValue: car.carYear.toString(),
                 onSaved: (val) => car.carYear = int.parse(val),
-                decoration: const InputDecoration(
-                  labelText: 'Год выпуска',
+                decoration: InputDecoration(
+                  labelText: S.of(context).form_decorator_car_year,
                 ),
               ),
               TextFormField(
                 keyboardType: TextInputType.text,
                 initialValue: car.carVin,
                 onSaved: (val) => car.carVin = val,
-                decoration: const InputDecoration(
-                  labelText: 'VIN',
+                decoration: InputDecoration(
+                  labelText: S.of(context).form_decorator_car_vin,
                 ),
               ),
               Container(height: 20.0,),
               FlatButton(
-                child: Text('Удалить фото', style: TextStyle(color: Colors.red),),
+                child: Text(S.of(context).delete_image, style: TextStyle(color: Colors.red),),
                 onPressed: _deleteImage,
               ),
-              Text('* новую фотографию можно выбрать на странице списка Ваших машин', style: TextStyle(color: Colors.black26),),
+              Text(S.of(context).new_image_info, style: TextStyle(color: Colors.black26),),
               Container(height: 30.0,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -99,12 +99,12 @@ class _EditCarPageState extends State<EditCarPage> {
                       Navigator.pushNamed(context, 'car_list_page');
                     },
                     child: Text(
-                      'ОТМЕНА',
+                      S.of(context).button_cancel,
                       style: TextStyle(color: Colors.red),
                     ),
                   ),
                   FlatButton(
-                    child: Text('СОХРАНИТЬ'),
+                    child: Text(S.of(context).button_save),
                     onPressed: _submitDetails,
                   ),
                 ],
@@ -123,7 +123,7 @@ class _EditCarPageState extends State<EditCarPage> {
     final String path = dir.path + '/' + _fileName;
     final File image = File(path);
 
-    final _snackbar = SnackBar(content: Text('Фотография удалена'), backgroundColor: Colors.orange,);
+    final _snackbar = SnackBar(content: Text(S.of(context).image_deleted), backgroundColor: Colors.orange,);
 
     await image.delete().then((res) {
       _scaffoldKey.currentState.showSnackBar(_snackbar);

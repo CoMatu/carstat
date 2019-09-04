@@ -2,20 +2,18 @@
   "button_cancel": "CANCEL",
   "button_delete": "DELETE",
   "button_save": "SAVE",
+  "button_edit": "EDIT",
   "button_add_car": "ADD CAR",
-
   "car_card_alert_dialog_title": "Remove a car from the list?",
   "car_card_content_text": "You will remove the car from the list of vehicles without the possibility of recovery",
   "car_card_no_image_selected": "No image selected",
   "car_card_mileage": "Mileage: $mileage km",
   "car_card_enter_current_mileage": "Enter current mileage",
   "car_card_change": "Change",
-
   "drawer_not_logged": "Not logged in",
   "drawer_my_cars": "My cars",
   "drawer_add_car": "Add car",
   "drawer_logout": "Logout",
-
   "form_warning_fill_info": "Fill in the required information",
   "form_alert_details": "Details",
   "form_alert_car_name": "Car name: $name",
@@ -34,7 +32,6 @@
   "form_validator_car_vin": "Please, enter a VIN code",
   "form_validator_dot": "Use dot for groups of digits",
   "form_validator_date_format": "Wrong date format",
-
   "form_decorator_car_name": "Choose a car name",
   "form_decorator_car_mark": "Enter a car mark",
   "form_decorator_car_model": "Enter a car model",
@@ -52,12 +49,31 @@
   "form_decorator_date_select": "Select the date",
   "form_decorator_date": "Maintenance date",
   "form_decorator_select_maintenance": "Select maintenance from list",
-
   "snack_bar_message_warning": "The form is filled incorrectly! Correct the mistakes",
-
   "add_car_page_description": "On this page you must enter information about your car:",
-
   "add_entry_page_description": "On this page you must enter the name of the inspection or operation of the vehicle maintenance schedule, as well as the maintenance interval.",
   "add_operation_page_description": "On this page, it is necessary to record the performed inspection or maintenance operation, odometer value, used consumables or spare parts",
-  "car_list_page_warning": "To get started you need to add a car"
+  "car_list_page_warning": "To get started you need to add a car",
+  "dashboard_page_welcome": "Welcome to TurboStat!",
+  "dashboard_page_welcome_thanks": "",
+  "dashboard_page_missed_maintenance": "You missed a maintenance operation, your mileage was over $mileageFromLast km",
+  "dashboard_page_missed_maintenance_days": "You missed a maintenance operation for $daysOver days",
+  "dashboard_page_not_determinate_title": "No maintenance information",
+  "dashboard_page_maintenance_before": "$daysRemain days or $mileageRemain km left before the next maintenance operation",
+  "add_maintenance_regular": "Add regular maintenance",
+  "add_maintenance_operation": "Write maintenance operation",
+  "edit_car_page_title": "Edit car details:",
+  "delete_image": "Delete image",
+  "new_image_info": "* a new image can be selected on the list of your cars page",
+  "image_deleted": "Image deleted",
+  "edit_entry_page_title": "Edit maintenance information",
+  "works": "Works: ",
+  "parts": "Parts: ",
+  "odometer": "odometer",
+  "km": " km",
+  "date": "date",
+  "entry_details_page_description": "This maintenance must be performed every $entryDateLimit2 months or $entryMileageLimit2 kilometers (whichever comes first)",
+  "enter_email": "Enter Email",
+  "enter_password": "Enter Password",
+  "password": "Password"
 }

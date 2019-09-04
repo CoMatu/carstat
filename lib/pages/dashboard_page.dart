@@ -1,5 +1,6 @@
 import 'package:carstat/components/drawer.dart';
 import 'package:carstat/components/main_appbar.dart';
+import 'package:carstat/generated/i18n.dart';
 import 'package:carstat/models/car.dart';
 import 'package:carstat/models/entry.dart';
 import 'package:carstat/models/operation.dart';
@@ -166,9 +167,9 @@ class _DashboardPageState extends State<DashboardPage> {
                 radius: 32.0,
               ),
               title: Text(
-                'Добро пожаловать в TURBOSTAT!',
+                S.of(context).dashboard_page_welcome,
               ),
-              subtitle: Text('Спасибо, что Вы с нами!'),
+              subtitle: Text(S.of(context).dashboard_page_welcome_thanks),
             ),
           ],
         ));
@@ -188,7 +189,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
     if (_tiles.length == 0) {
       iconStatus = IconStatus.NotDeterminate;
-      tileMessage = 'Нет информации о проведении ТО';
+      tileMessage = S.of(context).dashboard_page_not_determinate_title;
     } else {
       _tiles.sort((a, b) {
         return b.operationDate.millisecondsSinceEpoch
@@ -206,18 +207,18 @@ class _DashboardPageState extends State<DashboardPage> {
         // проверка на пробег сверх лимита
         iconStatus = IconStatus.Danger;
         tileMessage =
-            'Вы пропустили операцию ТО, пробег сверх нормы составил $mileageFromLast км';
+            S.of(context).dashboard_page_missed_maintenance(mileageFromLast.toString());
       } else {
         daysFromLast = now.difference(lastDate).inDays;
         if (daysFromLast >= dayLimit) {
           daysOver = daysFromLast - dayLimit;
           iconStatus = IconStatus.Danger;
-          tileMessage = 'Вы пропустили операцию ТО на $daysOver дней';
+          tileMessage = S.of(context).dashboard_page_missed_maintenance_days(daysOver.toString());
         } else {
           daysRemain = dayLimit - daysFromLast;
           mileageRemain = lastMileage + ent.entryMileageLimit - car.carMileage;
           tileMessage =
-              'До следующего ТО осталось $daysRemain дней или $mileageRemain км пробега';
+              S.of(context).dashboard_page_maintenance_before(daysRemain.toString(), mileageRemain.toString());
 
           if (daysRemain <= 30) {
             iconStatus = IconStatus.Warning;
@@ -289,7 +290,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     height: 20.0,
                   ),
                   ListTile(
-                    title: Text('Добавить регламент ТО'),
+                    title: Text(S.of(context).add_maintenance_regular),
                     leading: Icon(FontAwesomeIcons.calendarPlus),
                     onTap: () {
                       Navigator.pop(context);
@@ -300,7 +301,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     },
                   ),
                   ListTile(
-                    title: Text('Записать операцию ТО'),
+                    title: Text(S.of(context).add_maintenance_operation),
                     leading: Icon(FontAwesomeIcons.tools),
                     onTap: () {
                       Navigator.pop(context);
@@ -312,7 +313,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     },
                   ),
                   ListTile(
-                    title: Text('ОТМЕНА'),
+                    title: Text(S.of(context).button_cancel),
                     leading: Icon(FontAwesomeIcons.arrowLeft),
                     onTap: () => Navigator.pop(context),
                   ),

@@ -23,10 +23,13 @@ class S implements WidgetsLocalizations {
 
   String get add_car_page_description => "On this page you must enter information about your car:";
   String get add_entry_page_description => "On this page you must enter the name of the inspection or operation of the vehicle maintenance schedule, as well as the maintenance interval.";
+  String get add_maintenance_operation => "Write maintenance operation";
+  String get add_maintenance_regular => "Add regular maintenance";
   String get add_operation_page_description => "On this page, it is necessary to record the performed inspection or maintenance operation, odometer value, used consumables or spare parts";
   String get button_add_car => "ADD CAR";
   String get button_cancel => "CANCEL";
   String get button_delete => "DELETE";
+  String get button_edit => "EDIT";
   String get button_save => "SAVE";
   String get car_card_alert_dialog_title => "Remove a car from the list?";
   String get car_card_change => "Change";
@@ -34,10 +37,19 @@ class S implements WidgetsLocalizations {
   String get car_card_enter_current_mileage => "Enter current mileage";
   String get car_card_no_image_selected => "No image selected";
   String get car_list_page_warning => "To get started you need to add a car";
+  String get dashboard_page_not_determinate_title => "No maintenance information";
+  String get dashboard_page_welcome => "Welcome to TurboStat!";
+  String get dashboard_page_welcome_thanks => "";
+  String get date => "date";
+  String get delete_image => "Delete image";
   String get drawer_add_car => "Add car";
   String get drawer_logout => "Logout";
   String get drawer_my_cars => "My cars";
   String get drawer_not_logged => "Not logged in";
+  String get edit_car_page_title => "Edit car details:";
+  String get edit_entry_page_title => "Edit maintenance information";
+  String get enter_email => "Enter Email";
+  String get enter_password => "Enter Password";
   String get form_alert_details => "Details";
   String get form_decorator_car_mark => "Enter a car mark";
   String get form_decorator_car_mileage => "Enter a current mileage";
@@ -68,8 +80,19 @@ class S implements WidgetsLocalizations {
   String get form_validator_date_format => "Wrong date format";
   String get form_validator_dot => "Use dot for groups of digits";
   String get form_warning_fill_info => "Fill in the required information";
+  String get image_deleted => "Image deleted";
+  String get km => " km";
+  String get new_image_info => "* a new image can be selected on the list of your cars page";
+  String get odometer => "odometer";
+  String get parts => "Parts: ";
+  String get password => "Password";
   String get snack_bar_message_warning => "The form is filled incorrectly! Correct the mistakes";
+  String get works => "Works: ";
   String car_card_mileage(String mileage) => "Mileage: $mileage km";
+  String dashboard_page_maintenance_before(String daysRemain, String mileageRemain) => "$daysRemain days or $mileageRemain km left before the next maintenance operation";
+  String dashboard_page_missed_maintenance(String mileageFromLast) => "You missed a maintenance operation, your mileage was over $mileageFromLast km";
+  String dashboard_page_missed_maintenance_days(String daysOver) => "You missed a maintenance operation for $daysOver days";
+  String entry_details_page_description(String entryDateLimit2, String entryMileageLimit2) => "This maintenance must be performed every $entryDateLimit2 months or $entryMileageLimit2 kilometers (whichever comes first)";
   String form_alert_car_mark(String mark) => "Car mark: $mark";
   String form_alert_car_mileage(String mileage) => "Mileage: $mileage";
   String form_alert_car_model(String model) => "Car model: $model";
@@ -88,17 +111,25 @@ class $ru extends S {
   @override
   String get form_decorator_date_select => "Выберите дату";
   @override
+  String get date => "дата выполнения";
+  @override
   String get form_decorator_odometer_value => "Текущий пробег, км";
   @override
   String get form_decorator_car_vin => "Введите VIN";
   @override
   String get drawer_my_cars => "Мои автомобили";
   @override
+  String get enter_password => "Введите пароль";
+  @override
   String get form_validator_car_year => "Пожалуйста, введите год выпуска";
   @override
   String get form_decorator_car_name => "Придумайте название авто";
   @override
   String get form_initial_my_car => "Моя машина";
+  @override
+  String get dashboard_page_welcome_thanks => "Спасибо, что Вы с нами!";
+  @override
+  String get password => "Пароль";
   @override
   String get car_card_alert_dialog_title => "Удалить автомобиль из списка?";
   @override
@@ -116,7 +147,11 @@ class $ru extends S {
   @override
   String get form_decorator_car_year => "Введите год выпуска";
   @override
+  String get odometer => "пробег";
+  @override
   String get form_decorator_notes => "Заметки";
+  @override
+  String get dashboard_page_welcome => "Welcome to TurboStat!";
   @override
   String get car_card_content_text => "Вы удалите автомобиль из списка транспортных средств без возможности восстановления";
   @override
@@ -124,11 +159,19 @@ class $ru extends S {
   @override
   String get form_warning_fill_info => "Заполните необходимую информацию";
   @override
+  String get edit_car_page_title => "Редактировать информацию об автомобиле:";
+  @override
+  String get dashboard_page_not_determinate_title => "Нет информации о проведении ТО";
+  @override
+  String get parts => "Запчасти:";
+  @override
   String get form_decorator_car_model => "Введите модель автомобиля";
   @override
   String get form_switch_replacement => "Замена";
   @override
   String get add_entry_page_description => "На этой странице необходимо ввести название проверки или операции регламента технического обслуживания автомобиля, а также периодичность проверки.";
+  @override
+  String get image_deleted => "Фотография удалена";
   @override
   String get button_cancel => "ОТМЕНА";
   @override
@@ -136,9 +179,15 @@ class $ru extends S {
   @override
   String get form_alert_details => "Детали";
   @override
+  String get works => "Работа:";
+  @override
   String get drawer_add_car => "Добавить автомобиль";
   @override
   String get snack_bar_message_warning => "Форма заполнена некорректно! Исправьте ошибки...";
+  @override
+  String get add_maintenance_operation => "Записать операцию ТО";
+  @override
+  String get delete_image => "Удалить фотографию";
   @override
   String get form_validator_car_name => "Пожалуйста, введите название";
   @override
@@ -154,9 +203,13 @@ class $ru extends S {
   @override
   String get form_decorator_value_work => "Стоимость работ";
   @override
+  String get add_maintenance_regular => "Добавить регламент ТО";
+  @override
   String get button_delete => "УДАЛИТЬ";
   @override
   String get form_decorator_maintenance_interval_km => "Периодичность, км";
+  @override
+  String get km => " км";
   @override
   String get add_operation_page_description => "На этой странице необходимо записать выполненную проверку или операцию ТО, показания одометра, использованные расходники или запчасти";
   @override
@@ -164,15 +217,23 @@ class $ru extends S {
   @override
   String get form_decorator_maintenance_interval => "Периодичность, мес";
   @override
+  String get edit_entry_page_title => "Редактировать информацию вида технического обслуживания:";
+  @override
+  String get button_edit => "ИЗМЕНИТЬ";
+  @override
   String get button_add_car => "ДОБАВИТЬ АВТО";
   @override
   String get car_card_enter_current_mileage => "Введите текущий пробег";
+  @override
+  String get enter_email => "Введите Email";
   @override
   String get form_validator_car_mark => "Пожалуйста, введите марку автомобиля";
   @override
   String get car_card_change => "Изменить";
   @override
   String get drawer_logout => "Выход из аккаунта";
+  @override
+  String get new_image_info => "* новую фотографию можно выбрать на странице списка Ваших машин";
   @override
   String get drawer_not_logged => "Вход не выполнен";
   @override
@@ -182,13 +243,21 @@ class $ru extends S {
   @override
   String form_alert_car_year(String year) => "Год выпуска: $year";
   @override
+  String dashboard_page_missed_maintenance(String mileageFromLast) => "Вы пропустили операцию ТО, пробег сверх нормы составил $mileageFromLast км";
+  @override
   String form_alert_car_model(String model) => "Модель: $model";
+  @override
+  String entry_details_page_description(String entryDateLimit2, String entryMileageLimit2) => "Эту операцию ТО необходимо выполнять каждые $entryDateLimit2 мес или $entryMileageLimit2 км (в зависимости от того, что наступит раньше)";
   @override
   String form_alert_car_mark(String mark) => "Марка: $mark";
   @override
   String car_card_mileage(String mileage) => "Пробег: $mileage км";
   @override
   String form_alert_car_mileage(String mileage) => "Пробег: $mileage";
+  @override
+  String dashboard_page_maintenance_before(String daysRemain, String mileageRemain) => "До следующей операции ТО осталось $daysRemain дней или $mileageRemain км";
+  @override
+  String dashboard_page_missed_maintenance_days(String daysOver) => "Вы пропустили операцию ТО на $daysOver дней";
   @override
   String form_alert_car_name(String name) => "Имя: $name";
 }

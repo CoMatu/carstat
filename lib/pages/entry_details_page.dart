@@ -1,6 +1,6 @@
 import 'dart:async';
-
 import 'package:carstat/components/main_appbar.dart';
+import 'package:carstat/generated/i18n.dart';
 import 'package:carstat/models/car.dart';
 import 'package:carstat/models/operation.dart';
 import 'package:carstat/services/data_service.dart';
@@ -26,8 +26,8 @@ Future<ConfirmAction> _asyncConfirmDialog(
             'Вы удалите текущую запись без возможности восстановления'),
         actions: <Widget>[
           FlatButton(
-            child: const Text(
-              'ОТМЕНА',
+            child: Text(
+              S.of(context).button_cancel,
               style: TextStyle(color: Colors.black),
             ),
             onPressed: () {
@@ -35,8 +35,8 @@ Future<ConfirmAction> _asyncConfirmDialog(
             },
           ),
           FlatButton(
-            child: const Text(
-              'УДАЛИТЬ',
+            child: Text(
+              S.of(context).button_delete,
             ),
             onPressed: () async {
               await dataService
@@ -63,8 +63,8 @@ Future<ConfirmAction> _asyncDeleteDialog(BuildContext context,
             'Вы удалите текущую запись и все связанные с ней данные без возможности восстановления'),
         actions: <Widget>[
           FlatButton(
-            child: const Text(
-              'ОТМЕНА',
+            child: Text(
+              S.of(context).button_cancel,
               style: TextStyle(color: Colors.black),
             ),
             onPressed: () {
@@ -72,8 +72,8 @@ Future<ConfirmAction> _asyncDeleteDialog(BuildContext context,
             },
           ),
           FlatButton(
-            child: const Text(
-              'УДАЛИТЬ',
+            child: Text(
+              S.of(context).button_delete,
             ),
             onPressed: () async {
               await dataService.deleteEntry(car.carId, entryId).then((res) =>
@@ -117,13 +117,15 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
 
   @override
   void initState() {
-    initializeDateFormatting("ru_RU", null);
-    _numberFormat = NumberFormat.currency(locale: 'ru_RU');
+    initializeDateFormatting();
+    _numberFormat = NumberFormat.currency();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    int entryDateLimit2 = tile['entry'].entryDateLimit;
+    int entryMileageLimit2 = tile['entry'].entryMileageLimit;
     return Scaffold(
       appBar: MainAppBar(),
 //      drawer: MainDrawer(),
@@ -142,10 +144,9 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                   subtitle: Column(
                     children: <Widget>[
                       Text(
-                        'Эту операцию необходимо выполнять каждые '
-                        '${tile['entry'].entryDateLimit} мес или '
-                        '${tile['entry'].entryMileageLimit} км пробега (в зависимости от '
-                        'того, что наступит раньше)',
+                        S.of(context).entry_details_page_description(
+                            entryDateLimit2.toString(),
+                            entryMileageLimit2.toString()),
                       ),
                     ],
                   ),
@@ -159,12 +160,12 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                             context, dataService, car, tile['entry'].entryId);
                       },
                       child: Text(
-                        'УДАЛИТЬ',
+                        S.of(context).button_delete,
                         style: TextStyle(color: Colors.red),
                       ),
                     ),
                     FlatButton(
-                      child: Text('ИЗМЕНИТЬ'),
+                      child: Text(S.of(context).button_edit),
                       onPressed: () {
                         Navigator.pushNamed(context, 'edit_entry_page',
                             arguments: [tile['entry'], car]);
@@ -195,10 +196,11 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                       TextStyle(fontSize: 8.0, color: Colors.black38);
                   String partPrice =
                       _numberFormat.format(_operns[index].partPrice);
-                  String totalPrice = _numberFormat.format((_operns[index].partPrice +
-                      _operns[index]
-                          .operationPrice));
-                  String operationPrice = _numberFormat.format(_operns[index].operationPrice);
+                  String totalPrice = _numberFormat.format(
+                      (_operns[index].partPrice +
+                          _operns[index].operationPrice));
+                  String operationPrice =
+                      _numberFormat.format(_operns[index].operationPrice);
                   return Card(
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
@@ -218,7 +220,7 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                                             Text(f.format(
                                                 _operns[index].operationDate)),
                                             Text(
-                                              'дата выполнения',
+                                              S.of(context).date,
                                               style: littleTextStyle,
                                             )
                                           ],
@@ -230,9 +232,9 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                                             Text(_operns[index]
                                                     .operationMileage
                                                     .toString() +
-                                                ' км'),
+                                                S.of(context).km),
                                             Text(
-                                              'пробег',
+                                              S.of(context).odometer,
                                               style: littleTextStyle,
                                             ),
                                           ],
@@ -256,7 +258,7 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                                         child: Row(
                                           children: <Widget>[
                                             Text(
-                                              'Запчасти: ',
+                                              S.of(context).parts,
                                               style: littleTextStyle,
                                             ),
                                             Text(
@@ -270,11 +272,11 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                                         child: Row(
                                           children: <Widget>[
                                             Text(
-                                              'Работа: ',
+                                              S.of(context).works,
                                               style: littleTextStyle,
                                             ),
-                                            Text(operationPrice
-                                                  ,
+                                            Text(
+                                              operationPrice,
                                               style: littleTextStyle,
                                             ),
                                           ],
@@ -315,7 +317,9 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                                       flex: 1,
                                       child: Container(
                                         child: Text(
-                                          'Наименование расходных материалов и запчастей',
+                                          S
+                                              .of(context)
+                                              .form_decorator_part_name,
                                           style: littleTextStyle,
                                         ),
                                       ),
@@ -342,7 +346,7 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                                       flex: 1,
                                       child: Container(
                                         child: Text(
-                                          'Заметки:',
+                                          S.of(context).form_decorator_notes,
                                           style: littleTextStyle,
                                         ),
                                       ),
