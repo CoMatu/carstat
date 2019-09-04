@@ -1,3 +1,4 @@
+import 'package:carstat/generated/i18n.dart';
 import 'package:carstat/models/car.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -16,8 +17,7 @@ class AddOperationPage extends StatefulWidget {
   AddOperationPage(this.car, this.entries);
 
   @override
-  _AddOperationPageState createState() =>
-      _AddOperationPageState(car, entries);
+  _AddOperationPageState createState() => _AddOperationPageState(car, entries);
 }
 
 class _AddOperationPageState extends State<AddOperationPage> {
@@ -78,94 +78,91 @@ class _AddOperationPageState extends State<AddOperationPage> {
   @override
   Widget build(BuildContext context) {
     String currentMileage = car.carMileage.toString();
-        return Scaffold(
-          key: _scaffoldKey,
-          appBar: MainAppBar(),
-          body: SafeArea(
-            top: false,
-            bottom: false,
-            child: Form(
-              key: _formKey,
-              autovalidate: true,
-              child: ListView(
-                padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                children: <Widget>[
-                  Container(height: 30),
-                  Text('На этой странице необходимо записать выполненную проверку'
-                      ' или операцию ТО, показания спидометра, использованные '
-                      'расходники или запчасти'),
-                  FormField<String>(
-                    builder: (FormFieldState<String> state) {
-                      return InputDecorator(
-                        decoration: InputDecoration(
-                            labelText: 'Выберите проверку из списка',
-                            labelStyle: TextStyle(fontSize: 22.0)),
-                        isEmpty: _operation.entryId == '',
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton<String>(
-                            value: _operation.entryId,
-                            isDense: true,
-                            isExpanded: true,
-                            onChanged: (String newValue) {
-                              setState(() {
-                                _operation.entryId = newValue;
-                                state.didChange(newValue);
-                              });
-                            },
-                            items: _entries.map((Entry value) {
-                              return DropdownMenuItem<String>(
-                                value: value.entryId,
-                                child: Text(value.entryName),
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                  Container(height: 30),
-                  Row(children: <Widget>[
-                    Expanded(
-                        child: TextFormField(
-                      decoration: InputDecoration(
-    //                        icon: const Icon(Icons.calendar_today),
-                        labelText: 'Дата проверки (операции)',
+    return Scaffold(
+      key: _scaffoldKey,
+      appBar: MainAppBar(),
+      body: SafeArea(
+        top: false,
+        bottom: false,
+        child: Form(
+          key: _formKey,
+          autovalidate: true,
+          child: ListView(
+            padding: const EdgeInsets.symmetric(horizontal: 32.0),
+            children: <Widget>[
+              Container(height: 30),
+              Text(S.of(context).add_operation_page_description),
+              FormField<String>(
+                builder: (FormFieldState<String> state) {
+                  return InputDecorator(
+                    decoration: InputDecoration(
+                        labelText: S.of(context).form_decorator_select_maintenance,
+                        labelStyle: TextStyle(fontSize: 22.0)),
+                    isEmpty: _operation.entryId == '',
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        value: _operation.entryId,
+                        isDense: true,
+                        isExpanded: true,
+                        onChanged: (String newValue) {
+                          setState(() {
+                            _operation.entryId = newValue;
+                            state.didChange(newValue);
+                          });
+                        },
+                        items: _entries.map((Entry value) {
+                          return DropdownMenuItem<String>(
+                            value: value.entryId,
+                            child: Text(value.entryName),
+                          );
+                        }).toList(),
                       ),
-                      controller: _controller,
-                      keyboardType: TextInputType.datetime,
-                      validator: (val) => DateValidator().isValidDate(val)
-                          ? null
-                          : 'Неправильный формат даты',
-                      onSaved: (val) => _operation.operationDate =
-                          DateFormat('dd.MM.yyyy').parseStrict(val),
-                    )),
-                    IconButton(
-                      icon: Icon(Icons.more_horiz),
-                      tooltip: 'Выберите дату',
-                      onPressed: (() {
-                        assert(_controller.text != null);
-                        _chooseDate(context, _controller.text);
-                      }),
                     ),
-                  ]),
-                  Container(height: 30),
-                  TextFormField(
-                    keyboardType: TextInputType.number,
-                    initialValue: currentMileage,
+                  );
+                },
+              ),
+              Container(height: 30),
+              Row(children: <Widget>[
+                Expanded(
+                    child: TextFormField(
+                  decoration: InputDecoration(
+                    //                        icon: const Icon(Icons.calendar_today),
+                    labelText: S.of(context).form_decorator_date,
+                  ),
+                  controller: _controller,
+                  keyboardType: TextInputType.datetime,
+                  validator: (val) => DateValidator().isValidDate(val)
+                      ? null
+                      : S.of(context).form_validator_date_format,
+                  onSaved: (val) => _operation.operationDate =
+                      DateFormat('dd.MM.yyyy').parseStrict(val),
+                )),
+                IconButton(
+                  icon: Icon(Icons.more_horiz),
+                  tooltip: S.of(context).form_decorator_date_select,
+                  onPressed: (() {
+                    assert(_controller.text != null);
+                    _chooseDate(context, _controller.text);
+                  }),
+                ),
+              ]),
+              Container(height: 30),
+              TextFormField(
+                keyboardType: TextInputType.number,
+                initialValue: currentMileage,
                 onSaved: (val) {
                   _operation.operationMileage = int.parse(val);
-                }
-                ,
+                },
                 decoration:
-                    const InputDecoration(labelText: 'Текущий пробег, км'),
+                    InputDecoration(labelText: S.of(context).form_decorator_odometer_value),
               ),
               Container(height: 30),
               TextFormField(
                 keyboardType: TextInputType.text,
                 initialValue: '',
                 onSaved: (val) => _operation.operationPartName = val,
-                decoration: const InputDecoration(
-                    labelText: 'Расходный материал / запчасть'),
+                decoration: InputDecoration(
+                    labelText: S.of(context).form_decorator_part_name),
               ),
               Container(height: 30),
               TextFormField(
@@ -173,12 +170,13 @@ class _AddOperationPageState extends State<AddOperationPage> {
                 initialValue: '0',
                 validator: (value) {
                   if (value.contains(',')) {
-                    return 'Используйте точку . для разрядов';
+                    return S.of(context).form_validator_dot;
                   }
                   return null;
                 },
                 onSaved: (val) => _operation.operationPrice = double.parse(val),
-                decoration: const InputDecoration(labelText: 'Стоимость работ'),
+                decoration: InputDecoration(
+                    labelText: S.of(context).form_decorator_value_work),
               ),
               Container(height: 30),
               TextFormField(
@@ -186,13 +184,13 @@ class _AddOperationPageState extends State<AddOperationPage> {
                 initialValue: '0',
                 validator: (value) {
                   if (value.contains(',')) {
-                    return 'Используйте точку . для разрядов';
+                    return S.of(context).form_validator_dot;
                   }
                   return null;
                 },
                 onSaved: (val) => _operation.partPrice = double.parse(val),
-                decoration:
-                    const InputDecoration(labelText: 'Стоимость запчастей'),
+                decoration: InputDecoration(
+                    labelText: S.of(context).form_decorator_value_parts),
               ),
               Container(height: 30),
               TextFormField(
@@ -200,7 +198,8 @@ class _AddOperationPageState extends State<AddOperationPage> {
                 keyboardType: TextInputType.text,
                 initialValue: '',
                 onSaved: (val) => _operation.operationNote = val,
-                decoration: const InputDecoration(labelText: 'Заметки'),
+                decoration: InputDecoration(
+                    labelText: S.of(context).form_decorator_notes),
               ),
               Container(height: 30),
               Row(
@@ -211,13 +210,13 @@ class _AddOperationPageState extends State<AddOperationPage> {
                       Navigator.pop(context);
                     },
                     child: Text(
-                      'ОТМЕНА',
+                      S.of(context).button_cancel,
                       style: TextStyle(color: Colors.red),
                     ),
                   ),
                   FlatButton(
                     onPressed: _submitForm,
-                    child: Text('СОХРАНИТЬ'),
+                    child: Text(S.of(context).button_save),
                   )
                 ],
               )
@@ -233,7 +232,7 @@ class _AddOperationPageState extends State<AddOperationPage> {
 
     if (!form.validate()) {
       _scaffoldKey.currentState.showSnackBar(SnackBar(
-        content: Text('Форма заполнена некорректно! Исправьте ошибки...'),
+        content: Text(S.of(context).snack_bar_message_warning),
         backgroundColor: Colors.red,
       ));
     } else {
@@ -244,7 +243,6 @@ class _AddOperationPageState extends State<AddOperationPage> {
       Navigator.pop(context);
     }
   }
-
 }
 
 // TODO: сделать изменение пробега при добавлении операций + проверять, чтобы каждый новый пробег был больше предыдущего

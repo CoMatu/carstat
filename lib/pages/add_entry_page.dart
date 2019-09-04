@@ -38,17 +38,13 @@ class _AddEntryPageState extends State<AddEntryPage> {
             padding: const EdgeInsets.symmetric(horizontal: 32.0),
             children: <Widget>[
               Container(height: 30),
-              Text('На этой странице необходимо ввести название проверки или '
-                  'операции регламента технического обслуживания автомобиля, а '
-                  'также периодичность проверки.'),
-              Text('Например,  "Замена моторного масла и масляного фильтра", '
-                  'замена каждые 15000 км или 12 месяцев.'),
+              Text(S.of(context).add_entry_page_description),
               Container(height: 30),
               TextFormField(
                 keyboardType: TextInputType.text,
                 onSaved: (val) => _entry.entryName = val,
-                decoration: const InputDecoration(
-                  labelText: 'Название проверки (операции)',
+                decoration: InputDecoration(
+                  labelText: S.of(context).form_decorator_maintenance_name,
                 ),
               ),
               Container(height: 30,),
@@ -74,7 +70,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
                 validator: (val) => NumberValidator().numberValidator(val),
                 onSaved: (val) => _entry.entryDateLimit = int.parse(val),
                 decoration:
-                    const InputDecoration(labelText: 'Периодичность, месяцев'),
+                    InputDecoration(labelText: S.of(context).form_decorator_maintenance_interval),
               ),
               Container(height: 30),
               TextFormField(
@@ -82,8 +78,8 @@ class _AddEntryPageState extends State<AddEntryPage> {
                 initialValue: '15000',
                 validator: (val) => NumberValidator().numberValidator(val),
                 onSaved: (val) => _entry.entryMileageLimit = int.parse(val),
-                decoration: const InputDecoration(
-                    labelText: 'Периодичность, км'),
+                decoration: InputDecoration(
+                    labelText: S.of(context).form_decorator_maintenance_interval_km),
               ),
               Container(height: 30),
               Row(
@@ -113,7 +109,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
 
     if (!form.validate()) {
       _scaffoldKey.currentState.showSnackBar(SnackBar(
-        content: Text('Форма заполнена некорректно! Исправьте ошибки...'),
+        content: Text(S.of(context).snack_bar_message_warning),
         backgroundColor: Colors.red,
       ));
     } else {

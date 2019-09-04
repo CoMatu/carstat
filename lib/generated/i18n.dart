@@ -22,6 +22,9 @@ class S implements WidgetsLocalizations {
   TextDirection get textDirection => TextDirection.ltr;
 
   String get add_car_page_description => "On this page you must enter information about your car:";
+  String get add_entry_page_description => "On this page you must enter the name of the inspection or operation of the vehicle maintenance schedule, as well as the maintenance interval.";
+  String get add_operation_page_description => "On this page, it is necessary to record the performed inspection or maintenance operation, odometer value, used consumables or spare parts";
+  String get button_add_car => "ADD CAR";
   String get button_cancel => "CANCEL";
   String get button_delete => "DELETE";
   String get button_save => "SAVE";
@@ -30,6 +33,7 @@ class S implements WidgetsLocalizations {
   String get car_card_content_text => "You will remove the car from the list of vehicles without the possibility of recovery";
   String get car_card_enter_current_mileage => "Enter current mileage";
   String get car_card_no_image_selected => "No image selected";
+  String get car_list_page_warning => "To get started you need to add a car";
   String get drawer_add_car => "Add car";
   String get drawer_logout => "Logout";
   String get drawer_my_cars => "My cars";
@@ -41,6 +45,17 @@ class S implements WidgetsLocalizations {
   String get form_decorator_car_name => "Choose a car name";
   String get form_decorator_car_vin => "Enter a VIN code";
   String get form_decorator_car_year => "Enter a car year";
+  String get form_decorator_date => "Maintenance date";
+  String get form_decorator_date_select => "Select the date";
+  String get form_decorator_maintenance_interval => "Maintenance interval, mo";
+  String get form_decorator_maintenance_interval_km => "Maintenance interval, km";
+  String get form_decorator_maintenance_name => "Maintenance title";
+  String get form_decorator_notes => "Notes";
+  String get form_decorator_odometer_value => "Odometer value, km";
+  String get form_decorator_part_name => "Consumables / parts";
+  String get form_decorator_select_maintenance => "Select maintenance from list";
+  String get form_decorator_value_parts => "Value of parts";
+  String get form_decorator_value_work => "Value of work";
   String get form_initial_my_car => "My Car";
   String get form_switch_check => "Check";
   String get form_switch_replacement => "Replacement";
@@ -50,7 +65,10 @@ class S implements WidgetsLocalizations {
   String get form_validator_car_name => "Please, enter a car name";
   String get form_validator_car_vin => "Please, enter a VIN code";
   String get form_validator_car_year => "Please, enter a car year";
+  String get form_validator_date_format => "Wrong date format";
+  String get form_validator_dot => "Use dot for groups of digits";
   String get form_warning_fill_info => "Fill in the required information";
+  String get snack_bar_message_warning => "The form is filled incorrectly! Correct the mistakes";
   String car_card_mileage(String mileage) => "Mileage: $mileage km";
   String form_alert_car_mark(String mark) => "Car mark: $mark";
   String form_alert_car_mileage(String mileage) => "Mileage: $mileage";
@@ -68,25 +86,17 @@ class $ru extends S {
   @override
   String get form_decorator_car_mileage => "Введите текущий пробег";
   @override
+  String get form_decorator_date_select => "Выберите дату";
+  @override
+  String get form_decorator_odometer_value => "Текущий пробег, км";
+  @override
   String get form_decorator_car_vin => "Введите VIN";
   @override
   String get drawer_my_cars => "Мои автомобили";
   @override
-  String get form_alert_details => "Детали";
-  @override
-  String get drawer_add_car => "Добавить автомобиль";
-  @override
   String get form_validator_car_year => "Пожалуйста, введите год выпуска";
   @override
-  String get form_validator_car_name => "Пожалуйста, введите название";
-  @override
-  String get form_decorator_car_mark => "Введите марку автомобиля";
-  @override
-  String get button_save => "СОХРАНИТЬ";
-  @override
   String get form_decorator_car_name => "Придумайте название авто";
-  @override
-  String get form_validator_car_model => "Пожалуйста, введите модель авто";
   @override
   String get form_initial_my_car => "Моя машина";
   @override
@@ -96,11 +106,17 @@ class $ru extends S {
   @override
   String get form_validator_car_mileage => "Пожалуйста, введите текущий пробег";
   @override
+  String get form_decorator_part_name => "Расходные материалы / запчасти";
+  @override
   String get car_card_no_image_selected => "Изображение не выбрано";
   @override
-  String get button_delete => "УДАЛИТЬ";
+  String get form_decorator_value_parts => "Стоимость запчастей";
+  @override
+  String get form_validator_dot => "Используйте точку для групп разрядов";
   @override
   String get form_decorator_car_year => "Введите год выпуска";
+  @override
+  String get form_decorator_notes => "Заметки";
   @override
   String get car_card_content_text => "Вы удалите автомобиль из списка транспортных средств без возможности восстановления";
   @override
@@ -108,25 +124,61 @@ class $ru extends S {
   @override
   String get form_warning_fill_info => "Заполните необходимую информацию";
   @override
+  String get form_decorator_car_model => "Введите модель автомобиля";
+  @override
+  String get form_switch_replacement => "Замена";
+  @override
+  String get add_entry_page_description => "На этой странице необходимо ввести название проверки или операции регламента технического обслуживания автомобиля, а также периодичность проверки.";
+  @override
+  String get button_cancel => "ОТМЕНА";
+  @override
+  String get form_decorator_select_maintenance => "Выберите проверку из списка";
+  @override
+  String get form_alert_details => "Детали";
+  @override
+  String get drawer_add_car => "Добавить автомобиль";
+  @override
+  String get snack_bar_message_warning => "Форма заполнена некорректно! Исправьте ошибки...";
+  @override
+  String get form_validator_car_name => "Пожалуйста, введите название";
+  @override
+  String get form_decorator_car_mark => "Введите марку автомобиля";
+  @override
+  String get button_save => "СОХРАНИТЬ";
+  @override
+  String get form_decorator_maintenance_name => "Название проверки или вида ТО";
+  @override
+  String get form_validator_car_model => "Пожалуйста, введите модель авто";
+  @override
+  String get form_validator_date_format => "Неправильный формат даты";
+  @override
+  String get form_decorator_value_work => "Стоимость работ";
+  @override
+  String get button_delete => "УДАЛИТЬ";
+  @override
+  String get form_decorator_maintenance_interval_km => "Периодичность, км";
+  @override
+  String get add_operation_page_description => "На этой странице необходимо записать выполненную проверку или операцию ТО, показания одометра, использованные расходники или запчасти";
+  @override
+  String get car_list_page_warning => "Для начала работы с программой нужно добавить хотя бы один автомобиль";
+  @override
+  String get form_decorator_maintenance_interval => "Периодичность, мес";
+  @override
+  String get button_add_car => "ДОБАВИТЬ АВТО";
+  @override
   String get car_card_enter_current_mileage => "Введите текущий пробег";
   @override
   String get form_validator_car_mark => "Пожалуйста, введите марку автомобиля";
   @override
   String get car_card_change => "Изменить";
   @override
-  String get form_decorator_car_model => "Введите модель автомобиля";
-  @override
   String get drawer_logout => "Выход из аккаунта";
-  @override
-  String get form_switch_replacement => "Замена";
   @override
   String get drawer_not_logged => "Вход не выполнен";
   @override
-  String get button_cancel => "ОТМЕНА";
-  @override
   String get form_validator_car_vin => "Пожалуйста, введите VIN";
   @override
-  String form_alert_car_mileage(String mileage) => "Пробег: $mileage";
+  String get form_decorator_date => "Дата проверки (операции)";
   @override
   String form_alert_car_year(String year) => "Год выпуска: $year";
   @override
@@ -134,9 +186,11 @@ class $ru extends S {
   @override
   String form_alert_car_mark(String mark) => "Марка: $mark";
   @override
-  String form_alert_car_name(String name) => "Имя: $name";
-  @override
   String car_card_mileage(String mileage) => "Пробег: $mileage км";
+  @override
+  String form_alert_car_mileage(String mileage) => "Пробег: $mileage";
+  @override
+  String form_alert_car_name(String name) => "Имя: $name";
 }
 
 class $en extends S {

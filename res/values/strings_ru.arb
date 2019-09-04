@@ -40,6 +40,23 @@
   "form_decorator_car_mileage": "Введите текущий пробег",
   "form_decorator_car_vin": "Введите VIN",
 
-  "add_car_page_description": "На этой странице необходимо ввести информацию о Вашем автомобиле:"
-
+  "add_car_page_description": "На этой странице необходимо ввести информацию о Вашем автомобиле:",
+  "snack_bar_message_warning": "Форма заполнена некорректно! Исправьте ошибки...",
+  "form_decorator_maintenance_interval": "Периодичность, мес",
+  "form_decorator_maintenance_interval_km": "Периодичность, км",
+  "form_decorator_maintenance_name": "Название проверки или вида ТО",
+  "add_entry_page_description": "На этой странице необходимо ввести название проверки или операции регламента технического обслуживания автомобиля, а также периодичность проверки.",
+  "form_decorator_notes": "Заметки",
+  "form_decorator_value_work": "Стоимость работ",
+  "form_decorator_value_parts": "Стоимость запчастей",
+  "form_validator_dot": "Используйте точку для групп разрядов",
+  "form_decorator_part_name": "Расходные материалы / запчасти",
+  "form_decorator_odometer_value": "Текущий пробег, км",
+  "form_decorator_date_select": "Выберите дату",
+  "form_validator_date_format": "Неправильный формат даты",
+  "form_decorator_date": "Дата проверки (операции)",
+  "form_decorator_select_maintenance": "Выберите проверку из списка",
+  "add_operation_page_description": "На этой странице необходимо записать выполненную проверку или операцию ТО, показания одометра, использованные расходники или запчасти",
+  "button_add_car": "ДОБАВИТЬ АВТО",
+  "car_list_page_warning": "Для начала работы с программой нужно добавить хотя бы один автомобиль"
 }

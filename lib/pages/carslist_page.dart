@@ -1,6 +1,7 @@
 import 'package:carstat/components/car_card.dart';
 import 'package:carstat/components/drawer.dart';
 import 'package:carstat/components/main_appbar.dart';
+import 'package:carstat/generated/i18n.dart';
 import 'package:carstat/models/car.dart';
 import 'package:flutter/material.dart';
 import 'package:carstat/services/data_service.dart';
@@ -91,12 +92,11 @@ class _CarsListPageState extends State<CarsListPage> {
             margin: EdgeInsets.all(16.0),
             child: ListTile(
               title: Text(
-                'Для начала работы с программой Вам нужно добавить '
-                    'хотя бы один автомобиль:',
+                S.of(context).car_list_page_warning,
                 style: TextStyle(fontSize: 20),
               ),
               subtitle: RaisedButton(
-                child: Text('ДОБАВИТЬ АВТО'),
+                child: Text(S.of(context).button_add_car),
                 onPressed: () {
                   Navigator.pushNamed(context, 'add_car_page');
                 },

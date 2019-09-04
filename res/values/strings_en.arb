@@ -2,6 +2,7 @@
   "button_cancel": "CANCEL",
   "button_delete": "DELETE",
   "button_save": "SAVE",
+  "button_add_car": "ADD CAR",
 
   "car_card_alert_dialog_title": "Remove a car from the list?",
   "car_card_content_text": "You will remove the car from the list of vehicles without the possibility of recovery",
@@ -31,6 +32,8 @@
   "form_validator_car_year": "Please, enter a car year",
   "form_validator_car_mileage": "Please, enter a current mileage",
   "form_validator_car_vin": "Please, enter a VIN code",
+  "form_validator_dot": "Use dot for groups of digits",
+  "form_validator_date_format": "Wrong date format",
 
   "form_decorator_car_name": "Choose a car name",
   "form_decorator_car_mark": "Enter a car mark",
@@ -38,6 +41,23 @@
   "form_decorator_car_year": "Enter a car year",
   "form_decorator_car_mileage": "Enter a current mileage",
   "form_decorator_car_vin": "Enter a VIN code",
+  "form_decorator_maintenance_interval": "Maintenance interval, mo",
+  "form_decorator_maintenance_interval_km": "Maintenance interval, km",
+  "form_decorator_maintenance_name": "Maintenance title",
+  "form_decorator_notes": "Notes",
+  "form_decorator_value_work": "Value of work",
+  "form_decorator_value_parts": "Value of parts",
+  "form_decorator_part_name": "Consumables / parts",
+  "form_decorator_odometer_value": "Odometer value, km",
+  "form_decorator_date_select": "Select the date",
+  "form_decorator_date": "Maintenance date",
+  "form_decorator_select_maintenance": "Select maintenance from list",
 
-  "add_car_page_description": "On this page you must enter information about your car:"
+  "snack_bar_message_warning": "The form is filled incorrectly! Correct the mistakes",
+
+  "add_car_page_description": "On this page you must enter information about your car:",
+
+  "add_entry_page_description": "On this page you must enter the name of the inspection or operation of the vehicle maintenance schedule, as well as the maintenance interval.",
+  "add_operation_page_description": "On this page, it is necessary to record the performed inspection or maintenance operation, odometer value, used consumables or spare parts",
+  "car_list_page_warning": "To get started you need to add a car"
 }
