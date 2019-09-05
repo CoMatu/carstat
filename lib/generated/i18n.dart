@@ -158,7 +158,7 @@ class $ru extends S {
   @override
   String get form_decorator_notes => "Заметки";
   @override
-  String get dashboard_page_welcome => "Welcome to TurboStat!";
+  String get dashboard_page_welcome => "Добро пожаловать в TurboStat!";
   @override
   String get car_card_content_text => "Вы удалите автомобиль из списка транспортных средств без возможности восстановления";
   @override

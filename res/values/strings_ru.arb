@@ -53,7 +53,7 @@
   "add_operation_page_description": "На этой странице необходимо записать выполненную проверку или операцию ТО, показания одометра, использованные расходники или запчасти",
   "button_add_car": "ДОБАВИТЬ АВТО",
   "car_list_page_warning": "Для начала работы с программой нужно добавить хотя бы один автомобиль",
-  "dashboard_page_welcome": "Welcome to TurboStat!",
+  "dashboard_page_welcome": "Добро пожаловать в TurboStat!",
   "dashboard_page_welcome_thanks": "Спасибо, что Вы с нами!",
   "dashboard_page_not_determinate_title": "Нет информации о проведении ТО",
   "dashboard_page_missed_maintenance": "Вы пропустили операцию ТО, пробег сверх нормы составил $mileageFromLast км",
