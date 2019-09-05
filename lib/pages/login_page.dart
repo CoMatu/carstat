@@ -218,5 +218,4 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 }
-
 // TODO возвращать ошибку авторизации если пользователь не найден
