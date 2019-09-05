@@ -30,7 +30,7 @@ class _DashboardPageState extends State<DashboardPage> {
     FontAwesomeIcons.calendarPlus,
   ];
   DashboardService dashboardService = DashboardService();
-  static List<Entry> _entries = [];
+  List<Entry> _entries = [];
   static var _tiles;
   var now = DateTime.now();
 
@@ -43,9 +43,9 @@ class _DashboardPageState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
-    final Car car = ModalRoute.of(context).settings.arguments;
-    final String carId = car.carId;
-
+    Car car = ModalRoute.of(context).settings.arguments;
+    String carId = car.carId;
+print('Вылавливаем carID $carId');
     return Scaffold(
         drawer: MainDrawer(),
 //        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
