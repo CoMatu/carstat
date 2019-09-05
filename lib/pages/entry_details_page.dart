@@ -118,7 +118,6 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
   @override
   void initState() {
     initializeDateFormatting();
-    _numberFormat = NumberFormat.currency();
     super.initState();
   }
 
@@ -126,6 +125,9 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
   Widget build(BuildContext context) {
     int entryDateLimit2 = tile['entry'].entryDateLimit;
     int entryMileageLimit2 = tile['entry'].entryMileageLimit;
+    Locale myLocale = Localizations.localeOf(context);
+    _numberFormat = NumberFormat.simpleCurrency(locale: myLocale.languageCode);
+
     return Scaffold(
       appBar: MainAppBar(),
 //      drawer: MainDrawer(),
