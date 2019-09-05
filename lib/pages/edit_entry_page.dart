@@ -2,6 +2,7 @@ import 'package:carstat/components/main_appbar.dart';
 import 'package:carstat/generated/i18n.dart';
 import 'package:carstat/models/car.dart';
 import 'package:carstat/models/entry.dart';
+import 'package:carstat/pages/dashboard_page.dart';
 import 'package:carstat/services/data_service.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +23,7 @@ class _EditEntryPageState extends State<EditEntryPage> {
     formState.save();
 
     _dataService.updateEntry(_car, _entry).then((_){
-      Navigator.pushNamed(context, 'dashboard_page', arguments: _car);
+      Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardPage(_car)));
     }
     );
   }
