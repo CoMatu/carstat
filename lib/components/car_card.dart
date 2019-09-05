@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:carstat/generated/i18n.dart';
+import 'package:carstat/pages/dashboard_page.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -170,8 +171,10 @@ class _CarCardState extends State<CarCard> {
           ),
           ListTile(
             onTap: () {
-              Navigator.pushNamed(context, 'dashboard_page',
-                  arguments: widget.car);
+              Navigator.of(context).pop();
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => DashboardPage(widget.car)
+              ));
             },
             title: Row(
               mainAxisSize: MainAxisSize.max,

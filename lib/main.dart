@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:carstat/pages/start_page.dart';
-import 'package:carstat/pages/dashboard_page.dart';
 import 'package:carstat/pages/carslist_page.dart';
 import 'package:carstat/services/auth_provider.dart';
 import 'package:carstat/services/auth_service.dart';
@@ -23,7 +22,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         routes: {
           'start_page': (context) => StartPage(),
-          'dashboard_page': (context) => DashboardPage(),
+//          'dashboard_page': (context) => DashboardPage(),
           'car_list_page': (context) => CarsListPage(),
           'add_car_page': (context) => AddCar(),
           'edit_car_page': (context) => EditCarPage(),

@@ -131,7 +131,7 @@ class DataService {
           entry.entryDateLimit = res.documents[i].data['entryDateLimit'];
           entry.forChange = res.documents[i].data['forChange'];
           entry.entryId = res.documents[i].data['entryId'];
-          print(entry.entryName);
+          print(entry.entryName); // print for debugging
           _entriesList.add(entry);
         }
       });

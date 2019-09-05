@@ -75,6 +75,7 @@ class _MainDrawerState extends State<MainDrawer> {
                   Navigator.of(context).pop();
                   var user = await MainDrawer.auth.currentUser();
                   if (user != null) {
+                    Navigator.of(context).pop();
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -91,6 +92,7 @@ class _MainDrawerState extends State<MainDrawer> {
                   Navigator.of(context).pop();
                   var user = await MainDrawer.auth.currentUser();
                   if (user != null) {
+                    Navigator.of(context).pop();
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => AddCar()));
                   }

@@ -15,12 +15,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 enum IconStatus { Danger, Warning, Norm, NotDeterminate }
 
 class DashboardPage extends StatefulWidget {
-  const DashboardPage({this.onSignedOut});
+  DashboardPage(this.car, {this.onSignedOut});
 
+  final Car car;
   final VoidCallback onSignedOut;
 
   @override
-  _DashboardPageState createState() => _DashboardPageState();
+  _DashboardPageState createState() => _DashboardPageState(car);
 }
 
 class _DashboardPageState extends State<DashboardPage> {
@@ -35,6 +36,16 @@ class _DashboardPageState extends State<DashboardPage> {
   var now = DateTime.now();
 
   String tileMessage;
+  Car car;
+  String carId;
+
+  _DashboardPageState(this.car);
+
+  @override
+  void initState() {
+    carId = car.carId;
+    super.initState();
+  }
 
   _getEntries(String carId) async {
     _entries = await DataService().getEntries(carId);
@@ -43,9 +54,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
-    Car car = ModalRoute.of(context).settings.arguments;
-    String carId = car.carId;
-print('Вылавливаем carID $carId');
+//    Car car = ModalRoute.of(context).settings.arguments;
     return Scaffold(
         drawer: MainDrawer(),
 //        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -206,19 +215,22 @@ print('Вылавливаем carID $carId');
       if (mileageFromLast >= ent.entryMileageLimit) {
         // проверка на пробег сверх лимита
         iconStatus = IconStatus.Danger;
-        tileMessage =
-            S.of(context).dashboard_page_missed_maintenance(mileageFromLast.toString());
+        tileMessage = S
+            .of(context)
+            .dashboard_page_missed_maintenance(mileageFromLast.toString());
       } else {
         daysFromLast = now.difference(lastDate).inDays;
         if (daysFromLast >= dayLimit) {
           daysOver = daysFromLast - dayLimit;
           iconStatus = IconStatus.Danger;
-          tileMessage = S.of(context).dashboard_page_missed_maintenance_days(daysOver.toString());
+          tileMessage = S
+              .of(context)
+              .dashboard_page_missed_maintenance_days(daysOver.toString());
         } else {
           daysRemain = dayLimit - daysFromLast;
           mileageRemain = lastMileage + ent.entryMileageLimit - car.carMileage;
-          tileMessage =
-              S.of(context).dashboard_page_maintenance_before(daysRemain.toString(), mileageRemain.toString());
+          tileMessage = S.of(context).dashboard_page_maintenance_before(
+              daysRemain.toString(), mileageRemain.toString());
 
           if (daysRemain <= 30) {
             iconStatus = IconStatus.Warning;
