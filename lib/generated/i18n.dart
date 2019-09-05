@@ -33,7 +33,7 @@ class S implements WidgetsLocalizations {
   String get button_edit => "EDIT";
   String get button_save => "SAVE";
   String get car_card_alert_dialog_title => "Remove a car from the list?";
-  String get car_card_change => "Change";
+  String get car_card_change => "Edit";
   String get car_card_content_text => "You will remove the car from the list of vehicles without the possibility of recovery";
   String get car_card_enter_current_mileage => "Enter current mileage";
   String get car_card_no_image_selected => "No image selected";
