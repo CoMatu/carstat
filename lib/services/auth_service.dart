@@ -21,16 +21,16 @@ class AuthService implements BaseAuth {
   @override
   Future<String> signInWithEmailAndPassword(
       String email, String password) async {
-    final FirebaseUser user = await _firebaseAuth.signInWithEmailAndPassword(
-        email: email, password: password);
+    final FirebaseUser user = (await _firebaseAuth.signInWithEmailAndPassword(
+        email: email, password: password)).user;
     return user?.uid;
   }
 
   @override
   Future<String> createUserWithEmailAndPassword(
       String email, String password) async {
-    final FirebaseUser user = await _firebaseAuth
-        .createUserWithEmailAndPassword(email: email, password: password);
+    final FirebaseUser user = (await _firebaseAuth
+        .createUserWithEmailAndPassword(email: email, password: password)).user;
     return user?.uid;
   }
 
@@ -51,7 +51,7 @@ class AuthService implements BaseAuth {
     GoogleSignInAuthentication gSA = await googleSignInAccount.authentication;
     final AuthCredential credential = GoogleAuthProvider.getCredential(
         idToken: gSA.idToken, accessToken: gSA.accessToken);
-    final FirebaseUser user = await _firebaseAuth.signInWithCredential(credential);
+    final FirebaseUser user = (await _firebaseAuth.signInWithCredential(credential)).user;
     print('Выполнен вход как ${user.displayName}');
 
     return user?.uid;

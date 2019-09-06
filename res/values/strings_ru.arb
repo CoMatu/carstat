@@ -80,5 +80,7 @@
   "signin": "ВХОД",
   "signin_with_google": "ВХОД ЧЕРЕЗ GOOGLE",
   "registration": "СОЗДАТЬ АККАУНТ",
-  "already_have_account": "Есть аккаунт? Войти"
+  "already_have_account": "Есть аккаунт? Войти",
+  "delete_entry_operation": "Удалить запись?",
+  "delete_entry_operation_warning": "Вы удалите текущую запись без возможности восстановления"
 }

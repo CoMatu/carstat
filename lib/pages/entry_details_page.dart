@@ -21,9 +21,9 @@ Future<ConfirmAction> _asyncConfirmDialog(
     barrierDismissible: false, // user must tap button for close dialog!
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text('Удалить запись?'),
-        content: const Text(
-            'Вы удалите текущую запись без возможности восстановления'),
+        title: Text(S.of(context).delete_entry_operation),
+        content: Text(
+            S.of(context).delete_entry_operation_warning),
         actions: <Widget>[
           FlatButton(
             child: Text(
@@ -58,9 +58,9 @@ Future<ConfirmAction> _asyncDeleteDialog(BuildContext context,
     barrierDismissible: false, // user must tap button for close dialog!
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text('Удалить запись?'),
-        content: const Text(
-            'Вы удалите текущую запись и все связанные с ней данные без возможности восстановления'),
+        title: Text(S.of(context).delete_entry_operation),
+        content: Text(
+            S.of(context).delete_entry_operation_warning),
         actions: <Widget>[
           FlatButton(
             child: Text(

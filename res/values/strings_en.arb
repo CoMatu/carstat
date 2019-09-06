@@ -80,5 +80,7 @@
   "signin": "SIGN IN",
   "signin_with_google": "SIGN IN WITH GOOGLE",
   "registration": "CREATE ACCOUNT",
-  "already_have_account": "Already have an account? Sign in"
+  "already_have_account": "Already have an account? Sign in",
+  "delete_entry_operation": "Delete record?",
+  "delete_entry_operation_warning": "You will delete the current record without the possibility of recovery"
 }

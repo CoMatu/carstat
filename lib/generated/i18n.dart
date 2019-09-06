@@ -42,6 +42,8 @@ class S implements WidgetsLocalizations {
   String get dashboard_page_welcome => "Welcome to TurboStat!";
   String get dashboard_page_welcome_thanks => "";
   String get date => "date";
+  String get delete_entry_operation => "Delete record?";
+  String get delete_entry_operation_warning => "You will delete the current record without the possibility of recovery";
   String get delete_image => "Delete image";
   String get drawer_add_car => "Add car";
   String get drawer_logout => "Logout";
@@ -196,6 +198,8 @@ class $ru extends S {
   @override
   String get add_maintenance_operation => "Записать операцию ТО";
   @override
+  String get delete_entry_operation_warning => "Вы удалите текущую запись без возможности восстановления";
+  @override
   String get delete_image => "Удалить фотографию";
   @override
   String get form_validator_car_name => "Пожалуйста, введите название";
@@ -223,6 +227,8 @@ class $ru extends S {
   String get km => " км";
   @override
   String get add_operation_page_description => "На этой странице необходимо записать выполненную проверку или операцию ТО, показания одометра, использованные расходники или запчасти";
+  @override
+  String get delete_entry_operation => "Удалить запись?";
   @override
   String get car_list_page_warning => "Для начала работы с программой нужно добавить хотя бы один автомобиль";
   @override
