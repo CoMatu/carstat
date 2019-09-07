@@ -8,6 +8,7 @@ import 'package:carstat/services/data_service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+import 'package:add_2_calendar/add_2_calendar.dart';
 
 enum ConfirmAction { CANCEL, ACCEPT }
 
@@ -105,6 +106,8 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
   DataService dataService = DataService();
   List<Operation> _operns = [];
   NumberFormat _numberFormat;
+  int entryDateLimit2;
+  int entryMileageLimit2;
 
   _EntryDetailsPageState(this.tile, this.car);
 
@@ -119,13 +122,13 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
   @override
   void initState() {
     initializeDateFormatting();
+    entryDateLimit2 = tile['entry'].entryDateLimit;
+    entryMileageLimit2 = tile['entry'].entryMileageLimit;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    int entryDateLimit2 = tile['entry'].entryDateLimit;
-    int entryMileageLimit2 = tile['entry'].entryMileageLimit;
     Locale myLocale = Localizations.localeOf(context);
     _numberFormat = NumberFormat.simpleCurrency(locale: myLocale.languageCode);
 
@@ -390,6 +393,18 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
               ],
             ),
           ),
+          PopupMenuItem(
+            value: S.of(context).button_add_calendar_camel,
+            child: Row(
+              children: <Widget>[
+                Icon(Icons.calendar_today),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Text(S.of(context).button_add_calendar_camel),
+                ),
+              ],
+            ),
+          ),
         ],
       );
 
@@ -398,9 +413,25 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
       print('DELETE');
       _asyncDeleteDialog(context, dataService, car, tile['entry'].entryId);
     } else {
-      print('EDIT');
-      Navigator.pushNamed(context, 'edit_entry_page',
-          arguments: [tile['entry'], car]);
+      if (value == S.of(context).button_edit_camel) {
+        print('EDIT');
+        Navigator.pushNamed(context, 'edit_entry_page',
+            arguments: [tile['entry'], car]);
+      }
+      if (value == S.of(context).button_add_calendar_camel) {
+//        print(tile['entry'].entryDateLimit * 30);
+//        print(DateTime.now().difference(_operns[0].operationDate).inDays);
+        int duration = tile['entry'].entryDateLimit * 30 -
+            DateTime.now().difference(_operns[0].operationDate).inDays;
+        final Event event = Event(
+          title: tile['entry'].entryName,
+          description: S.of(context).entry_details_page_description(
+              entryDateLimit2.toString(), entryMileageLimit2.toString()),
+          startDate: DateTime.now().add(Duration(days: duration)),
+          endDate: DateTime.now().add(Duration(days: duration + 1)),
+        );
+        Add2Calendar.addEvent2Cal(event);
+      }
     }
   }
 }

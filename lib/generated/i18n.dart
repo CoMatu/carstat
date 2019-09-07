@@ -27,6 +27,7 @@ class S implements WidgetsLocalizations {
   String get add_maintenance_regular => "Add regular maintenance";
   String get add_operation_page_description => "On this page, it is necessary to record the performed inspection or maintenance operation, odometer value, used consumables or spare parts";
   String get already_have_account => "Already have an account? Sign in";
+  String get button_add_calendar_camel => "Remind";
   String get button_add_car => "ADD CAR";
   String get button_cancel => "CANCEL";
   String get button_delete => "DELETE";
@@ -225,6 +226,8 @@ class $ru extends S {
   String get form_decorator_value_work => "Стоимость работ";
   @override
   String get add_maintenance_regular => "Добавить регламент ТО";
+  @override
+  String get button_add_calendar_camel => "Напомнить";
   @override
   String get button_delete => "УДАЛИТЬ";
   @override
