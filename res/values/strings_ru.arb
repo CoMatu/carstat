@@ -82,5 +82,7 @@
   "registration": "СОЗДАТЬ АККАУНТ",
   "already_have_account": "Есть аккаунт? Войти",
   "delete_entry_operation": "Удалить запись?",
-  "delete_entry_operation_warning": "Вы удалите текущую запись без возможности восстановления"
+  "delete_entry_operation_warning": "Вы удалите текущую запись без возможности восстановления",
+  "button_edit_camel": "Изменить",
+  "button_delete_camel": "Удалить"
 }

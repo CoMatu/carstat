@@ -142,7 +142,6 @@ class _DashboardPageState extends State<DashboardPage> {
                   itemCount: _tiles.length,
                   itemBuilder: (context, index) {
                     iconStatus = IconStatus.Danger;
-
                     return ListTile(
                       onTap: () {
                         Navigator.push(

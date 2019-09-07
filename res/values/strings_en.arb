@@ -1,8 +1,10 @@
 {
   "button_cancel": "CANCEL",
   "button_delete": "DELETE",
+  "button_delete_camel": "Delete",
   "button_save": "SAVE",
   "button_edit": "EDIT",
+  "button_edit_camel": "Edit",
   "button_add_car": "ADD CAR",
   "car_card_alert_dialog_title": "Remove a car from the list?",
   "car_card_content_text": "You will remove the car from the list of vehicles without the possibility of recovery",

@@ -171,7 +171,7 @@ class _CarCardState extends State<CarCard> {
           ),
           ListTile(
             onTap: () {
-              Navigator.of(context).pop();
+//              Navigator.of(context).pop();
               Navigator.push(context, MaterialPageRoute(
                   builder: (context) => DashboardPage(widget.car)
               ));

@@ -30,7 +30,9 @@ class S implements WidgetsLocalizations {
   String get button_add_car => "ADD CAR";
   String get button_cancel => "CANCEL";
   String get button_delete => "DELETE";
+  String get button_delete_camel => "Delete";
   String get button_edit => "EDIT";
+  String get button_edit_camel => "Edit";
   String get button_save => "SAVE";
   String get car_card_alert_dialog_title => "Remove a car from the list?";
   String get car_card_change => "Edit";
@@ -168,9 +170,13 @@ class $ru extends S {
   @override
   String get form_warning_fill_info => "Заполните необходимую информацию";
   @override
+  String get button_edit_camel => "Изменить";
+  @override
   String get edit_car_page_title => "Редактировать информацию об автомобиле:";
   @override
   String get dashboard_page_not_determinate_title => "Нет информации о проведении ТО";
+  @override
+  String get button_delete_camel => "Удалить";
   @override
   String get parts => "Запчасти:";
   @override

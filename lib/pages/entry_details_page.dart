@@ -3,6 +3,7 @@ import 'package:carstat/components/main_appbar.dart';
 import 'package:carstat/generated/i18n.dart';
 import 'package:carstat/models/car.dart';
 import 'package:carstat/models/operation.dart';
+import 'package:carstat/pages/dashboard_page.dart';
 import 'package:carstat/services/data_service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -22,8 +23,7 @@ Future<ConfirmAction> _asyncConfirmDialog(
     builder: (BuildContext context) {
       return AlertDialog(
         title: Text(S.of(context).delete_entry_operation),
-        content: Text(
-            S.of(context).delete_entry_operation_warning),
+        content: Text(S.of(context).delete_entry_operation_warning),
         actions: <Widget>[
           FlatButton(
             child: Text(
@@ -59,8 +59,7 @@ Future<ConfirmAction> _asyncDeleteDialog(BuildContext context,
     builder: (BuildContext context) {
       return AlertDialog(
         title: Text(S.of(context).delete_entry_operation),
-        content: Text(
-            S.of(context).delete_entry_operation_warning),
+        content: Text(S.of(context).delete_entry_operation_warning),
         actions: <Widget>[
           FlatButton(
             child: Text(
@@ -77,8 +76,10 @@ Future<ConfirmAction> _asyncDeleteDialog(BuildContext context,
             ),
             onPressed: () async {
               await dataService.deleteEntry(car.carId, entryId).then((res) =>
-                  Navigator.pushNamed(context, 'dashboard_page',
-                      arguments: car));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => DashboardPage(car))));
             },
           )
         ],
@@ -139,7 +140,12 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                 ListTile(
                   title: Column(
                     children: <Widget>[
-                      Text(tile['entry'].entryName),
+                      Row(
+                        children: <Widget>[
+                          Expanded(child: Text(tile['entry'].entryName)),
+                          _simplePopup()
+                        ],
+                      ),
                       Divider()
                     ],
                   ),
@@ -152,28 +158,6 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                       ),
                     ],
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    FlatButton(
-                      onPressed: () {
-                        _asyncDeleteDialog(
-                            context, dataService, car, tile['entry'].entryId);
-                      },
-                      child: Text(
-                        S.of(context).button_delete,
-                        style: TextStyle(color: Colors.red),
-                      ),
-                    ),
-                    FlatButton(
-                      child: Text(S.of(context).button_edit),
-                      onPressed: () {
-                        Navigator.pushNamed(context, 'edit_entry_page',
-                            arguments: [tile['entry'], car]);
-                      },
-                    ),
-                  ],
                 ),
               ],
             ),
@@ -377,5 +361,46 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
         ],
       ),
     );
+  }
+
+  Widget _simplePopup() => PopupMenuButton<String>(
+        onSelected: choiceAction,
+        itemBuilder: (context) => [
+          PopupMenuItem(
+            value: S.of(context).button_delete_camel,
+            child: Row(
+              children: <Widget>[
+                Icon(Icons.delete),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Text(S.of(context).button_delete_camel),
+                ),
+              ],
+            ),
+          ),
+          PopupMenuItem(
+            value: S.of(context).button_edit_camel,
+            child: Row(
+              children: <Widget>[
+                Icon(Icons.edit),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Text(S.of(context).button_edit_camel),
+                ),
+              ],
+            ),
+          ),
+        ],
+      );
+
+  void choiceAction(String value) {
+    if (value == S.of(context).button_delete_camel) {
+      print('DELETE');
+      _asyncDeleteDialog(context, dataService, car, tile['entry'].entryId);
+    } else {
+      print('EDIT');
+      Navigator.pushNamed(context, 'edit_entry_page',
+          arguments: [tile['entry'], car]);
+    }
   }
 }
