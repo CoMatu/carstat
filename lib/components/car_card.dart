@@ -136,7 +136,14 @@ class _CarCardState extends State<CarCard> {
                       ),
                     ],
                   )
-                : Image.file(image))
+                : GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context) => DashboardPage(widget.car)
+                ));
+              },
+              child: Image.file(image),
+            ))
         ;
   }
 
@@ -171,7 +178,6 @@ class _CarCardState extends State<CarCard> {
           ),
           ListTile(
             onTap: () {
-//              Navigator.of(context).pop();
               Navigator.push(context, MaterialPageRoute(
                   builder: (context) => DashboardPage(widget.car)
               ));
