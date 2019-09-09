@@ -1,7 +1,6 @@
 class Part {
   String partId;
+  String partCode;
   String partName;
   double partPrice;
-  int partNumber;
-  DateTime partAddDate;
 }

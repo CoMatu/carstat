@@ -158,6 +158,7 @@ class _AddOperationPageState extends State<AddOperationPage> {
               ),
               Container(height: 30),
               TextFormField(
+                maxLines: 3,
                 keyboardType: TextInputType.text,
                 initialValue: '',
                 onSaved: (val) => _operation.operationPartName = val,
