@@ -393,7 +393,7 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
               ],
             ),
           ),
-          PopupMenuItem(
+          _operns.length != 0? PopupMenuItem( // hide add to calendar button if have not operations
             value: S.of(context).button_add_calendar_camel,
             child: Row(
               children: <Widget>[
@@ -404,7 +404,7 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                 ),
               ],
             ),
-          ),
+          ) : null,
         ],
       );
 
