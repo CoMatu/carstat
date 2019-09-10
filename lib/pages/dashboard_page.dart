@@ -57,7 +57,7 @@ class _DashboardPageState extends State<DashboardPage> {
 //    Car car = ModalRoute.of(context).settings.arguments;
     return Scaffold(
         drawer: MainDrawer(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+//        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             _modalBottomSheet(context, car);
@@ -66,6 +66,7 @@ class _DashboardPageState extends State<DashboardPage> {
         ),
         appBar: MainAppBar(),
 
+/*
         bottomNavigationBar: BottomAppBar(
           shape: CircularNotchedRectangle(),
           child: Container(
@@ -75,6 +76,7 @@ class _DashboardPageState extends State<DashboardPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
 
+*/
 /*
                 IconButton(
                   iconSize: 30.0,
@@ -116,12 +118,14 @@ class _DashboardPageState extends State<DashboardPage> {
                     });
                   },
                 )
-*/
+*//*
+
 
               ],
             ),
           ),
         ),
+*/
 
         body: ListView(
           children: <Widget>[
