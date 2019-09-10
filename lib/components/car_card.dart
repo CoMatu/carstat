@@ -142,7 +142,9 @@ class _CarCardState extends State<CarCard> {
                     builder: (context) => DashboardPage(widget.car)
                 ));
               },
-              child: Image.file(image),
+              child: FittedBox(
+                fit: BoxFit.fitWidth,
+                  child: Image.file(image)),
             ))
         ;
   }
@@ -155,6 +157,8 @@ class _CarCardState extends State<CarCard> {
       child: Column(
         children: <Widget>[
           Container(
+            height: 250,
+            width: 400,
             child: FutureBuilder(
               future: getImage(),
               builder: ((BuildContext ctx, AsyncSnapshot snapshot) {
