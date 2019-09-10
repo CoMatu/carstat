@@ -138,6 +138,7 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
       body: ListView(
         children: <Widget>[
           Card(
+            margin: EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
             child: Column(
               children: <Widget>[
                 ListTile(
@@ -191,6 +192,7 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                   String operationPrice =
                       _numberFormat.format(_operns[index].operationPrice);
                   return Card(
+                    margin: EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Column(
