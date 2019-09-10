@@ -112,20 +112,29 @@ class _CarsListPageState extends State<CarsListPage> {
   }
 
   Widget _carList() {
-    return ListView(
+    if(isLoaded) {
+      return ListView(
+        children: <Widget>[
+          ListView.builder(
+            shrinkWrap: true,
+            physics: ScrollPhysics(),
+            itemCount: _cars.length,
+            padding: EdgeInsets.all(5.0),
+            itemBuilder: (context, index) {
+              return CarCard(_cars[index], notifyCarsList: _updateCarsList);
+            },
+          ),
+          Container(
+            height: 90.0,
+          )
+        ],
+      );
+    }
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        ListView.builder(
-          shrinkWrap: true,
-          physics: ScrollPhysics(),
-          itemCount: _cars.length,
-          padding: EdgeInsets.all(5.0),
-          itemBuilder: (context, index) {
-            return CarCard(_cars[index], notifyCarsList: _updateCarsList);
-          },
-        ),
-        Container(
-          height: 90.0,
-        )
+        Center(child: CircularProgressIndicator()),
       ],
     );
   }
