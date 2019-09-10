@@ -300,6 +300,13 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                             child: Column(
                               children: <Widget>[
                                 Divider(),
+/*
+                                Table(
+                                  children: <TableRow>[
+                                    TableRow(children: )
+                                  ],
+                                )
+*/
                                 Row(
                                   children: <Widget>[
                                     Expanded(
@@ -393,18 +400,21 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
               ],
             ),
           ),
-          _operns.length != 0? PopupMenuItem( // hide add to calendar button if have not operations
-            value: S.of(context).button_add_calendar_camel,
-            child: Row(
-              children: <Widget>[
-                Icon(Icons.calendar_today),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: Text(S.of(context).button_add_calendar_camel),
-                ),
-              ],
-            ),
-          ) : null,
+          _operns.length != 0
+              ? PopupMenuItem(
+                  // hide add to calendar button if have not operations
+                  value: S.of(context).button_add_calendar_camel,
+                  child: Row(
+                    children: <Widget>[
+                      Icon(Icons.calendar_today),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Text(S.of(context).button_add_calendar_camel),
+                      ),
+                    ],
+                  ),
+                )
+              : null,
         ],
       );
 
