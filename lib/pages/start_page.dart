@@ -7,7 +7,6 @@ import 'package:carstat/services/data_service.dart';
 import 'package:carstat/pages/login_page.dart';
 import 'package:carstat/services/auth_provider.dart';
 import 'package:carstat/services/auth_service.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class StartPage extends StatefulWidget {
   @override
@@ -24,22 +23,7 @@ class _StartPageState extends State<StartPage> {
   AuthStatus authStatus = AuthStatus.notDetermined;
   String user;
   DataService dataService = DataService();
-  Map<PermissionGroup, PermissionStatus> permissions;
-
-  @override
-  void initState() {
-    getPermission();
-    super.initState();
-  }
-
-  void getPermission() async {
-    permissions = await PermissionHandler().requestPermissions([
-      PermissionGroup.camera,
-      PermissionGroup.storage,
-    ]);
-  }
-
-
+  
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
