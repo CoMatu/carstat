@@ -23,7 +23,7 @@ class _StartPageState extends State<StartPage> {
   AuthStatus authStatus = AuthStatus.notDetermined;
   String user;
   DataService dataService = DataService();
-  
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -82,3 +82,5 @@ class _StartPageState extends State<StartPage> {
   }
 
 }
+
+// TODO убрать мелькание AppBar при загрузке
