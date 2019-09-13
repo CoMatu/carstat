@@ -5,6 +5,7 @@ import 'package:carstat/generated/i18n.dart';
 import 'package:carstat/models/car.dart';
 import 'package:flutter/material.dart';
 import 'package:carstat/services/data_service.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 enum ConfirmAction { CANCEL, ACCEPT }
 
@@ -17,9 +18,19 @@ class _CarsListPageState extends State<CarsListPage> {
   bool isLoaded = false;
   DataService dataService = DataService();
   List<Car> _cars = [];
+  Map<PermissionGroup, PermissionStatus> permissions;
+
+  void getPermission() async {
+    permissions = await PermissionHandler().requestPermissions([
+      PermissionGroup.camera,
+      PermissionGroup.storage,
+    ]);
+  }
 
   @override
   void initState() {
+    getPermission();
+
     dataService.getData().then((results) {
       isLoaded = false;
       var _count = results.documents.length;

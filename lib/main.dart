@@ -2,6 +2,7 @@ import 'package:carstat/generated/i18n.dart';
 import 'package:carstat/pages/add_car.dart';
 import 'package:carstat/pages/edit_car_page.dart';
 import 'package:carstat/pages/edit_entry_page.dart';
+import 'package:carstat/pages/logo_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.yellow,
         ),
-        home: StartPage(),
+        home: LogoScreen(),
       ),
     );
   }
