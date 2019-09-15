@@ -63,6 +63,8 @@ class _CarCardState extends State<CarCard> {
   File _image;
   String _fileName;
 
+  double cardHeight = 240.0;
+
   Future getImage() async {
     _fileName = widget.car.carId + '.png';
     final dir = await getApplicationDocumentsDirectory();
@@ -103,52 +105,57 @@ class _CarCardState extends State<CarCard> {
   getAutoImage(File image) {
     return Container(
         child: !image.existsSync()
-            ? Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      S.of(context).car_card_no_image_selected,
-                      style: TextStyle(color: Colors.black26),
+            ? Container(
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        S.of(context).car_card_no_image_selected,
+                        style: TextStyle(color: Colors.black26),
+                      ),
                     ),
-                  ),
-                  Wrap(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: FloatingActionButton(
-                          onPressed: getImageFromCam,
-                          heroTag: null,
-                          tooltip: 'Pick Image',
-                          child: Icon(Icons.add_a_photo),
+                    Wrap(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: FloatingActionButton(
+                            onPressed: getImageFromCam,
+                            heroTag: null,
+                            tooltip: 'Pick Image',
+                            child: Icon(Icons.add_a_photo),
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: FloatingActionButton(
-                          onPressed: getImageFromGallery,
-                          heroTag: null,
-                          tooltip: 'Pick Image',
-                          child: Icon(Icons.wallpaper),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: FloatingActionButton(
+                            onPressed: getImageFromGallery,
+                            heroTag: null,
+                            tooltip: 'Pick Image',
+                            child: Icon(Icons.wallpaper),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               )
-            : GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => DashboardPage(widget.car)));
-                },
-                child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(4.0),
-                      topRight: Radius.circular(4.0)),
-                  child:
-                      FittedBox(fit: BoxFit.fitWidth, child: Image.file(image)),
+            : Container(
+                height: 240.0,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DashboardPage(widget.car)));
+                  },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(4.0),
+                        topRight: Radius.circular(4.0)),
+                    child: FittedBox(
+                        fit: BoxFit.fitWidth, child: Image.file(image)),
+                  ),
                 ),
               ));
   }
@@ -161,7 +168,6 @@ class _CarCardState extends State<CarCard> {
       child: Column(
         children: <Widget>[
           Container(
-            height: 240,
             width: 360,
             child: FutureBuilder(
               future: getImage(),
