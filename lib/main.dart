@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
         title: 'TurboStat',
         theme: ThemeData(
           primarySwatch: Colors.yellow,
+          pageTransitionsTheme: PageTransitionsTheme(builders: {TargetPlatform.android: CupertinoPageTransitionsBuilder(),})
         ),
         home: LogoScreen(),
       ),
