@@ -89,7 +89,7 @@ class _MainDrawerState extends State<MainDrawer> {
                   Icons.add,
                 ),
                 onTap: () async {
-                  Navigator.of(context).pop();
+//                  Navigator.of(context).pop();
                   var user = await MainDrawer.auth.currentUser();
                   if (user != null) {
                     Navigator.of(context).pop();
