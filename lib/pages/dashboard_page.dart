@@ -55,136 +55,139 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
 //    Car car = ModalRoute.of(context).settings.arguments;
-    return Scaffold(
-        drawer: MainDrawer(),
+    return WillPopScope(
+      onWillPop: _backButtonPressed,
+      child: Scaffold(
+          drawer: MainDrawer(),
 //        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            _modalBottomSheet(context, car);
-          },
-          child: Icon(Icons.add),
-        ),
-        appBar: MainAppBar(),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              _modalBottomSheet(context, car);
+            },
+            child: Icon(Icons.add),
+          ),
+          appBar: MainAppBar(),
 
 /*
-        bottomNavigationBar: BottomAppBar(
-          shape: CircularNotchedRectangle(),
-          child: Container(
-            height: 75,
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
+          bottomNavigationBar: BottomAppBar(
+            shape: CircularNotchedRectangle(),
+            child: Container(
+              height: 75,
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
 
 */
 /*
-                IconButton(
-                  iconSize: 30.0,
-                  padding: EdgeInsets.only(left: 28.0),
-                  icon: Icon(Icons.home),
-                  onPressed: () {
-                    setState(() {
+                  IconButton(
+                    iconSize: 30.0,
+                    padding: EdgeInsets.only(left: 28.0),
+                    icon: Icon(Icons.home),
+                    onPressed: () {
+                      setState(() {
 //                      _myPage.jumpToPage(0);
-                    });
-                  },
-                ),
-                IconButton(
-                  iconSize: 30.0,
-                  padding: EdgeInsets.only(right: 28.0),
-                  icon: Icon(Icons.search),
-                  onPressed: () {
-                    setState(() {
+                      });
+                    },
+                  ),
+                  IconButton(
+                    iconSize: 30.0,
+                    padding: EdgeInsets.only(right: 28.0),
+                    icon: Icon(Icons.search),
+                    onPressed: () {
+                      setState(() {
 //                      _myPage.jumpToPage(1);
-                    });
-                  },
-                ),
-                IconButton(
-                  iconSize: 30.0,
-                  padding: EdgeInsets.only(left: 28.0),
-                  icon: Icon(Icons.notifications),
-                  onPressed: () {
-                    setState(() {
+                      });
+                    },
+                  ),
+                  IconButton(
+                    iconSize: 30.0,
+                    padding: EdgeInsets.only(left: 28.0),
+                    icon: Icon(Icons.notifications),
+                    onPressed: () {
+                      setState(() {
 //                      _myPage.jumpToPage(2);
-                    });
-                  },
-                ),
-                IconButton(
-                  iconSize: 30.0,
-                  padding: EdgeInsets.only(right: 28.0),
-                  icon: Icon(Icons.list),
-                  onPressed: () {
-                    setState(() {
+                      });
+                    },
+                  ),
+                  IconButton(
+                    iconSize: 30.0,
+                    padding: EdgeInsets.only(right: 28.0),
+                    icon: Icon(Icons.list),
+                    onPressed: () {
+                      setState(() {
 //                      _myPage.jumpToPage(3);
-                    });
-                  },
-                )
+                      });
+                    },
+                  )
 *//*
 
 
-              ],
+                ],
+              ),
             ),
           ),
-        ),
 */
 
-        body: ListView(
-          children: <Widget>[
-            FutureBuilder(
-              future: _getEntries(carId),
-              builder: (BuildContext ctx, AsyncSnapshot snapshot) {
-                if (snapshot.connectionState != ConnectionState.done) {
-                  return Center(
-                      child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 12.0, right: 12.0, top: 35.0),
-                    child: CircularProgressIndicator(),
-                  ));
-                }
-                return ListView.builder(
-                  shrinkWrap: true,
-                  physics: ScrollPhysics(),
-                  itemCount: _tiles.length,
-                  itemBuilder: (context, index) {
-                    iconStatus = IconStatus.Danger;
-                    return ListTile(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    EntryDetailsPage(_tiles[index], car)));
-                      },
-                      contentPadding: EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 10.0),
-                      leading: _iconSet(_tiles[index], _entries[index], car),
-                      title: Text(
-                        _tiles[index]['entry'].entryName,
-                      ),
-                      subtitle: Text(tileMessage),
-                    );
-                  },
-                );
-              },
-            ),
-            ListTile(
-              contentPadding:
-                  EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-              leading: CircleAvatar(
-                backgroundColor: Colors.blue[200],
-                child: Icon(
-                  Icons.person,
-                  color: Colors.white,
-                  size: 32.0,
+          body: ListView(
+            children: <Widget>[
+              FutureBuilder(
+                future: _getEntries(carId),
+                builder: (BuildContext ctx, AsyncSnapshot snapshot) {
+                  if (snapshot.connectionState != ConnectionState.done) {
+                    return Center(
+                        child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 12.0, right: 12.0, top: 35.0),
+                      child: CircularProgressIndicator(),
+                    ));
+                  }
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    physics: ScrollPhysics(),
+                    itemCount: _tiles.length,
+                    itemBuilder: (context, index) {
+                      iconStatus = IconStatus.Danger;
+                      return ListTile(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      EntryDetailsPage(_tiles[index], car)));
+                        },
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 10.0),
+                        leading: _iconSet(_tiles[index], _entries[index], car),
+                        title: Text(
+                          _tiles[index]['entry'].entryName,
+                        ),
+                        subtitle: Text(tileMessage),
+                      );
+                    },
+                  );
+                },
+              ),
+              ListTile(
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+                leading: CircleAvatar(
+                  backgroundColor: Colors.blue[200],
+                  child: Icon(
+                    Icons.person,
+                    color: Colors.white,
+                    size: 32.0,
+                  ),
+                  radius: 32.0,
                 ),
-                radius: 32.0,
+                title: Text(
+                  S.of(context).dashboard_page_welcome,
+                ),
+                subtitle: Text(S.of(context).dashboard_page_welcome_thanks),
               ),
-              title: Text(
-                S.of(context).dashboard_page_welcome,
-              ),
-              subtitle: Text(S.of(context).dashboard_page_welcome_thanks),
-            ),
-          ],
-        ));
+            ],
+          )),
+    );
   }
 
   _iconSet(til, Entry ent, Car car) {
@@ -340,5 +343,24 @@ class _DashboardPageState extends State<DashboardPage> {
             ),
           );
         });
+  }
+
+  Future<bool> _backButtonPressed() {
+    return showDialog(
+        context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Выйти из приложения?'),
+        actions: <Widget>[
+          FlatButton(
+            child: Text(S.of(context).button_cancel),
+            onPressed: () => Navigator.pop(context, false),
+          ),
+          FlatButton(
+            child: Text('OK'),
+            onPressed: () => Navigator.pop(context, true),
+          )
+        ],
+      )
+    );
   }
 }
