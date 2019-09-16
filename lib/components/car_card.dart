@@ -1,13 +1,12 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:carstat/generated/i18n.dart';
-import 'package:carstat/pages/dashboard_page.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 
 import 'package:carstat/models/car.dart';
+import 'package:carstat/pages/dashboard_page.dart';
+import 'package:carstat/services/image_service.dart';
 import 'package:carstat/services/data_service.dart';
-import 'package:image_picker/image_picker.dart';
 
 enum ConfirmAction { CANCEL, ACCEPT }
 
@@ -57,48 +56,36 @@ class CarCard extends StatefulWidget {
 
 class _CarCardState extends State<CarCard> {
   final DataService dataService = DataService();
-
+  final ImageService imageService = ImageService();
   final TextEditingController _textFieldController = TextEditingController();
 
   File _image;
   String _fileName;
 
-  double cardHeight = 240.0;
-
-  Future getImage() async {
+  initState() {
     _fileName = widget.car.carId + '.png';
-    final dir = await getApplicationDocumentsDirectory();
-    final String path = dir.path + '/' + _fileName;
-    final File image = File(path);
-    _image = image;
+    super.initState();
+  }
+
+  Future<void> _getImage() async {
+    _image = await imageService.getImage(widget.car);
   }
 
   Future getImageFromCam() async {
     // for camera
-    final File image = await ImagePicker.pickImage(source: ImageSource.camera);
-    _saveImage(image);
+    final File image = await imageService.getImageFromCam(_fileName);
+    final savedImage = await imageService.saveImage(image, _fileName);
     setState(() {
-      _image = image;
+      _image = savedImage;
     });
   }
 
   Future getImageFromGallery() async {
     // for gallery
-    final File image = await ImagePicker.pickImage(source: ImageSource.gallery);
-    _saveImage(image);
+    final File image = await imageService.getImageFromGallery(_fileName);
+    final savedImage = await imageService.saveImage(image, _fileName);
     setState(() {
-      _image = image;
-    });
-  }
-
-  Future _saveImage(File image) async {
-    if (image == null) return;
-    _fileName = widget.car.carId + '.png';
-    final directory = await getApplicationDocumentsDirectory();
-    final String path = directory.path;
-    final File imageFile = await image.copy('$path/$_fileName');
-    setState(() {
-      _image = imageFile;
+      _image = savedImage;
     });
   }
 
@@ -122,7 +109,7 @@ class _CarCardState extends State<CarCard> {
                           child: FloatingActionButton(
                             onPressed: getImageFromCam,
                             heroTag: null,
-                            tooltip: 'Pick Image',
+                            tooltip: S.of(context).pick_image,
                             child: Icon(Icons.add_a_photo),
                           ),
                         ),
@@ -131,7 +118,7 @@ class _CarCardState extends State<CarCard> {
                           child: FloatingActionButton(
                             onPressed: getImageFromGallery,
                             heroTag: null,
-                            tooltip: 'Pick Image',
+                            tooltip: S.of(context).pick_image,
                             child: Icon(Icons.wallpaper),
                           ),
                         ),
@@ -142,6 +129,7 @@ class _CarCardState extends State<CarCard> {
               )
             : Container(
                 height: 240.0,
+                width: 400.0,
                 child: GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -154,7 +142,7 @@ class _CarCardState extends State<CarCard> {
                         topLeft: Radius.circular(4.0),
                         topRight: Radius.circular(4.0)),
                     child: FittedBox(
-                        fit: BoxFit.fitWidth, child: Image.file(image)),
+                        fit: BoxFit.cover, child: Image.file(image)),
                   ),
                 ),
               ));
@@ -168,9 +156,8 @@ class _CarCardState extends State<CarCard> {
       child: Column(
         children: <Widget>[
           Container(
-            width: 360,
             child: FutureBuilder(
-              future: getImage(),
+              future: _getImage(),
               builder: ((BuildContext ctx, AsyncSnapshot snapshot) {
                 if (snapshot.connectionState != ConnectionState.done) {
                   return Center(

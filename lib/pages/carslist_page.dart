@@ -86,7 +86,7 @@ class _CarsListPageState extends State<CarsListPage> {
               title: Text(S.of(context).will_pop_alert),
               actions: <Widget>[
                 FlatButton(
-                  child: Text(S.of(context).button_cancel),
+                  child: Text(S.of(context).button_cancel, style: TextStyle(color: Colors.black),),
                   onPressed: () => Navigator.pop(context, false),
                 ),
                 FlatButton(

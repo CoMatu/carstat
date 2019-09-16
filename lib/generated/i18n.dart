@@ -93,6 +93,7 @@ class S implements WidgetsLocalizations {
   String get odometer => "odometer";
   String get parts => "Parts: ";
   String get password => "Password";
+  String get pick_image => "Pick Image";
   String get registration => "CREATE ACCOUNT";
   String get signin => "SIGN IN";
   String get signin_with_google => "SIGN IN WITH GOOGLE";
@@ -161,6 +162,8 @@ class $ru extends S {
   String get form_decorator_car_year => "Введите год выпуска";
   @override
   String get odometer => "пробег";
+  @override
+  String get pick_image => "Выбрать изображение";
   @override
   String get form_decorator_notes => "Заметки";
   @override
