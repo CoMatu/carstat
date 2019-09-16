@@ -55,9 +55,7 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
 //    Car car = ModalRoute.of(context).settings.arguments;
-    return WillPopScope(
-      onWillPop: _backButtonPressed,
-      child: Scaffold(
+    return Scaffold(
           drawer: MainDrawer(),
 //        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
           floatingActionButton: FloatingActionButton(
@@ -121,8 +119,6 @@ class _DashboardPageState extends State<DashboardPage> {
                     },
                   )
 *//*
-
-
                 ],
               ),
             ),
@@ -186,8 +182,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 subtitle: Text(S.of(context).dashboard_page_welcome_thanks),
               ),
             ],
-          )),
-    );
+          ));
   }
 
   _iconSet(til, Entry ent, Car car) {
@@ -345,22 +340,4 @@ class _DashboardPageState extends State<DashboardPage> {
         });
   }
 
-  Future<bool> _backButtonPressed() {
-    return showDialog(
-        context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Выйти из приложения?'),
-        actions: <Widget>[
-          FlatButton(
-            child: Text(S.of(context).button_cancel),
-            onPressed: () => Navigator.pop(context, false),
-          ),
-          FlatButton(
-            child: Text('OK'),
-            onPressed: () => Navigator.pop(context, true),
-          )
-        ],
-      )
-    );
-  }
 }

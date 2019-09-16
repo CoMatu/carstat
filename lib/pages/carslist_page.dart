@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:carstat/components/car_card.dart';
 import 'package:carstat/components/drawer.dart';
 import 'package:carstat/components/main_appbar.dart';
@@ -77,14 +79,34 @@ class _CarsListPageState extends State<CarsListPage> {
     });
   }
 
+  Future<bool> _backButtonPressed() {
+    return showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: Text(S.of(context).will_pop_alert),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text(S.of(context).button_cancel),
+                  onPressed: () => Navigator.pop(context, false),
+                ),
+                FlatButton(
+                  child: Text('OK'),
+                  onPressed: () => Navigator.pop(context, true),
+                )
+              ],
+            ));
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MainAppBar(),
-      drawer: MainDrawer(),
+    return WillPopScope(
+        onWillPop: _backButtonPressed,
+        child: Scaffold(
+          appBar: MainAppBar(),
+          drawer: MainDrawer(),
 //      floatingActionButton: _getFab(),
-      body: _getBody(),
-    );
+          body: _getBody(),
+        ));
   }
 
   Widget _getBody() {
@@ -123,7 +145,7 @@ class _CarsListPageState extends State<CarsListPage> {
   }
 
   Widget _carList() {
-    if(isLoaded) {
+    if (isLoaded) {
       return ListView(
         children: <Widget>[
           ListView.builder(

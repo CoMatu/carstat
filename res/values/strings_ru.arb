@@ -85,5 +85,6 @@
   "delete_entry_operation_warning": "Вы удалите текущую запись без возможности восстановления",
   "button_edit_camel": "Изменить",
   "button_delete_camel": "Удалить",
-  "button_add_calendar_camel": "Напомнить"
+  "button_add_calendar_camel": "Напомнить",
+  "will_pop_alert": "Выйти из приложения?"
 }

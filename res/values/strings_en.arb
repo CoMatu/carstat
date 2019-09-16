@@ -85,5 +85,6 @@
   "registration": "CREATE ACCOUNT",
   "already_have_account": "Already have an account? Sign in",
   "delete_entry_operation": "Delete record?",
-  "delete_entry_operation_warning": "You will delete the current record without the possibility of recovery"
+  "delete_entry_operation_warning": "You will delete the current record without the possibility of recovery",
+  "will_pop_alert": "Exit the app?"
 }
