@@ -56,15 +56,15 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget build(BuildContext context) {
 //    Car car = ModalRoute.of(context).settings.arguments;
     return Scaffold(
-          drawer: MainDrawer(),
+        drawer: MainDrawer(),
 //        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              _modalBottomSheet(context, car);
-            },
-            child: Icon(Icons.add),
-          ),
-          appBar: MainAppBar(),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            _modalBottomSheet(context, car);
+          },
+          child: Icon(Icons.add),
+        ),
+        appBar: MainAppBar(),
 
 /*
           bottomNavigationBar: BottomAppBar(
@@ -118,71 +118,71 @@ class _DashboardPageState extends State<DashboardPage> {
                       });
                     },
                   )
-*//*
+*/ /*
                 ],
               ),
             ),
           ),
 */
 
-          body: ListView(
-            children: <Widget>[
-              FutureBuilder(
-                future: _getEntries(carId),
-                builder: (BuildContext ctx, AsyncSnapshot snapshot) {
-                  if (snapshot.connectionState != ConnectionState.done) {
-                    return Center(
-                        child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 12.0, right: 12.0, top: 35.0),
-                      child: CircularProgressIndicator(),
-                    ));
-                  }
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    physics: ScrollPhysics(),
-                    itemCount: _tiles.length,
-                    itemBuilder: (context, index) {
-                      iconStatus = IconStatus.Danger;
-                      return ListTile(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      EntryDetailsPage(_tiles[index], car)));
-                        },
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 10.0),
-                        leading: _iconSet(_tiles[index], _entries[index], car),
-                        title: Text(
-                          _tiles[index]['entry'].entryName,
-                        ),
-                        subtitle: Text(tileMessage),
-                      );
-                    },
-                  );
-                },
-              ),
-              ListTile(
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-                leading: CircleAvatar(
-                  backgroundColor: Colors.blue[200],
-                  child: Icon(
-                    Icons.person,
-                    color: Colors.white,
-                    size: 32.0,
-                  ),
-                  radius: 32.0,
+        body: ListView(
+          children: <Widget>[
+            FutureBuilder(
+              future: _getEntries(carId),
+              builder: (BuildContext ctx, AsyncSnapshot snapshot) {
+                if (snapshot.connectionState != ConnectionState.done) {
+                  return Center(
+                      child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 12.0, right: 12.0, top: 35.0),
+                    child: CircularProgressIndicator(),
+                  ));
+                }
+                return ListView.builder(
+                  shrinkWrap: true,
+                  physics: ScrollPhysics(),
+                  itemCount: _tiles.length,
+                  itemBuilder: (context, index) {
+                    iconStatus = IconStatus.Danger;
+                    return ListTile(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    EntryDetailsPage(_tiles[index], car)));
+                      },
+                      contentPadding: EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 10.0),
+                      leading: _iconSet(_tiles[index], _entries[index], car),
+                      title: Text(
+                        _tiles[index]['entry'].entryName,
+                      ),
+                      subtitle: Text(tileMessage),
+                    );
+                  },
+                );
+              },
+            ),
+            ListTile(
+              contentPadding:
+                  EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+              leading: CircleAvatar(
+                backgroundColor: Colors.blue[200],
+                child: Icon(
+                  Icons.person,
+                  color: Colors.white,
+                  size: 32.0,
                 ),
-                title: Text(
-                  S.of(context).dashboard_page_welcome,
-                ),
-                subtitle: Text(S.of(context).dashboard_page_welcome_thanks),
+                radius: 32.0,
               ),
-            ],
-          ));
+              title: Text(
+                S.of(context).dashboard_page_welcome,
+              ),
+              subtitle: Text(S.of(context).dashboard_page_welcome_thanks),
+            ),
+          ],
+        ));
   }
 
   _iconSet(til, Entry ent, Car car) {
@@ -339,5 +339,4 @@ class _DashboardPageState extends State<DashboardPage> {
           );
         });
   }
-
 }
