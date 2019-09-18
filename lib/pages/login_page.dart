@@ -7,7 +7,9 @@ import 'package:carstat/services/auth_provider.dart';
 
 class EmailFieldValidator {
   BuildContext context;
+
   EmailFieldValidator(this.context);
+
   String validate(String value) {
     return value.isEmpty ? S.of(context).enter_email : null;
   }
@@ -15,7 +17,9 @@ class EmailFieldValidator {
 
 class PasswordFieldValidator {
   BuildContext context;
+
   PasswordFieldValidator(this.context);
+
   String validate(String value) {
     return value.isEmpty ? S.of(context).enter_password : null;
   }
@@ -110,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: key,
+        key: key,
         appBar: MainAppBar(),
         body: ListView(
           children: <Widget>[
@@ -140,13 +144,19 @@ class _LoginPageState extends State<LoginPage> {
       Divider(),
       TextFormField(
         key: Key('email'),
-        decoration: InputDecoration(labelText: 'Email'),
+        decoration: InputDecoration(
+          labelText: 'Email',
+          icon: Icon(Icons.email),
+        ),
         validator: EmailFieldValidator(context).validate,
         onSaved: (String value) => _email = value,
       ),
       TextFormField(
         key: Key('password'),
-        decoration: InputDecoration(labelText: S.of(context).password),
+        decoration: InputDecoration(
+          labelText: S.of(context).password,
+          icon: Icon(Icons.lock),
+        ),
         obscureText: true,
         validator: PasswordFieldValidator(context).validate,
         onSaved: (String value) => _password = value,
@@ -190,11 +200,10 @@ class _LoginPageState extends State<LoginPage> {
         Container(
           height: 20.0,
         ),
-        RaisedButton(
+        FlatButton(
           child: Text(
             S.of(context).registration,
           ),
-          color: Colors.yellow,
           onPressed: moveToRegister,
         ),
       ];
@@ -203,7 +212,7 @@ class _LoginPageState extends State<LoginPage> {
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: RaisedButton(
-            child: Text(S.of(context).registration, style: TextStyle()),
+            child: Text(S.of(context).registration.toUpperCase(), style: TextStyle()),
             onPressed: validateAndSubmit,
             color: Colors.yellow,
             highlightColor: Colors.orange[400],

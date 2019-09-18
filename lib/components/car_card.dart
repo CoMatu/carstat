@@ -152,6 +152,7 @@ class _CarCardState extends State<CarCard> {
   Widget build(BuildContext context) {
     String _mileage = widget.car.carMileage.toString();
     return Card(
+
       elevation: 8,
       child: Column(
         children: <Widget>[

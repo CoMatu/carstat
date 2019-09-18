@@ -94,11 +94,11 @@ class S implements WidgetsLocalizations {
   String get parts => "Parts: ";
   String get password => "Password";
   String get pick_image => "Pick Image";
-  String get registration => "CREATE ACCOUNT";
+  String get registration => "Create an Account";
   String get signin => "SIGN IN";
   String get signin_with_google => "SIGN IN WITH GOOGLE";
   String get snack_bar_message_warning => "The form is filled incorrectly! Correct the mistakes";
-  String get will_pop_alert => "Exit the app?";
+  String get will_pop_alert => "Exit the App?";
   String get works => "Works: ";
   String car_card_mileage(String mileage) => "Mileage: $mileage km";
   String dashboard_page_maintenance_before(String daysRemain, String mileageRemain) => "$daysRemain days or $mileageRemain km left before the next maintenance operation";
@@ -189,7 +189,7 @@ class $ru extends S {
   @override
   String get form_decorator_car_model => "Введите модель автомобиля";
   @override
-  String get registration => "СОЗДАТЬ АККАУНТ";
+  String get registration => "Зарегистрироваться";
   @override
   String get form_switch_replacement => "Замена";
   @override
