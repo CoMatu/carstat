@@ -200,7 +200,9 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                           Container(
                             child: Row(
                               children: <Widget>[
-                                Expanded(flex: 1, child: CircleAvatar()),
+                                Expanded(flex: 1, child: CircleAvatar(
+                                  child: Icon(Icons.settings, color: Colors.black54,),
+                                )),
                                 Expanded(
                                   flex: 4,
                                   child: Column(
