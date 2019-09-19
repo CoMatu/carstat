@@ -4,6 +4,7 @@ import 'package:carstat/generated/i18n.dart';
 import 'package:carstat/models/car.dart';
 import 'package:carstat/models/entry.dart';
 import 'package:carstat/models/operation.dart';
+import 'package:carstat/models/sorted_tile.dart';
 import 'package:carstat/pages/add_entry_page.dart';
 import 'package:carstat/pages/add_operation_page.dart';
 import 'package:carstat/pages/entry_details_page.dart';
@@ -32,12 +33,16 @@ class _DashboardPageState extends State<DashboardPage> {
   ];
   DashboardService dashboardService = DashboardService();
   List<Entry> _entries = [];
-  static var _tiles;
+  List<SortedTile> _sorted;
+  static List _tiles;
   var now = DateTime.now();
 
   String tileMessage;
   Car car;
   String carId;
+  SortedTile sortedTile;
+
+  List<SortedTile> _items;
 
   _DashboardPageState(this.car);
 
@@ -48,8 +53,18 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   _getEntries(String carId) async {
+    _sorted = [];
     _entries = await DataService().getEntries(carId);
     _tiles = await dashboardService.getMarkers(_entries, carId);
+    _tiles.forEach((res) {
+      sortedTile = SortedTile();
+      sortedTile.tileName = res['entry'].entryName;
+      sortedTile.infoMessage = 'ddd';
+      sortedTile.icon = Icon(Icons.warning);
+      _sorted.add(sortedTile);
+    });
+    _sorted.sort((a, b) => a.icon.hashCode.compareTo(b.icon.hashCode));
+    print(_sorted);
   }
 
   @override
@@ -154,11 +169,11 @@ class _DashboardPageState extends State<DashboardPage> {
                       },
                       contentPadding: EdgeInsets.symmetric(
                           vertical: 10.0, horizontal: 10.0),
-                      leading: _iconSet(_tiles[index], _entries[index], car),
+                      leading: _sorted[index].icon,
                       title: Text(
                         _tiles[index]['entry'].entryName,
                       ),
-                      subtitle: Text(tileMessage),
+                      subtitle: Text(_sorted[index].infoMessage),
                     );
                   },
                 );
