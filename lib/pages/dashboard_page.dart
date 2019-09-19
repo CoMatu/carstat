@@ -35,19 +35,18 @@ class _DashboardPageState extends State<DashboardPage> {
   List<Entry> _entries = [];
   List<SortedTile> _sorted;
   static List _tiles;
-  var now = DateTime.now();
+  DateTime now;
 
   String tileMessage;
   Car car;
   String carId;
   SortedTile sortedTile;
 
-  List<SortedTile> _items;
-
   _DashboardPageState(this.car);
 
   @override
   void initState() {
+    now = DateTime.now();
     carId = car.carId;
     super.initState();
   }
@@ -57,14 +56,84 @@ class _DashboardPageState extends State<DashboardPage> {
     _entries = await DataService().getEntries(carId);
     _tiles = await dashboardService.getMarkers(_entries, carId);
     _tiles.forEach((res) {
+      List<Operation> _operations = res['operations'];
+      Entry _entry = res['entry'];
+
+      print(_entry.entryName);
+
       sortedTile = SortedTile();
-      sortedTile.tileName = res['entry'].entryName;
-      sortedTile.infoMessage = 'ddd';
-      sortedTile.icon = Icon(Icons.warning);
+      sortedTile.tileName = _entry.entryName;
+
+      if (_operations.length == 0) {
+        iconStatus = IconStatus.NotDeterminate;
+        sortedTile.icon = Icon(Icons.help_outline);
+        sortedTile.infoMessage = S.of(context).dashboard_page_not_determinate_title;
+      } else {
+        _operations.sort((a, b) {
+          return b.operationDate.millisecondsSinceEpoch
+              .compareTo(a.operationDate.millisecondsSinceEpoch);
+        });
+        DateTime lastDate = _operations[0].operationDate;
+
+        _operations.sort((a, b) {
+          return b.operationMileage.compareTo(a.operationMileage);
+        });
+        int lastMileage = _operations[0].operationMileage;
+        int mileageFromLast = car.carMileage - lastMileage;
+
+        if (mileageFromLast >= _entry.entryMileageLimit) {
+          // проверка на пробег сверх лимита
+          iconStatus = IconStatus.Danger;
+          sortedTile.icon = Icon(Icons.warning);
+          sortedTile.infoMessage = S
+              .of(context)
+              .dashboard_page_missed_maintenance(mileageFromLast.toString());
+        } else {
+          int daysFromLast = now.difference(lastDate).inDays;
+          int dayLimit = _entry.entryDateLimit*30;
+          if (daysFromLast >= dayLimit) {
+            int daysOver = daysFromLast - dayLimit;
+            iconStatus = IconStatus.Danger;
+            sortedTile.icon = Icon(Icons.warning);
+            sortedTile.infoMessage = S
+                .of(context)
+                .dashboard_page_missed_maintenance_days(daysOver.toString());
+          } else {
+            int daysRemain = dayLimit - daysFromLast;
+            int mileageRemain = lastMileage + _entry.entryMileageLimit - car.carMileage;
+            sortedTile.infoMessage = S.of(context).dashboard_page_maintenance_before(
+                daysRemain.toString(), mileageRemain.toString());
+
+            if (daysRemain <= 30) {
+              iconStatus = IconStatus.Warning;
+              sortedTile.icon = Icon(Icons.assignment_late);
+            } else {
+              iconStatus = IconStatus.Norm;
+              sortedTile.icon = Icon(Icons.directions_car);
+            }
+          }
+        }
+      }
+
+      switch(iconStatus) {
+
+        case IconStatus.Danger:
+          sortedTile.rank = 1;
+          break;
+        case IconStatus.Warning:
+          sortedTile.rank = 3;
+          break;
+        case IconStatus.Norm:
+          sortedTile.rank = 4;
+          break;
+        case IconStatus.NotDeterminate:
+          sortedTile.rank = 2;
+          break;
+      }
+
       _sorted.add(sortedTile);
     });
-    _sorted.sort((a, b) => a.icon.hashCode.compareTo(b.icon.hashCode));
-    print(_sorted);
+    _sorted.sort((a, b) => a.rank.compareTo(b.rank));
   }
 
   @override
@@ -156,7 +225,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 return ListView.builder(
                   shrinkWrap: true,
                   physics: ScrollPhysics(),
-                  itemCount: _tiles.length,
+                  itemCount: _sorted.length,
                   itemBuilder: (context, index) {
                     iconStatus = IconStatus.Danger;
                     return ListTile(
@@ -171,7 +240,7 @@ class _DashboardPageState extends State<DashboardPage> {
                           vertical: 10.0, horizontal: 10.0),
                       leading: _sorted[index].icon,
                       title: Text(
-                        _tiles[index]['entry'].entryName,
+                        _sorted[index].tileName,
                       ),
                       subtitle: Text(_sorted[index].infoMessage),
                     );
@@ -198,106 +267,6 @@ class _DashboardPageState extends State<DashboardPage> {
             ),
           ],
         ));
-  }
-
-  _iconSet(til, Entry ent, Car car) {
-    List<Operation> _tiles = til['operations'];
-    DateTime lastDate;
-    int dayLimit = ent.entryDateLimit * 30;
-    int daysFromLast; // прошло дней с последнего ТО
-    int daysOver; // на сколько дней пропустили ТО
-    int daysRemain; // осталось дней до следующего ТО
-    int lastMileage; // пробег на дату последнего ТО
-    int mileageFromLast; // пробег с момента последнего ТО
-    int mileageRemain; //
-    tileMessage = '';
-
-    if (_tiles.length == 0) {
-      iconStatus = IconStatus.NotDeterminate;
-      tileMessage = S.of(context).dashboard_page_not_determinate_title;
-    } else {
-      _tiles.sort((a, b) {
-        return b.operationDate.millisecondsSinceEpoch
-            .compareTo(a.operationDate.millisecondsSinceEpoch);
-      });
-      lastDate = _tiles[0].operationDate;
-
-      _tiles.sort((a, b) {
-        return b.operationMileage.compareTo(a.operationMileage);
-      });
-      lastMileage = _tiles[0].operationMileage;
-      mileageFromLast = car.carMileage - lastMileage;
-
-      if (mileageFromLast >= ent.entryMileageLimit) {
-        // проверка на пробег сверх лимита
-        iconStatus = IconStatus.Danger;
-        tileMessage = S
-            .of(context)
-            .dashboard_page_missed_maintenance(mileageFromLast.toString());
-      } else {
-        daysFromLast = now.difference(lastDate).inDays;
-        if (daysFromLast >= dayLimit) {
-          daysOver = daysFromLast - dayLimit;
-          iconStatus = IconStatus.Danger;
-          tileMessage = S
-              .of(context)
-              .dashboard_page_missed_maintenance_days(daysOver.toString());
-        } else {
-          daysRemain = dayLimit - daysFromLast;
-          mileageRemain = lastMileage + ent.entryMileageLimit - car.carMileage;
-          tileMessage = S.of(context).dashboard_page_maintenance_before(
-              daysRemain.toString(), mileageRemain.toString());
-
-          if (daysRemain <= 30) {
-            iconStatus = IconStatus.Warning;
-          } else {
-            iconStatus = IconStatus.Norm;
-          }
-        }
-      }
-    }
-
-    switch (iconStatus) {
-      case IconStatus.NotDeterminate:
-        return CircleAvatar(
-          child: Icon(
-            Icons.help_outline,
-            color: Colors.orange,
-            size: 32.0,
-          ),
-          radius: 32.0,
-        );
-      case IconStatus.Danger:
-        return CircleAvatar(
-          child: Icon(
-            Icons.warning,
-            color: Colors.red,
-            size: 32.0,
-          ),
-          radius: 32.0,
-        );
-        break;
-      case IconStatus.Warning:
-        return CircleAvatar(
-          child: Icon(
-            Icons.assignment_late,
-            color: Colors.blue,
-            size: 32.0,
-          ),
-          radius: 32.0,
-        );
-        break;
-      case IconStatus.Norm:
-        return CircleAvatar(
-          child: Icon(
-            Icons.directions_car,
-            color: Colors.green,
-            size: 32.0,
-          ),
-          radius: 32.0,
-        );
-        break;
-    }
   }
 
   _modalBottomSheet(context, Car car) {

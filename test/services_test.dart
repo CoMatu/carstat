@@ -8,6 +8,6 @@ void main() {
     final imageService = ImageService();
     final Car car = Car();
     car.carId = '12345';
-    var result = await imageService.getImage(car);
+    await imageService.getImage(car);
   });
 }

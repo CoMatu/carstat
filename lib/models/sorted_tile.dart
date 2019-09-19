@@ -4,4 +4,5 @@ class SortedTile {
   String tileName;
   String infoMessage;
   Icon icon;
+  int rank;
 }
