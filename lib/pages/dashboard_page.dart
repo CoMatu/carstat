@@ -59,14 +59,12 @@ class _DashboardPageState extends State<DashboardPage> {
       List<Operation> _operations = res['operations'];
       Entry _entry = res['entry'];
 
-      print(_entry.entryName);
-
       sortedTile = SortedTile();
       sortedTile.tileName = _entry.entryName;
 
       if (_operations.length == 0) {
         iconStatus = IconStatus.NotDeterminate;
-        sortedTile.icon = Icon(Icons.help_outline);
+        sortedTile.icon = Icon(Icons.help_outline, color: Colors.orange, size: 32.0,);
         sortedTile.infoMessage = S.of(context).dashboard_page_not_determinate_title;
       } else {
         _operations.sort((a, b) {
@@ -84,7 +82,7 @@ class _DashboardPageState extends State<DashboardPage> {
         if (mileageFromLast >= _entry.entryMileageLimit) {
           // проверка на пробег сверх лимита
           iconStatus = IconStatus.Danger;
-          sortedTile.icon = Icon(Icons.warning);
+          sortedTile.icon = Icon(Icons.warning, color: Colors.red, size: 32.0,);
           sortedTile.infoMessage = S
               .of(context)
               .dashboard_page_missed_maintenance(mileageFromLast.toString());
@@ -94,7 +92,7 @@ class _DashboardPageState extends State<DashboardPage> {
           if (daysFromLast >= dayLimit) {
             int daysOver = daysFromLast - dayLimit;
             iconStatus = IconStatus.Danger;
-            sortedTile.icon = Icon(Icons.warning);
+            sortedTile.icon = Icon(Icons.warning, color: Colors.red, size: 32.0,);
             sortedTile.infoMessage = S
                 .of(context)
                 .dashboard_page_missed_maintenance_days(daysOver.toString());
@@ -106,10 +104,10 @@ class _DashboardPageState extends State<DashboardPage> {
 
             if (daysRemain <= 30) {
               iconStatus = IconStatus.Warning;
-              sortedTile.icon = Icon(Icons.assignment_late);
+              sortedTile.icon = Icon(Icons.assignment_late, color: Colors.blue[200], size: 32.0,);
             } else {
               iconStatus = IconStatus.Norm;
-              sortedTile.icon = Icon(Icons.directions_car);
+              sortedTile.icon = Icon(Icons.directions_car, color: Colors.green, size: 32.0,);
             }
           }
         }
@@ -228,42 +226,49 @@ class _DashboardPageState extends State<DashboardPage> {
                   itemCount: _sorted.length,
                   itemBuilder: (context, index) {
                     iconStatus = IconStatus.Danger;
-                    return ListTile(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    EntryDetailsPage(_tiles[index], car)));
-                      },
-                      contentPadding: EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 10.0),
-                      leading: _sorted[index].icon,
-                      title: Text(
-                        _sorted[index].tileName,
+                    return Card(
+                      child: ListTile(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      EntryDetailsPage(_tiles[index], car)));
+                        },
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 10.0),
+                        leading: CircleAvatar(
+                          child: _sorted[index].icon,
+                          radius: 32.0,
+                        ),
+                        title: Text(
+                          _sorted[index].tileName,
+                        ),
+                        subtitle: Text(_sorted[index].infoMessage),
                       ),
-                      subtitle: Text(_sorted[index].infoMessage),
                     );
                   },
                 );
               },
             ),
-            ListTile(
-              contentPadding:
-                  EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-              leading: CircleAvatar(
-                backgroundColor: Colors.blue[200],
-                child: Icon(
-                  Icons.person,
-                  color: Colors.white,
-                  size: 32.0,
+            Card(
+              child: ListTile(
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+                leading: CircleAvatar(
+                  backgroundColor: Colors.blue[200],
+                  child: Icon(
+                    Icons.person,
+                    color: Colors.white,
+                    size: 32.0,
+                  ),
+                  radius: 32.0,
                 ),
-                radius: 32.0,
+                title: Text(
+                  S.of(context).dashboard_page_welcome,
+                ),
+                subtitle: Text(S.of(context).dashboard_page_welcome_thanks),
               ),
-              title: Text(
-                S.of(context).dashboard_page_welcome,
-              ),
-              subtitle: Text(S.of(context).dashboard_page_welcome_thanks),
             ),
           ],
         ));
