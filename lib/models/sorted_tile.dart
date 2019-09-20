@@ -1,3 +1,4 @@
+import 'package:carstat/models/entry.dart';
 import 'package:flutter/widgets.dart';
 
 class SortedTile {
@@ -5,4 +6,5 @@ class SortedTile {
   String infoMessage;
   Icon icon;
   int rank;
+  Entry entry;
 }

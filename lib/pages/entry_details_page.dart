@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:carstat/components/main_appbar.dart';
 import 'package:carstat/generated/i18n.dart';
 import 'package:carstat/models/car.dart';
+import 'package:carstat/models/entry.dart';
 import 'package:carstat/models/operation.dart';
 import 'package:carstat/pages/dashboard_page.dart';
 import 'package:carstat/services/data_service.dart';
@@ -100,7 +101,7 @@ class EntryDetailsPage extends StatefulWidget {
 }
 
 class _EntryDetailsPageState extends State<EntryDetailsPage> {
-  final tile;
+  final Entry entry;
   final Car car;
   String entryId;
   DataService dataService = DataService();
@@ -109,7 +110,7 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
   int entryDateLimit2;
   int entryMileageLimit2;
 
-  _EntryDetailsPageState(this.tile, this.car);
+  _EntryDetailsPageState(this.entry, this.car);
 
   Future<void> getOperations(String entryId) async {
     _operns = await dataService.getEntryOperations(entryId, car.carId);
@@ -122,8 +123,8 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
   @override
   void initState() {
     initializeDateFormatting();
-    entryDateLimit2 = tile['entry'].entryDateLimit;
-    entryMileageLimit2 = tile['entry'].entryMileageLimit;
+    entryDateLimit2 = entry.entryDateLimit;
+    entryMileageLimit2 = entry.entryMileageLimit;
     super.initState();
   }
 
@@ -146,7 +147,7 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
-                          Expanded(child: Text(tile['entry'].entryName)),
+                          Expanded(child: Text(entry.entryName)),
                           _simplePopup()
                         ],
                       ),
@@ -167,7 +168,7 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
             ),
           ),
           FutureBuilder(
-            future: getOperations(tile['entry'].entryId),
+            future: getOperations(entry.entryId),
             builder: (BuildContext ctx, AsyncSnapshot snapshot) {
               if (snapshot.connectionState != ConnectionState.done) {
                 return Center(
@@ -425,20 +426,20 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
   void choiceAction(String value) {
     if (value == S.of(context).button_delete_camel) {
       print('DELETE');
-      _asyncDeleteDialog(context, dataService, car, tile['entry'].entryId);
+      _asyncDeleteDialog(context, dataService, car, entry.entryId);
     } else {
       if (value == S.of(context).button_edit_camel) {
         print('EDIT');
         Navigator.pushNamed(context, 'edit_entry_page',
-            arguments: [tile['entry'], car]);
+            arguments: [entry, car]);
       }
       if (value == S.of(context).button_add_calendar_camel) {
 //        print(tile['entry'].entryDateLimit * 30);
 //        print(DateTime.now().difference(_operns[0].operationDate).inDays);
-        int duration = tile['entry'].entryDateLimit * 30 -
+        int duration = entry.entryDateLimit * 30 -
             DateTime.now().difference(_operns[0].operationDate).inDays;
         final Event event = Event(
-          title: tile['entry'].entryName,
+          title: entry.entryName,
           description: S.of(context).entry_details_page_description(
               entryDateLimit2.toString(), entryMileageLimit2.toString()),
           startDate: DateTime.now().add(Duration(days: duration)),

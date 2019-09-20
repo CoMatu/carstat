@@ -61,6 +61,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
       sortedTile = SortedTile();
       sortedTile.tileName = _entry.entryName;
+      sortedTile.entry = _entry;
 
       if (_operations.length == 0) {
         iconStatus = IconStatus.NotDeterminate;
@@ -233,7 +234,7 @@ class _DashboardPageState extends State<DashboardPage> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      EntryDetailsPage(_tiles[index], car)));
+                                      EntryDetailsPage(_sorted[index].entry, car)));
                         },
                         contentPadding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 10.0),
