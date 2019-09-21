@@ -98,6 +98,7 @@ class S implements WidgetsLocalizations {
   String get signin => "SIGN IN";
   String get signin_with_google => "SIGN IN WITH GOOGLE";
   String get snack_bar_message_warning => "The form is filled incorrectly! Correct the mistakes";
+  String get statistics => "Statistics";
   String get will_pop_alert => "Exit the App?";
   String get works => "Works: ";
   String car_card_mileage(String mileage) => "Mileage: $mileage km";
@@ -276,6 +277,8 @@ class $ru extends S {
   String get form_validator_car_vin => "Пожалуйста, введите VIN";
   @override
   String get form_decorator_date => "Дата проверки (операции)";
+  @override
+  String get statistics => "Статистика";
   @override
   String form_alert_car_year(String year) => "Год выпуска: $year";
   @override

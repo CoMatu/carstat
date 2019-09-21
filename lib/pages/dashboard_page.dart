@@ -52,6 +52,7 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   _getEntries(String carId) async {
+    var start = DateTime.now();
     _sorted = [];
     _entries = await DataService().getEntries(carId);
     _tiles = await dashboardService.getMarkers(_entries, carId);
@@ -65,7 +66,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
       if (_operations.length == 0) {
         iconStatus = IconStatus.NotDeterminate;
-        sortedTile.icon = Icon(Icons.help_outline, color: Colors.orange, size: 32.0,);
+        sortedTile.icon = const Icon(Icons.help_outline, color: Colors.orange, size: 32.0,);
         sortedTile.infoMessage = S.of(context).dashboard_page_not_determinate_title;
       } else {
         _operations.sort((a, b) {
@@ -83,7 +84,7 @@ class _DashboardPageState extends State<DashboardPage> {
         if (mileageFromLast >= _entry.entryMileageLimit) {
           // проверка на пробег сверх лимита
           iconStatus = IconStatus.Danger;
-          sortedTile.icon = Icon(Icons.warning, color: Colors.red, size: 32.0,);
+          sortedTile.icon = const Icon(Icons.warning, color: Colors.red, size: 32.0,);
           sortedTile.infoMessage = S
               .of(context)
               .dashboard_page_missed_maintenance(mileageFromLast.toString());
@@ -93,7 +94,7 @@ class _DashboardPageState extends State<DashboardPage> {
           if (daysFromLast >= dayLimit) {
             int daysOver = daysFromLast - dayLimit;
             iconStatus = IconStatus.Danger;
-            sortedTile.icon = Icon(Icons.warning, color: Colors.red, size: 32.0,);
+            sortedTile.icon = const Icon(Icons.warning, color: Colors.red, size: 32.0,);
             sortedTile.infoMessage = S
                 .of(context)
                 .dashboard_page_missed_maintenance_days(daysOver.toString());
@@ -105,10 +106,10 @@ class _DashboardPageState extends State<DashboardPage> {
 
             if (daysRemain <= 30) {
               iconStatus = IconStatus.Warning;
-              sortedTile.icon = Icon(Icons.assignment_late, color: Colors.blue[200], size: 32.0,);
+              sortedTile.icon = const Icon(Icons.assignment_late, color: Colors.blue, size: 32.0,);
             } else {
               iconStatus = IconStatus.Norm;
-              sortedTile.icon = Icon(Icons.directions_car, color: Colors.green, size: 32.0,);
+              sortedTile.icon = const Icon(Icons.directions_car, color: Colors.green, size: 32.0,);
             }
           }
         }
@@ -133,6 +134,10 @@ class _DashboardPageState extends State<DashboardPage> {
       _sorted.add(sortedTile);
     });
     _sorted.sort((a, b) => a.rank.compareTo(b.rank));
+
+    DateTime watch = DateTime.now();
+    var diff = watch.difference(start).inMilliseconds;
+    print('скорость отработки $diff ms');
   }
 
   @override
@@ -214,11 +219,11 @@ class _DashboardPageState extends State<DashboardPage> {
               future: _getEntries(carId),
               builder: (BuildContext ctx, AsyncSnapshot snapshot) {
                 if (snapshot.connectionState != ConnectionState.done) {
-                  return Center(
-                      child: Padding(
+                  return const Center(
+                      child: const Padding(
                     padding: const EdgeInsets.only(
-                        left: 12.0, right: 12.0, top: 35.0),
-                    child: CircularProgressIndicator(),
+                        left: 12.0, right: 12.0, top: 35.0, bottom: 30.0),
+                    child: const CircularProgressIndicator(),
                   ));
                 }
                 return ListView.builder(
@@ -258,7 +263,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
                 leading: CircleAvatar(
                   backgroundColor: Colors.blue[200],
-                  child: Icon(
+                  child: const Icon(
                     Icons.person,
                     color: Colors.white,
                     size: 32.0,
@@ -280,11 +285,11 @@ class _DashboardPageState extends State<DashboardPage> {
         context: context,
         builder: (BuildContext ctx) {
           return Container(
-            color: Color(0xFF737373),
+            color: const Color(0xFF737373),
             child: Container(
               decoration: BoxDecoration(
                   color: Theme.of(context).canvasColor,
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                       topLeft: const Radius.circular(20),
                       topRight: const Radius.circular(20))),
               child: Wrap(
@@ -294,7 +299,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                   ListTile(
                     title: Text(S.of(context).add_maintenance_regular),
-                    leading: Icon(FontAwesomeIcons.calendarPlus),
+                    leading: const Icon(FontAwesomeIcons.calendarPlus),
                     onTap: () {
                       Navigator.pop(context);
                       Navigator.push(
@@ -305,7 +310,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                   ListTile(
                     title: Text(S.of(context).add_maintenance_operation),
-                    leading: Icon(FontAwesomeIcons.tools),
+                    leading: const Icon(FontAwesomeIcons.tools),
                     onTap: () {
                       Navigator.pop(context);
                       Navigator.push(
@@ -317,7 +322,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                   ListTile(
                     title: Text(S.of(context).button_cancel),
-                    leading: Icon(FontAwesomeIcons.arrowLeft),
+                    leading: const Icon(FontAwesomeIcons.arrowLeft),
                     onTap: () => Navigator.pop(context),
                   ),
                   Container(

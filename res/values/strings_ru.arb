@@ -87,5 +87,6 @@
   "button_delete_camel": "Удалить",
   "button_add_calendar_camel": "Напомнить",
   "will_pop_alert": "Выйти из приложения?",
-  "pick_image": "Выбрать изображение"
+  "pick_image": "Выбрать изображение",
+  "statistics": "Статистика"
 }

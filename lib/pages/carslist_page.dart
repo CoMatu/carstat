@@ -86,11 +86,11 @@ class _CarsListPageState extends State<CarsListPage> {
               title: Text(S.of(context).will_pop_alert),
               actions: <Widget>[
                 FlatButton(
-                  child: Text(S.of(context).button_cancel, style: TextStyle(color: Colors.black),),
+                  child: Text(S.of(context).button_cancel, style: const TextStyle(color: Colors.black),),
                   onPressed: () => Navigator.pop(context, false),
                 ),
                 FlatButton(
-                  child: Text('OK'),
+                  child: const Text('OK'),
                   onPressed: () => Navigator.pop(context, true),
                 )
               ],
@@ -115,7 +115,7 @@ class _CarsListPageState extends State<CarsListPage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Center(child: CircularProgressIndicator()),
+          const Center(child: CircularProgressIndicator()),
         ],
       );
     } else {
@@ -126,7 +126,7 @@ class _CarsListPageState extends State<CarsListPage> {
             child: ListTile(
               title: Text(
                 S.of(context).car_list_page_warning,
-                style: TextStyle(fontSize: 20),
+                style: const TextStyle(fontSize: 20),
               ),
               subtitle: RaisedButton(
                 child: Text(S.of(context).button_add_car),
@@ -167,7 +167,7 @@ class _CarsListPageState extends State<CarsListPage> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Center(child: CircularProgressIndicator()),
+        const Center(child: CircularProgressIndicator()),
       ],
     );
   }
