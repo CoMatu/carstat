@@ -12,7 +12,7 @@ class DonutPieChart extends StatelessWidget {
     return new DonutPieChart(
       _createSampleData(),
       // Disable animations for image tests.
-      animate: false,
+      animate: true,
     );
   }
 

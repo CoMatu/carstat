@@ -141,8 +141,8 @@ class _CarCardState extends State<CarCard> {
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(4.0),
                         topRight: Radius.circular(4.0)),
-                    child: FittedBox(
-                        fit: BoxFit.cover, child: Image.file(image)),
+                    child:
+                        FittedBox(fit: BoxFit.cover, child: Image.file(image)),
                   ),
                 ),
               ));
@@ -152,7 +152,6 @@ class _CarCardState extends State<CarCard> {
   Widget build(BuildContext context) {
     String _mileage = widget.car.carMileage.toString();
     return Card(
-
       elevation: 8,
       child: Column(
         children: <Widget>[
@@ -183,28 +182,12 @@ class _CarCardState extends State<CarCard> {
             title: Row(
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
-                Expanded(child: Text(widget.car.carName)),
-                FlatButton(
-                  child: Text(
-                    S.of(context).car_card_change,
-                    style: TextStyle(fontSize: 12.0, color: Colors.black26),
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, 'edit_car_page',
-                        arguments: widget.car);
-                  },
-                ),
-                IconButton(
-                  icon: Icon(
-                    Icons.delete,
-                    color: Colors.red,
-                  ),
-                  onPressed: () async {
-                    await _asyncConfirmDialog(
-                        context, dataService, widget.car.carId);
-                    Navigator.pushNamed(context, 'car_list_page');
-                  },
-                ),
+                Expanded(
+                    child: Text(
+                  widget.car.carName,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                )),
+                _simplePopup(),
               ],
             ),
             subtitle: Container(
@@ -305,5 +288,45 @@ class _CarCardState extends State<CarCard> {
             ],
           );
         });
+  }
+
+  Widget _simplePopup() => PopupMenuButton<String>(
+        onSelected: choiceAction,
+        itemBuilder: (context) => [
+          PopupMenuItem(
+            value: S.of(context).button_delete_camel,
+            child: Row(
+              children: <Widget>[
+                Icon(Icons.delete),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Text(S.of(context).button_delete_camel),
+                ),
+              ],
+            ),
+          ),
+          PopupMenuItem(
+            value: S.of(context).button_edit_camel,
+            child: Row(
+              children: <Widget>[
+                Icon(Icons.edit),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Text(S.of(context).button_edit_camel),
+                ),
+              ],
+            ),
+          ),
+        ],
+      );
+
+  void choiceAction(String value) {
+    if (value == S.of(context).button_delete_camel) {
+      _asyncConfirmDialog(context, dataService, widget.car.carId);
+    } else {
+      if (value == S.of(context).button_edit_camel) {
+        Navigator.pushNamed(context, 'edit_car_page', arguments: widget.car);
+      }
+    }
   }
 }
