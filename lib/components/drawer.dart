@@ -63,7 +63,8 @@ class _MainDrawerState extends State<MainDrawer> {
               UserAccountsDrawerHeader(
                 accountName: null,
                 accountEmail: Text(_email(),
-                    style: const TextStyle(fontSize: 20.0, color: Colors.yellow)),
+                    style:
+                        const TextStyle(fontSize: 20.0, color: Colors.yellow)),
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         image: const AssetImage('images/road.jpg'),
@@ -99,6 +100,7 @@ class _MainDrawerState extends State<MainDrawer> {
                   }
                 },
               ),
+/*
               ListTile(
                 title: Text(S.of(context).statistics),
                 trailing: const Icon(
@@ -114,6 +116,7 @@ class _MainDrawerState extends State<MainDrawer> {
                   }
                 },
               ),
+*/
             ],
           ),
         ),
