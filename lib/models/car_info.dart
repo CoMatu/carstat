@@ -3,6 +3,7 @@ import 'package:carstat/models/operation.dart';
 
 import 'car.dart';
 
+
 class CarInfo {
   final Car car;
   final List<EntryInfo> entryInfoList;
