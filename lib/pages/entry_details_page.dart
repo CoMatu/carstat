@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:carstat/components/custom_circle_progress_bar.dart';
 import 'package:carstat/components/main_appbar.dart';
 import 'package:carstat/generated/i18n.dart';
 import 'package:carstat/models/car.dart';
@@ -174,7 +175,7 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                 return Center(
                     child: Padding(
                   padding: const EdgeInsets.all(12.0),
-                  child: CircularProgressIndicator(),
+                  child: CustomCircleProgressBar(),
                 ));
               }
               return ListView.builder(

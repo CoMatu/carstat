@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:carstat/components/car_card.dart';
+import 'package:carstat/components/custom_circle_progress_bar.dart';
 import 'package:carstat/components/drawer.dart';
 import 'package:carstat/components/main_appbar.dart';
 import 'package:carstat/generated/i18n.dart';
@@ -115,7 +116,7 @@ class _CarsListPageState extends State<CarsListPage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          const Center(child: CircularProgressIndicator()),
+          Center(child: CustomCircleProgressBar()),
         ],
       );
     } else {

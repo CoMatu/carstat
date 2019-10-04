@@ -1,3 +1,4 @@
+import 'package:carstat/components/custom_circle_progress_bar.dart';
 import 'package:carstat/components/drawer.dart';
 import 'package:carstat/components/main_appbar.dart';
 import 'package:carstat/generated/i18n.dart';
@@ -217,14 +218,8 @@ class _DashboardPageState extends State<DashboardPage> {
                   return Center(
                       child: Padding(
                     padding: const EdgeInsets.only(
-                        left: 12.0, right: 12.0, top: 35.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                        boxShadow: [BoxShadow()]
-                      ),
-                        child: CircularProgressIndicator()),
+                        left: 12.0, right: 12.0, top: 35.0, bottom: 25.0),
+                    child: CustomCircleProgressBar(),
                   ));
                 }
                 return ListView.builder(
