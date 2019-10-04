@@ -218,7 +218,13 @@ class _DashboardPageState extends State<DashboardPage> {
                       child: Padding(
                     padding: const EdgeInsets.only(
                         left: 12.0, right: 12.0, top: 35.0),
-                    child: CircularProgressIndicator(),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                        boxShadow: [BoxShadow()]
+                      ),
+                        child: CircularProgressIndicator()),
                   ));
                 }
                 return ListView.builder(
