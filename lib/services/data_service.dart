@@ -22,20 +22,24 @@ class DataService {
   }
 
 */
-  getData() async {
+  Future<QuerySnapshot> getData() async {
     _userId = await _firebaseAuth.currentUser().then((res) {
       print('current user for GetData is $res');
       return res;
     });
 
-    Future<QuerySnapshot> _userDoc =
-        fs.where('userId', isEqualTo: _userId).getDocuments();
+    QuerySnapshot _userDoc =
+        await fs.where('userId', isEqualTo: _userId).getDocuments();
 
-    await _userDoc.then((res) {
-      docId = res.documents[0].documentID;
-    });
-
-    return fs.document(docId).collection('cars').getDocuments();
+    if (_userDoc.documents.length != 0) {
+      docId = _userDoc.documents[0].documentID;
+      var result = await fs.document(docId).collection('cars').getDocuments();
+      return result;
+    } else {
+      fs.document().setData({'userId': _userId});
+      var result = await fs.document(_userId).collection('cars').getDocuments();
+      return result;
+    }
   }
 
   Future<void> addCar(Car car) async {
@@ -111,7 +115,8 @@ class DataService {
     _userId = await _firebaseAuth.currentUser();
     List<Entry> _entriesList = [];
 
-    if (_userId != null) { // проверка на ноль при выходе из аккаунта
+    if (_userId != null) {
+      // проверка на ноль при выходе из аккаунта
       Future<QuerySnapshot> _userDoc =
           fs.where('userId', isEqualTo: _userId).getDocuments();
       await _userDoc.then((res) {
