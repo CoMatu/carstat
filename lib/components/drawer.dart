@@ -67,7 +67,7 @@ class _MainDrawerState extends State<MainDrawer> {
                         const TextStyle(fontSize: 20.0, color: Colors.yellow)),
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: const AssetImage('images/road.jpg'),
+                        image: const AssetImage('res/images/road.jpg'),
                         fit: BoxFit.fitWidth)),
               ),
               ListTile(

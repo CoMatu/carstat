@@ -44,7 +44,7 @@ class LogoScreenState extends State<LogoScreen>
 
   @override
   Widget build(BuildContext context) {
-    var logo = AssetImage('images/start_logo.png');
+    var logo = AssetImage('res/images/start_logo.png');
     return Scaffold(
         body: Center(
           child: Container(
