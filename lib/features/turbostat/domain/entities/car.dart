@@ -7,13 +7,13 @@ part 'car.g.dart';
 @JsonSerializable()
 
 class Car extends Equatable {
-  String carId;
-  String carVin;
-  String carModel;
-  String carName;
-  String carMark;
-  int carYear;
-  int carMileage;
+  final String carId;
+  final String carVin;
+  final String carModel;
+  final String carName;
+  final String carMark;
+  final int carYear;
+  final int carMileage;
 
   Car({
     @required this.carId,

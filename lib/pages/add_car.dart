@@ -14,16 +14,15 @@ class _AddCarState extends State<AddCar> {
   int currStep = 0;
   static var _focusNode = new FocusNode();
   GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
-  static CarModel car = CarModel(
-    carId: '',
-    carModel: '',
-    carMark: '',
-    carName: '',
-    carMileage: 0,
-    carVin: '',
-    carYear: 0
-  );
+
   DataService _dataService = DataService();
+
+  String carName;
+  String carMark;
+  String carModel;
+  int carYear;
+  int carMileage;
+  String carVin;
 
   @override
   Widget build(BuildContext context) {
@@ -45,12 +44,14 @@ class _AddCarState extends State<AddCar> {
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text(S.of(context).form_alert_car_name(car.carName)),
-                Text(S.of(context).form_alert_car_mark(car.carMark)),
-                Text(S.of(context).form_alert_car_model(car.carModel)),
-                Text(S.of(context).form_alert_car_year(car.carYear.toString())),
-                Text(S.of(context).form_alert_car_mileage(car.carMileage.toString())),
-                Text("VIN: ${car.carVin}"),
+                Text(S.of(context).form_alert_car_name(carName)),
+                Text(S.of(context).form_alert_car_mark(carMark)),
+                Text(S.of(context).form_alert_car_model(carModel)),
+                Text(S.of(context).form_alert_car_year(carYear.toString())),
+                Text(S
+                    .of(context)
+                    .form_alert_car_mileage(carMileage.toString())),
+                Text("VIN: $carVin"),
               ],
             ),
           ),
@@ -65,7 +66,16 @@ class _AddCarState extends State<AddCar> {
                 style: TextStyle(color: Colors.black),
               ),
               onPressed: () {
-                _dataService.addCar(car).then((res) {
+                _dataService
+                    .addCar(CarModel(
+                        carId: '',
+                        carModel: carModel,
+                        carMark: carMark,
+                        carName: carName,
+                        carMileage: carMileage,
+                        carVin: carVin,
+                        carYear: carYear))
+                    .then((res) {
                   Navigator.pushNamed(context, 'car_list_page');
                 });
               },
@@ -89,7 +99,10 @@ class _AddCarState extends State<AddCar> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
-                child: Text(S.of(context).add_car_page_description, style: TextStyle(fontSize: 16.0),),
+                child: Text(
+                  S.of(context).add_car_page_description,
+                  style: TextStyle(fontSize: 16.0),
+                ),
               ),
               TextFormField(
                 focusNode: _focusNode,
@@ -97,7 +110,7 @@ class _AddCarState extends State<AddCar> {
                 initialValue: S.of(context).form_initial_my_car,
                 autocorrect: false,
                 onSaved: (String value) {
-                  car.carName = value;
+                  carName = value;
                 },
                 maxLines: 1,
                 validator: (value) {
@@ -117,7 +130,7 @@ class _AddCarState extends State<AddCar> {
                 initialValue: '',
                 autocorrect: false,
                 onSaved: (String value) {
-                  car.carMark = value;
+                  carMark = value;
                 },
                 maxLines: 1,
                 validator: (value) {
@@ -135,7 +148,7 @@ class _AddCarState extends State<AddCar> {
                 initialValue: '',
                 autocorrect: false,
                 onSaved: (String value) {
-                  car.carModel = value;
+                  carModel = value;
                 },
                 maxLines: 1,
                 validator: (value) {
@@ -153,7 +166,7 @@ class _AddCarState extends State<AddCar> {
                 initialValue: '',
                 autocorrect: false,
                 onSaved: (String value) {
-                  car.carYear = int.parse(value);
+                  carYear = int.parse(value);
                 },
                 maxLines: 1,
                 validator: (value) {
@@ -171,7 +184,7 @@ class _AddCarState extends State<AddCar> {
                 initialValue: '',
                 autocorrect: false,
                 onSaved: (String value) {
-                  car.carMileage = int.parse(value);
+                  carMileage = int.parse(value);
                 },
                 maxLines: 1,
                 validator: (value) {
@@ -189,7 +202,7 @@ class _AddCarState extends State<AddCar> {
                 initialValue: '',
                 autocorrect: false,
                 onSaved: (String value) {
-                  car.carVin = value;
+                  carVin = value;
                 },
                 maxLines: 1,
                 validator: (value) {
@@ -202,7 +215,9 @@ class _AddCarState extends State<AddCar> {
                   labelText: S.of(context).form_decorator_car_vin,
                 ),
               ),
-              Container(height: 30.0,),
+              Container(
+                height: 30.0,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[

@@ -18,6 +18,13 @@ class _EditCarPageState extends State<EditCarPage> {
   DataService _dataService = DataService();
   CarModel car;
 
+  String carName;
+  String carMark;
+  String carModel;
+  int carYear;
+  int carMileage;
+  String carVin;
+
   void _submitDetails() {
     final FormState formState = _formKey.currentState;
     formState.save();
@@ -47,7 +54,7 @@ class _EditCarPageState extends State<EditCarPage> {
               TextFormField(
                 keyboardType: TextInputType.text,
                 initialValue: car.carName,
-                onSaved: (val) => car.carName = val,
+                onSaved: (val) => carName = val,
                 decoration: InputDecoration(
                   labelText: S.of(context).form_decorator_car_name,
                 ),
@@ -55,7 +62,7 @@ class _EditCarPageState extends State<EditCarPage> {
               TextFormField(
                 keyboardType: TextInputType.text,
                 initialValue: car.carMark,
-                onSaved: (val) => car.carMark = val,
+                onSaved: (val) => carMark = val,
                 decoration: InputDecoration(
                   labelText: S.of(context).form_decorator_car_mark,
                 ),
@@ -63,7 +70,7 @@ class _EditCarPageState extends State<EditCarPage> {
               TextFormField(
                 keyboardType: TextInputType.text,
                 initialValue: car.carModel,
-                onSaved: (val) => car.carModel = val,
+                onSaved: (val) => carModel = val,
                 decoration: InputDecoration(
                   labelText: S.of(context).form_decorator_car_model,
                 ),
@@ -71,7 +78,7 @@ class _EditCarPageState extends State<EditCarPage> {
               TextFormField(
                 keyboardType: TextInputType.text,
                 initialValue: car.carYear.toString(),
-                onSaved: (val) => car.carYear = int.parse(val),
+                onSaved: (val) => carYear = int.parse(val),
                 decoration: InputDecoration(
                   labelText: S.of(context).form_decorator_car_year,
                 ),
@@ -79,7 +86,7 @@ class _EditCarPageState extends State<EditCarPage> {
               TextFormField(
                 keyboardType: TextInputType.text,
                 initialValue: car.carVin,
-                onSaved: (val) => car.carVin = val,
+                onSaved: (val) => carVin = val,
                 decoration: InputDecoration(
                   labelText: S.of(context).form_decorator_car_vin,
                 ),

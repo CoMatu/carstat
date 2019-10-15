@@ -1,0 +1,9 @@
+{
+  "carId": "1",
+  "carName": "car 1",
+  "carMark": "nissan",
+  "carModel": "note",
+  "carYear": 2012,
+  "carMileage": 83300,
+  "carVin": "VIN123"
+}

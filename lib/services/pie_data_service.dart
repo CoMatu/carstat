@@ -5,12 +5,12 @@ import 'package:carstat/services/data_service.dart';
 
 class PieDataService {
 final DataService dataService = DataService();
-List<Entry> _entries = [];
 
   String carId;
   PieDataService(this.carId);
 
-Future getTotalCosts() async {
-  _entries = await dataService.getEntries(carId);
+Future<List<Entry>> getTotalCosts() async {
+  List<Entry> _entries = await dataService.getEntries(carId);
+  return _entries; // тут возвращать нужно что-то другое, просто убрал варнинг
 }
 }
