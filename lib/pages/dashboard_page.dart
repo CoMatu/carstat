@@ -1,8 +1,8 @@
 import 'package:carstat/components/custom_circle_progress_bar.dart';
 import 'package:carstat/components/drawer.dart';
 import 'package:carstat/components/main_appbar.dart';
+import 'package:carstat/features/turbostat/domain/entities/car.dart';
 import 'package:carstat/generated/i18n.dart';
-import 'package:carstat/models/car.dart';
 import 'package:carstat/models/entry.dart';
 import 'package:carstat/models/operation.dart';
 import 'package:carstat/models/sorted_tile.dart';

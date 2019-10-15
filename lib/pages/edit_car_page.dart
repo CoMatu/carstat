@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:carstat/components/drawer.dart';
 import 'package:carstat/components/main_appbar.dart';
+import 'package:carstat/features/turbostat/domain/entities/car.dart';
 import 'package:carstat/generated/i18n.dart';
-import 'package:carstat/models/car.dart';
 import 'package:carstat/services/data_service.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';

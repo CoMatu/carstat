@@ -1,9 +1,9 @@
 import 'dart:async';
 
+import 'package:carstat/features/turbostat/domain/entities/car.dart';
 import 'package:carstat/models/entry.dart';
 import 'package:carstat/models/operation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:carstat/models/car.dart';
 import 'package:carstat/services/auth_service.dart';
 
 class DataService {

@@ -1,5 +1,5 @@
+import 'package:carstat/features/turbostat/domain/entities/car.dart';
 import 'package:carstat/generated/i18n.dart';
-import 'package:carstat/models/car.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'dart:async';

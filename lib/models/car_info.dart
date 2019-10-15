@@ -1,7 +1,7 @@
+import 'package:carstat/features/turbostat/domain/entities/car.dart';
 import 'package:carstat/models/entry.dart';
 import 'package:carstat/models/operation.dart';
 
-import 'car.dart';
 
 class CarInfo {
   final Car car;

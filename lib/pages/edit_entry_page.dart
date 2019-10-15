@@ -1,6 +1,6 @@
 import 'package:carstat/components/main_appbar.dart';
+import 'package:carstat/features/turbostat/domain/entities/car.dart';
 import 'package:carstat/generated/i18n.dart';
-import 'package:carstat/models/car.dart';
 import 'package:carstat/models/entry.dart';
 import 'package:carstat/pages/dashboard_page.dart';
 import 'package:carstat/services/data_service.dart';
