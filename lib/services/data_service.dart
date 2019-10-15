@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:carstat/features/turbostat/domain/entities/car.dart';
-import 'package:carstat/models/entry.dart';
-import 'package:carstat/models/operation.dart';
+import 'package:carstat/features/turbostat/data/models/car_model.dart';
+import 'package:carstat/features/turbostat/domain/entities/entry.dart';
+import 'package:carstat/features/turbostat/domain/entities/operation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:carstat/services/auth_service.dart';
 
@@ -42,7 +42,7 @@ class DataService {
     }
   }
 
-  Future<void> addCar(Car car) async {
+  Future<void> addCar(CarModel car) async {
     await getData();
     var docRef = fs.document(docId).collection('cars').document();
     String _id = docRef.documentID;
@@ -67,7 +67,7 @@ class DataService {
         .updateData({parameter: value});
   }
 
-  Future<void> updateCar(Car car) async {
+  Future<void> updateCar(CarModel car) async {
     await getData();
     var data = {
       'carVin': car.carVin,
@@ -243,7 +243,7 @@ class DataService {
         .delete();
   }
 
-  Future<void> updateEntry(Car car, Entry entry) async {
+  Future<void> updateEntry(CarModel car, Entry entry) async {
     await getData();
     var data = {
       'entryName': entry.entryName,

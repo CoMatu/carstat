@@ -1,17 +1,17 @@
-import 'package:carstat/features/turbostat/domain/entities/car.dart';
+import 'package:carstat/features/turbostat/data/models/car_model.dart';
 import 'package:carstat/generated/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
-import 'package:carstat/models/entry.dart';
-import 'package:carstat/models/operation.dart';
+import 'package:carstat/features/turbostat/domain/entities/entry.dart';
+import 'package:carstat/features/turbostat/domain/entities/operation.dart';
 import 'package:carstat/services/data_service.dart';
 import 'package:carstat/services/validators/date_validator.dart';
 import 'package:carstat/components/main_appbar.dart';
 
 class AddOperationPage extends StatefulWidget {
-  final Car car;
+  final CarModel car;
   final List<Entry> entries;
 
   AddOperationPage(this.car, this.entries);
@@ -28,7 +28,7 @@ class _AddOperationPageState extends State<AddOperationPage> {
   List<String> _entriesNames = <String>[];
   Operation _operation = Operation();
 
-  final Car car;
+  final CarModel car;
   final List<Entry> _entries;
 
   _AddOperationPageState(this.car, this._entries);

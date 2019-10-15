@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:carstat/components/drawer.dart';
 import 'package:carstat/components/main_appbar.dart';
-import 'package:carstat/features/turbostat/domain/entities/car.dart';
+import 'package:carstat/features/turbostat/data/models/car_model.dart';
 import 'package:carstat/generated/i18n.dart';
 import 'package:carstat/services/data_service.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,7 @@ class _EditCarPageState extends State<EditCarPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   DataService _dataService = DataService();
-  Car car;
+  CarModel car;
 
   void _submitDetails() {
     final FormState formState = _formKey.currentState;

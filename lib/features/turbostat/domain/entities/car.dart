@@ -1,10 +1,41 @@
-// типизирую модель авто для Firestore
-class Car {
+import 'package:equatable/equatable.dart';
+import 'package:meta/meta.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+part 'car.g.dart';
+
+@JsonSerializable()
+
+class Car extends Equatable {
+  String carId;
   String carVin;
   String carModel;
   String carName;
   String carMark;
   int carYear;
   int carMileage;
-  String carId;
+
+  Car({
+    @required this.carId,
+    @required this.carVin,
+    @required this.carModel,
+    @required this.carName,
+    @required this.carMark,
+    @required this.carYear,
+    @required this.carMileage
+  });
+
+  factory Car.fromJson(Map<String, dynamic> json) => _$CarFromJson(json);
+  Map<String, dynamic> toJson() => _$CarToJson(this);
+
+  @override
+  List<Object> get props => [
+    carId,
+    carVin,
+    carModel,
+    carMark,
+    carName,
+    carMileage,
+    carYear,
+  ];
 }

@@ -1,6 +1,6 @@
 import 'package:carstat/components/drawer.dart';
 import 'package:carstat/components/main_appbar.dart';
-import 'package:carstat/features/turbostat/domain/entities/car.dart';
+import 'package:carstat/features/turbostat/data/models/car_model.dart';
 import 'package:carstat/generated/i18n.dart';
 import 'package:carstat/services/data_service.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +14,15 @@ class _AddCarState extends State<AddCar> {
   int currStep = 0;
   static var _focusNode = new FocusNode();
   GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
-  static Car car = Car();
+  static CarModel car = CarModel(
+    carId: '',
+    carModel: '',
+    carMark: '',
+    carName: '',
+    carMileage: 0,
+    carVin: '',
+    carYear: 0
+  );
   DataService _dataService = DataService();
 
   @override

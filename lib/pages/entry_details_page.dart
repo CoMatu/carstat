@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:carstat/components/custom_circle_progress_bar.dart';
 import 'package:carstat/components/main_appbar.dart';
-import 'package:carstat/features/turbostat/domain/entities/car.dart';
+import 'package:carstat/features/turbostat/data/models/car_model.dart';
 import 'package:carstat/generated/i18n.dart';
-import 'package:carstat/models/entry.dart';
-import 'package:carstat/models/operation.dart';
+import 'package:carstat/features/turbostat/domain/entities/entry.dart';
+import 'package:carstat/features/turbostat/domain/entities/operation.dart';
 import 'package:carstat/pages/dashboard_page.dart';
 import 'package:carstat/services/data_service.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +55,7 @@ Future<ConfirmAction> _asyncConfirmDialog(
 }
 
 Future<ConfirmAction> _asyncDeleteDialog(BuildContext context,
-    DataService dataService, Car car, String entryId) async {
+    DataService dataService, CarModel car, String entryId) async {
   return showDialog<ConfirmAction>(
     context: context,
     barrierDismissible: false, // user must tap button for close dialog!
@@ -93,7 +93,7 @@ Future<ConfirmAction> _asyncDeleteDialog(BuildContext context,
 
 class EntryDetailsPage extends StatefulWidget {
   final tile;
-  final Car car;
+  final CarModel car;
 
   EntryDetailsPage(this.tile, this.car);
 
@@ -103,7 +103,7 @@ class EntryDetailsPage extends StatefulWidget {
 
 class _EntryDetailsPageState extends State<EntryDetailsPage> {
   final Entry entry;
-  final Car car;
+  final CarModel car;
   String entryId;
   DataService dataService = DataService();
   List<Operation> _operns = [];

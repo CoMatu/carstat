@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:carstat/features/turbostat/domain/entities/car.dart';
+import 'package:carstat/features/turbostat/data/models/car_model.dart';
 import 'package:carstat/generated/i18n.dart';
 import 'package:flutter/material.dart';
 
@@ -45,7 +45,7 @@ Future<ConfirmAction> _asyncConfirmDialog(
 }
 
 class CarCard extends StatefulWidget {
-  final Car car;
+  final CarModel car;
   final Function() notifyCarsList;
 
   CarCard(this.car, {@required this.notifyCarsList});

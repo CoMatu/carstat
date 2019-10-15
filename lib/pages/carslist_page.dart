@@ -4,7 +4,7 @@ import 'package:carstat/components/car_card.dart';
 import 'package:carstat/components/custom_circle_progress_bar.dart';
 import 'package:carstat/components/drawer.dart';
 import 'package:carstat/components/main_appbar.dart';
-import 'package:carstat/features/turbostat/domain/entities/car.dart';
+import 'package:carstat/features/turbostat/data/models/car_model.dart';
 import 'package:carstat/generated/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:carstat/services/data_service.dart';
@@ -20,7 +20,7 @@ class CarsListPage extends StatefulWidget {
 class _CarsListPageState extends State<CarsListPage> {
   bool isLoaded = false;
   DataService dataService = DataService();
-  List<Car> _cars = [];
+  List<CarModel> _cars = [];
   Map<PermissionGroup, PermissionStatus> permissions;
 
   void getPermission() async {
@@ -38,14 +38,16 @@ class _CarsListPageState extends State<CarsListPage> {
       isLoaded = false;
       var _count = results.documents.length;
       for (int i = 0; i < _count; i++) {
-        Car car = Car();
-        car.carId = results.documents[i].data['carId'];
-        car.carVin = results.documents[i].data['carVin'];
-        car.carMileage = results.documents[i].data['carMileage'];
-        car.carYear = results.documents[i].data['carYear'];
-        car.carModel = results.documents[i].data['carModel'];
-        car.carMark = results.documents[i].data['carMark'];
-        car.carName = results.documents[i].data['carName'];
+        CarModel car = CarModel(
+            carId: results.documents[i].data['carId'],
+            carModel: results.documents[i].data['carModel'],
+            carMark: results.documents[i].data['carMark'],
+            carName: results.documents[i].data['carName'],
+            carMileage: results.documents[i].data['carMileage'],
+            carVin: results.documents[i].data['carVin'],
+            carYear: results.documents[i].data['carYear'],
+        );
+
         _cars.add(car);
       }
       isLoaded = true;
@@ -64,15 +66,16 @@ class _CarsListPageState extends State<CarsListPage> {
       _cars = [];
 
       for (int i = 0; i < _count; i++) {
-        Car car = Car();
-        car.carId = results.documents[i].data['carId'];
-        print(car.carId);
-        car.carVin = results.documents[i].data['carVin'];
-        car.carMileage = results.documents[i].data['carMileage'];
-        car.carYear = results.documents[i].data['carYear'];
-        car.carModel = results.documents[i].data['carModel'];
-        car.carMark = results.documents[i].data['carMark'];
-        car.carName = results.documents[i].data['carName'];
+        CarModel car = CarModel(
+          carId: results.documents[i].data['carId'],
+          carModel: results.documents[i].data['carModel'],
+          carMark: results.documents[i].data['carMark'],
+          carName: results.documents[i].data['carName'],
+          carMileage: results.documents[i].data['carMileage'],
+          carVin: results.documents[i].data['carVin'],
+          carYear: results.documents[i].data['carYear'],
+        );
+
         _cars.add(car);
       }
       isLoaded = true;

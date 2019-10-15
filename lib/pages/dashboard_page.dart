@@ -1,11 +1,11 @@
 import 'package:carstat/components/custom_circle_progress_bar.dart';
 import 'package:carstat/components/drawer.dart';
 import 'package:carstat/components/main_appbar.dart';
-import 'package:carstat/features/turbostat/domain/entities/car.dart';
+import 'package:carstat/features/turbostat/data/models/car_model.dart';
 import 'package:carstat/generated/i18n.dart';
-import 'package:carstat/models/entry.dart';
-import 'package:carstat/models/operation.dart';
-import 'package:carstat/models/sorted_tile.dart';
+import 'package:carstat/features/turbostat/domain/entities/entry.dart';
+import 'package:carstat/features/turbostat/domain/entities/operation.dart';
+import 'package:carstat/features/turbostat/domain/entities/sorted_tile.dart';
 import 'package:carstat/pages/add_entry_page.dart';
 import 'package:carstat/pages/add_operation_page.dart';
 import 'package:carstat/pages/entry_details_page.dart';
@@ -19,7 +19,7 @@ enum IconStatus { Danger, Warning, Norm, NotDeterminate }
 class DashboardPage extends StatefulWidget {
   DashboardPage(this.car, {this.onSignedOut});
 
-  final Car car;
+  final CarModel car;
   final VoidCallback onSignedOut;
 
   @override
@@ -39,7 +39,7 @@ class _DashboardPageState extends State<DashboardPage> {
   DateTime now;
 
   String tileMessage;
-  Car car;
+  CarModel car;
   String carId;
   SortedTile sortedTile;
 
@@ -276,7 +276,7 @@ class _DashboardPageState extends State<DashboardPage> {
         ));
   }
 
-  _modalBottomSheet(context, Car car) {
+  _modalBottomSheet(context, CarModel car) {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext ctx) {

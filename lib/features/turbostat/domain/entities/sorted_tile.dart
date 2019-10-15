@@ -1,4 +1,4 @@
-import 'package:carstat/models/entry.dart';
+import 'package:carstat/features/turbostat/domain/entities/entry.dart';
 import 'package:flutter/widgets.dart';
 
 class SortedTile {

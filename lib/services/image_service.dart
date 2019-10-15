@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:carstat/features/turbostat/domain/entities/car.dart';
+import 'package:carstat/features/turbostat/data/models/car_model.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 
 class ImageService {
 
-  Future<File> getImage(Car car) async {
+  Future<File> getImage(CarModel car) async {
     var _fileName = car.carId + '.png';
     final dir = await getApplicationDocumentsDirectory();
     final String path = dir.path + '/' + _fileName;

@@ -1,5 +1,5 @@
 import 'package:carstat/generated/i18n.dart';
-import 'package:carstat/models/entry.dart';
+import 'package:carstat/features/turbostat/domain/entities/entry.dart';
 import 'package:carstat/services/data_service.dart';
 import 'package:carstat/services/validators/number_validator.dart';
 import 'package:flutter/material.dart';
