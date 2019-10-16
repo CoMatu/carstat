@@ -1,0 +1,8 @@
+{
+  "operationId": "1",
+  "maintenanceId": "1",
+  "operationDate": "2019-07-22T00:00:00.000",
+  "operationMileage": 80000,
+  "operationPrice": 200.00,
+  "operationNote": "operation note"
+}

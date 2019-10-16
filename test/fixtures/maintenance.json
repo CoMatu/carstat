@@ -1,0 +1,6 @@
+{
+  "maintenanceId": "1",
+  "maintenanceName": "Cabin filter",
+  "maintenanceMonthLimit": 12,
+  "maintenanceMileageLimit": 15000
+}

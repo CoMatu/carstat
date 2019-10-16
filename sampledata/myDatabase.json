@@ -1,0 +1,701 @@
+{
+  "__collections__": {
+    "users": {
+      "-LjyAjQ_1FvhXW6UAqAd": {
+        "userId": "EqYUUYmsi0RdG32DEYTPJNyeDVn1",
+        "__collections__": {
+          "cars": {
+            "ax5k9ZslMbqYdZKcI5Kv": {
+              "carYear": 2012,
+              "carMileage": 83506,
+              "carVin": "SJNFCAE11U2215861",
+              "carModel": "Note E11",
+              "carId": "ax5k9ZslMbqYdZKcI5Kv",
+              "carName": "Enot 1970",
+              "carMark": "Nissan",
+              "__collections__": {
+                "entries": {
+                  "1wbMbNjYrmUcxJyOoWDb": {
+                    "entryMileageLimit": 30000,
+                    "entryChange": true,
+                    "entryDateLimit": 24,
+                    "entryId": "1wbMbNjYrmUcxJyOoWDb",
+                    "entryName": "Свечи зажигания",
+                    "__collections__": {
+                      "operations": {
+                        "XEHpm6d0J0yxkHy2cRYL": {
+                          "operationDate": {
+                            "__datatype__": "timestamp",
+                            "value": {
+                              "_seconds": 1500706800,
+                              "_nanoseconds": 0
+                            }
+                          },
+                          "operationNote": "неточная дата и пробег, не записана замена",
+                          "partPrice": 0,
+                          "operationId": "XEHpm6d0J0yxkHy2cRYL",
+                          "operationPartName": "",
+                          "operationPrice": 0,
+                          "operationMileage": 68245,
+                          "entryId": "1wbMbNjYrmUcxJyOoWDb",
+                          "__collections__": {}
+                        }
+                      }
+                    }
+                  },
+                  "3AZKO7jRyoawm8aTn9lR": {
+                    "entryDateLimit": 24,
+                    "entryId": "3AZKO7jRyoawm8aTn9lR",
+                    "entryName": "Жидкость в тормозной системе",
+                    "entryMileageLimit": 30000,
+                    "entryChange": true,
+                    "__collections__": {
+                      "operations": {
+                        "QN5T9S2k33KbVQLRyDPp": {
+                          "partPrice": 683,
+                          "operationNote": "автоцентр Викинги, Тольятти",
+                          "operationId": "QN5T9S2k33KbVQLRyDPp",
+                          "operationPartName": "",
+                          "operationPrice": 0,
+                          "operationMileage": 58908,
+                          "entryId": "3AZKO7jRyoawm8aTn9lR",
+                          "operationDate": {
+                            "__datatype__": "timestamp",
+                            "value": {
+                              "_seconds": 1515006000,
+                              "_nanoseconds": 0
+                            }
+                          },
+                          "__collections__": {}
+                        },
+                        "VWXEKgy7PdCKMNIEEC7b": {
+                          "operationDate": {
+                            "__datatype__": "timestamp",
+                            "value": {
+                              "_seconds": 1561143600,
+                              "_nanoseconds": 0
+                            }
+                          },
+                          "partPrice": 1071.26,
+                          "operationNote": "дилер в Кирове",
+                          "operationId": "VWXEKgy7PdCKMNIEEC7b",
+                          "operationPartName": "Жидкость тормозная Nissan DOT-4",
+                          "operationPrice": 625,
+                          "operationMileage": 79017,
+                          "entryId": "3AZKO7jRyoawm8aTn9lR",
+                          "__collections__": {}
+                        }
+                      }
+                    }
+                  },
+                  "4HQdNc817by7JBCwxYk0": {
+                    "entryName": "Приводной ремень генератора и компрессора",
+                    "entryMileageLimit": 15000,
+                    "entryChange": false,
+                    "entryDateLimit": 12,
+                    "entryId": "4HQdNc817by7JBCwxYk0",
+                    "__collections__": {}
+                  },
+                  "7FZPEdUGFUrMmR5B7iRm": {
+                    "entryMileageLimit": 52000,
+                    "entryChange": true,
+                    "entryDateLimit": 12,
+                    "entryId": "7FZPEdUGFUrMmR5B7iRm",
+                    "entryName": "Моторное масло и масляный фильтр",
+                    "__collections__": {
+                      "operations": {
+                        "mRAWf8zJjsiozAwql3S6": {
+                          "operationId": "mRAWf8zJjsiozAwql3S6",
+                          "operationPartName": "5W-40",
+                          "operationPrice": 0,
+                          "operationMileage": 58908,
+                          "entryId": "7FZPEdUGFUrMmR5B7iRm",
+                          "operationDate": {
+                            "__datatype__": "timestamp",
+                            "value": {
+                              "_seconds": 1515006000,
+                              "_nanoseconds": 0
+                            }
+                          },
+                          "partPrice": 2320,
+                          "operationNote": "автоцентр Викинги, Тольятти",
+                          "__collections__": {}
+                        }
+                      }
+                    }
+                  },
+                  "7SAf69xd3ySLAKNLWMrs": {
+                    "entryMileageLimit": 15000,
+                    "entryChange": false,
+                    "entryDateLimit": 12,
+                    "entryId": "7SAf69xd3ySLAKNLWMrs",
+                    "entryName": "Проверка подвески и ходовой части",
+                    "__collections__": {
+                      "operations": {
+                        "3qT1kntpU3mXB5EQOZUJ": {
+                          "operationPartName": "Тяга стабилизатора 2 шт 41660 и Сайлентблоки рычага передней подвески NI0123R ",
+                          "operationPrice": 0,
+                          "operationMileage": 83370,
+                          "entryId": "7SAf69xd3ySLAKNLWMrs",
+                          "operationDate": {
+                            "__datatype__": "timestamp",
+                            "value": {
+                              "_seconds": 1567882800,
+                              "_nanoseconds": 0
+                            }
+                          },
+                          "operationNote": "оплата работы была в другой записи за этот день",
+                          "partPrice": 1930,
+                          "operationId": "3qT1kntpU3mXB5EQOZUJ",
+                          "__collections__": {}
+                        },
+                        "asYr5oGbERqvf7pwyFxF": {
+                          "operationPartName": "",
+                          "operationPrice": 3000,
+                          "operationMileage": 83370,
+                          "entryId": "7SAf69xd3ySLAKNLWMrs",
+                          "operationDate": {
+                            "__datatype__": "timestamp",
+                            "value": {
+                              "_seconds": 1567882800,
+                              "_nanoseconds": 0
+                            }
+                          },
+                          "partPrice": 6660,
+                          "operationNote": "1) Опора двигателя MI22020 2) Пыльник переднего амортизатора 2 шт QF22D00012 3) MS22010+20 Опора амортизатора 2 шт 4) Сайлентблоки рычага подвески 841613 ",
+                          "operationId": "asYr5oGbERqvf7pwyFxF",
+                          "__collections__": {}
+                        }
+                      }
+                    }
+                  },
+                  "N3fzIMqGwFf63WbVf1Su": {
+                    "entryMileageLimit": 45000,
+                    "entryChange": true,
+                    "entryDateLimit": 36,
+                    "entryId": "N3fzIMqGwFf63WbVf1Su",
+                    "entryName": "Замена антифриза в системе охлаждения",
+                    "__collections__": {}
+                  },
+                  "Uwsb28sw5tFtdSRWD0MA": {
+                    "entryMileageLimit": 15000,
+                    "entryChange": false,
+                    "entryDateLimit": 12,
+                    "entryId": "Uwsb28sw5tFtdSRWD0MA",
+                    "entryName": "Жидкость и шланги ГУР",
+                    "__collections__": {}
+                  },
+                  "ZSXXCvY4itPKbVLguEfR": {
+                    "entryDateLimit": 48,
+                    "entryId": "ZSXXCvY4itPKbVLguEfR",
+                    "entryName": "Жидкость в АКПП",
+                    "entryMileageLimit": 60000,
+                    "entryChange": true,
+                    "__collections__": {}
+                  },
+                  "bCX5RLejEBRm5plXXeql": {
+                    "entryName": "Замена шин (летние)",
+                    "entryMileageLimit": 45000,
+                    "entryChange": false,
+                    "entryDateLimit": 36,
+                    "entryId": "bCX5RLejEBRm5plXXeql",
+                    "__collections__": {
+                      "operations": {
+                        "naXESzi3NhLWNbmXr8vN": {
+                          "operationNote": "",
+                          "partPrice": 12280,
+                          "operationId": "naXESzi3NhLWNbmXr8vN",
+                          "operationPartName": "185/65 R15 Pirelli Cinturano P1 Verde XL",
+                          "operationPrice": 680,
+                          "operationMileage": 82900,
+                          "entryId": "bCX5RLejEBRm5plXXeql",
+                          "operationDate": {
+                            "__datatype__": "timestamp",
+                            "value": {
+                              "_seconds": 1565377200,
+                              "_nanoseconds": 0
+                            }
+                          },
+                          "__collections__": {}
+                        }
+                      }
+                    }
+                  },
+                  "dxwneYo9sj2VbEyht8BF": {
+                    "entryMileageLimit": 15000,
+                    "entryChange": true,
+                    "entryDateLimit": 12,
+                    "entryId": "dxwneYo9sj2VbEyht8BF",
+                    "entryName": "Салонный фильтр",
+                    "__collections__": {
+                      "operations": {
+                        "1GM52Rfhd7bK94nIT6HN": {
+                          "operationPartName": "",
+                          "operationPrice": 0,
+                          "operationMileage": 76000,
+                          "entryId": "dxwneYo9sj2VbEyht8BF",
+                          "operationDate": {
+                            "__datatype__": "timestamp",
+                            "value": {
+                              "_seconds": 1534273200,
+                              "_nanoseconds": 0
+                            }
+                          },
+                          "partPrice": 250,
+                          "operationNote": "",
+                          "operationId": "1GM52Rfhd7bK94nIT6HN",
+                          "__collections__": {}
+                        },
+                        "L1MozPD1zaaKDRIWvWJ2": {
+                          "operationPrice": 0,
+                          "operationMileage": 83506,
+                          "entryId": "dxwneYo9sj2VbEyht8BF",
+                          "operationDate": {
+                            "__datatype__": "timestamp",
+                            "value": {
+                              "_seconds": 1570820400,
+                              "_nanoseconds": 0
+                            }
+                          },
+                          "partPrice": 300,
+                          "operationNote": "",
+                          "operationId": "L1MozPD1zaaKDRIWvWJ2",
+                          "operationPartName": "Good Will AG 557 CF",
+                          "__collections__": {}
+                        },
+                        "Wb0lIhOaoBRn8i1IGn16": {
+                          "partPrice": 766,
+                          "operationNote": "в рамках ТО60, автоцентр Викинги, Тольятти",
+                          "operationId": "Wb0lIhOaoBRn8i1IGn16",
+                          "operationPartName": "Фильтр салона G15",
+                          "operationPrice": 0,
+                          "operationMileage": 58908,
+                          "entryId": "dxwneYo9sj2VbEyht8BF",
+                          "operationDate": {
+                            "__datatype__": "timestamp",
+                            "value": {
+                              "_seconds": 1515006000,
+                              "_nanoseconds": 0
+                            }
+                          },
+                          "__collections__": {}
+                        }
+                      }
+                    }
+                  },
+                  "jBTMIhSZnltdQ95qfiJZ": {
+                    "entryName": "Воздушный фильтр двигателя",
+                    "entryMileageLimit": 15000,
+                    "entryChange": true,
+                    "entryDateLimit": 12,
+                    "entryId": "jBTMIhSZnltdQ95qfiJZ",
+                    "__collections__": {
+                      "operations": {
+                        "uSfAQnr2VsbQ8vNZ2c0R": {
+                          "operationId": "uSfAQnr2VsbQ8vNZ2c0R",
+                          "operationPartName": "FILTRON AP 124/1",
+                          "operationPrice": 0,
+                          "operationMileage": 82960,
+                          "entryId": "jBTMIhSZnltdQ95qfiJZ",
+                          "operationDate": {
+                            "__datatype__": "timestamp",
+                            "value": {
+                              "_seconds": 1565636400,
+                              "_nanoseconds": 0
+                            }
+                          },
+                          "operationNote": "заменил самостоятельно",
+                          "partPrice": 250,
+                          "__collections__": {}
+                        }
+                      }
+                    }
+                  },
+                  "v1lIACWeGY6VaL7uf0sj": {
+                    "entryMileageLimit": 15000,
+                    "entryChange": false,
+                    "entryDateLimit": 12,
+                    "entryId": "v1lIACWeGY6VaL7uf0sj",
+                    "entryName": "Тормозные колодки и диски, состояние цилиндров",
+                    "__collections__": {
+                      "operations": {
+                        "J3cNsLZPyipp7YiiygNo": {
+                          "operationDate": {
+                            "__datatype__": "timestamp",
+                            "value": {
+                              "_seconds": 1561143600,
+                              "_nanoseconds": 0
+                            }
+                          },
+                          "operationNote": "Проверили состояние у дилера Киров, замечаний не было",
+                          "partPrice": 0,
+                          "operationId": "J3cNsLZPyipp7YiiygNo",
+                          "operationPartName": "",
+                          "operationPrice": 0,
+                          "operationMileage": 79017,
+                          "entryId": "v1lIACWeGY6VaL7uf0sj",
+                          "__collections__": {}
+                        },
+                        "hAgbXIXqFlwR7b3mxdSG": {
+                          "operationId": "hAgbXIXqFlwR7b3mxdSG",
+                          "operationPartName": "Колодки тормозные PB19A1",
+                          "operationPrice": 900,
+                          "operationMileage": 44032,
+                          "entryId": "v1lIACWeGY6VaL7uf0sj",
+                          "operationDate": {
+                            "__datatype__": "timestamp",
+                            "value": {
+                              "_seconds": 1475866800,
+                              "_nanoseconds": 0
+                            }
+                          },
+                          "partPrice": 2752.2,
+                          "operationNote": "Дилер Викинги в Тольятти",
+                          "__collections__": {}
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "nAcjjKsHhCSW4UizMoyR": {
+              "carYear": 2017,
+              "carMileage": 36200,
+              "carVin": "GHJUYHJKIOILLK445DS",
+              "carModel": "CX-5",
+              "carId": "nAcjjKsHhCSW4UizMoyR",
+              "carName": "Zeus",
+              "carMark": "Mazda",
+              "__collections__": {
+                "entries": {
+                  "fPCaOInTujMmjU4yRZE9": {
+                    "entryMileageLimit": 15000,
+                    "entryChange": true,
+                    "entryDateLimit": 12,
+                    "entryId": "fPCaOInTujMmjU4yRZE9",
+                    "entryName": "Oil change",
+                    "__collections__": {
+                      "operations": {
+                        "RO0U5yE3UAdo8Oe7Ts7D": {
+                          "operationPartName": "",
+                          "operationPrice": 0,
+                          "operationMileage": 36200,
+                          "entryId": "fPCaOInTujMmjU4yRZE9",
+                          "operationDate": {
+                            "__datatype__": "timestamp",
+                            "value": {
+                              "_seconds": 1570665600,
+                              "_nanoseconds": 0
+                            }
+                          },
+                          "partPrice": 0,
+                          "operationNote": "",
+                          "operationId": "RO0U5yE3UAdo8Oe7Ts7D",
+                          "__collections__": {}
+                        }
+                      }
+                    }
+                  },
+                  "jLthGbTsndrX9JI1OcH9": {
+                    "entryMileageLimit": 30000,
+                    "entryChange": true,
+                    "entryDateLimit": 24,
+                    "entryId": "jLthGbTsndrX9JI1OcH9",
+                    "entryName": "Coolant replacement",
+                    "__collections__": {
+                      "operations": {
+                        "EXVzI6WoMWREu8DpFZED": {
+                          "operationPartName": "",
+                          "operationPrice": 100,
+                          "operationMileage": 6000,
+                          "entryId": "jLthGbTsndrX9JI1OcH9",
+                          "operationDate": {
+                            "__datatype__": "timestamp",
+                            "value": {
+                              "_seconds": 1500508800,
+                              "_nanoseconds": 0
+                            }
+                          },
+                          "partPrice": 88,
+                          "operationNote": "",
+                          "operationId": "EXVzI6WoMWREu8DpFZED",
+                          "__collections__": {}
+                        },
+                        "L3VzBkO5IWSIgpQN1OOO": {
+                          "operationId": "L3VzBkO5IWSIgpQN1OOO",
+                          "operationPartName": "non",
+                          "operationPrice": 0,
+                          "operationMileage": 36200,
+                          "entryId": "jLthGbTsndrX9JI1OcH9",
+                          "operationDate": {
+                            "__datatype__": "timestamp",
+                            "value": {
+                              "_seconds": 1570647600,
+                              "_nanoseconds": 0
+                            }
+                          },
+                          "operationNote": "",
+                          "partPrice": 0,
+                          "__collections__": {}
+                        }
+                      }
+                    }
+                  },
+                  "pN7QjVdnqewP3n1dD8Kp": {
+                    "entryName": "Auto transmission service",
+                    "entryMileageLimit": 30000,
+                    "entryChange": false,
+                    "entryDateLimit": 24,
+                    "entryId": "pN7QjVdnqewP3n1dD8Kp",
+                    "__collections__": {
+                      "operations": {
+                        "XzxXCsMH6MG8lV7DxQyf": {
+                          "operationNote": "",
+                          "partPrice": 0,
+                          "operationId": "XzxXCsMH6MG8lV7DxQyf",
+                          "operationPartName": "r to",
+                          "operationPrice": 0,
+                          "operationMileage": 36200,
+                          "entryId": "pN7QjVdnqewP3n1dD8Kp",
+                          "operationDate": {
+                            "__datatype__": "timestamp",
+                            "value": {
+                              "_seconds": 1570388400,
+                              "_nanoseconds": 0
+                            }
+                          },
+                          "__collections__": {}
+                        },
+                        "qJur7m6iyisArSckql7G": {
+                          "operationPartName": "",
+                          "operationPrice": 300,
+                          "operationMileage": 34000,
+                          "entryId": "pN7QjVdnqewP3n1dD8Kp",
+                          "operationDate": {
+                            "__datatype__": "timestamp",
+                            "value": {
+                              "_seconds": 1567468800,
+                              "_nanoseconds": 0
+                            }
+                          },
+                          "operationNote": "",
+                          "partPrice": 330,
+                          "operationId": "qJur7m6iyisArSckql7G",
+                          "__collections__": {}
+                        }
+                      }
+                    }
+                  },
+                  "td2OP395D4TxQqsc11WX": {
+                    "entryName": "Cabin filter replacement",
+                    "entryMileageLimit": 15000,
+                    "entryChange": true,
+                    "entryDateLimit": 12,
+                    "entryId": "td2OP395D4TxQqsc11WX",
+                    "__collections__": {
+                      "operations": {
+                        "6n6aqHxtGTh5hXrzHCrw": {
+                          "operationPrice": 20,
+                          "operationMileage": 28145,
+                          "entryId": "td2OP395D4TxQqsc11WX",
+                          "operationDate": {
+                            "__datatype__": "timestamp",
+                            "value": {
+                              "_seconds": 1537228800,
+                              "_nanoseconds": 0
+                            }
+                          },
+                          "operationNote": "",
+                          "partPrice": 10.99,
+                          "operationId": "6n6aqHxtGTh5hXrzHCrw",
+                          "operationPartName": "",
+                          "__collections__": {}
+                        },
+                        "xn4Cq83x16vDE4vY50vU": {
+                          "partPrice": 0,
+                          "operationNote": "",
+                          "operationId": "xn4Cq83x16vDE4vY50vU",
+                          "operationPartName": "",
+                          "operationPrice": 0,
+                          "operationMileage": 36200,
+                          "entryId": "td2OP395D4TxQqsc11WX",
+                          "operationDate": {
+                            "__datatype__": "timestamp",
+                            "value": {
+                              "_seconds": 1569369600,
+                              "_nanoseconds": 0
+                            }
+                          },
+                          "__collections__": {}
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "1tNZrsmMh04NbBAQxbYY": {
+        "userId": "lwEXZsV0dBTgtG0ZDd4IIqy8Jt02",
+        "__collections__": {
+          "cars": {
+            "Q2cYd29bjJpnS3e2Rs8N": {
+              "carYear": 2012,
+              "carMileage": 258,
+              "carVin": "999999999999",
+              "carModel": "googletest",
+              "carId": "Q2cYd29bjJpnS3e2Rs8N",
+              "carName": "My Car",
+              "carMark": "Google car",
+              "__collections__": {}
+            },
+            "g2w4Hr1jEYeluJCsHZB3": {
+              "carModel": "googletest",
+              "carId": "g2w4Hr1jEYeluJCsHZB3",
+              "carName": "My Car",
+              "carMark": "Google car",
+              "carYear": 2012,
+              "carMileage": 258,
+              "carVin": "999999999999",
+              "__collections__": {}
+            }
+          }
+        }
+      },
+      "75nYdO4oYx2k8k4LH4BD": {
+        "userId": "Ni0OQT7YWfdzCB2HMMzJIEdECbH2",
+        "__collections__": {}
+      },
+      "DJoJezg8awqFBvrbmnj0": {
+        "userId": "PvWVXWpyLYOJFTZrj61GF304y6D2",
+        "__collections__": {}
+      },
+      "E5rjQDs6kRHFVSd1IaCf": {
+        "userId": "qY2yNINYCWh8N6HvGWXZuqdDI7Y2",
+        "__collections__": {}
+      },
+      "IWwPwSY42mQ1koFTsiSu": {
+        "userId": "y6asi425fBZ0dla4DwfAd8BDCE23",
+        "__collections__": {}
+      },
+      "IXvQeTJZA9qme0wc5mmE": {
+        "userId": "Oj9pzp2WPgfb3Odxrau0b3ABpO02",
+        "__collections__": {}
+      },
+      "JTGQ2qNWnpwCPz5imlyZ": {
+        "userId": "2xWGa0Zfy7WnB7ZRVMruTBDPqXG3",
+        "__collections__": {
+          "cars": {
+            "VTYghILOvcvJRKupfuH1": {
+              "carYear": 2005,
+              "carMileage": 200000,
+              "carVin": "wbswd93549py43903",
+              "carModel": "e53",
+              "carId": "VTYghILOvcvJRKupfuH1",
+              "carName": "My Car",
+              "carMark": "BMW",
+              "__collections__": {
+                "entries": {
+                  "0bUSV0pSVZBa1i5biPhA": {
+                    "entryName": "",
+                    "entryMileageLimit": 15000,
+                    "entryChange": true,
+                    "entryDateLimit": 12,
+                    "entryId": "0bUSV0pSVZBa1i5biPhA",
+                    "__collections__": {}
+                  },
+                  "sTEEjDk4vz7kK8eCWTPK": {
+                    "__collections__": {
+                      "operations": {
+                        "ZW30SMSvONMe3tGNMVUD": {
+                          "operationId": "ZW30SMSvONMe3tGNMVUD",
+                          "operationPartName": "bghhb",
+                          "operationPrice": 5,
+                          "operationMileage": 200000,
+                          "entryId": null,
+                          "operationDate": {
+                            "__datatype__": "timestamp",
+                            "value": {
+                              "_seconds": 1567983600,
+                              "_nanoseconds": 0
+                            }
+                          },
+                          "partPrice": 5,
+                          "operationNote": "hvfggnk",
+                          "__collections__": {}
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "JyduHcgB919COw0ZBSwK": {
+        "userId": "K73kao5sBXWNq3YgatS1sGXeshg2",
+        "__collections__": {}
+      },
+      "WWxfedIZfA7aEskdLBG1": {
+        "userId": "gwIILMcDwBfE3S1ucv10GzEFngv2",
+        "__collections__": {
+          "cars": {
+            "o308bdpaI8Scz5u8TRLW": {
+              "carMark": "Nissan",
+              "carYear": 2013,
+              "carMileage": 83300,
+              "carVin": "DGHNBCTUJNKIGF",
+              "carModel": "Note",
+              "carId": "o308bdpaI8Scz5u8TRLW",
+              "carName": "Моя машина",
+              "__collections__": {
+                "entries": {
+                  "M2zzGIowadvPwmwb4Y4r": {
+                    "entryMileageLimit": 15000,
+                    "entryChange": true,
+                    "entryDateLimit": 12,
+                    "entryId": "M2zzGIowadvPwmwb4Y4r",
+                    "entryName": "Фильтр салона",
+                    "__collections__": {
+                      "operations": {
+                        "3vNCDNSytubpkGFT3all": {
+                          "operationMileage": 83300,
+                          "entryId": "M2zzGIowadvPwmwb4Y4r",
+                          "operationDate": {
+                            "__datatype__": "timestamp",
+                            "value": {
+                              "_seconds": 1567191600,
+                              "_nanoseconds": 0
+                            }
+                          },
+                          "operationNote": "заменил самостоятельно",
+                          "partPrice": 250,
+                          "operationId": "3vNCDNSytubpkGFT3all",
+                          "operationPartName": "фильтр салона AF200",
+                          "operationPrice": 0,
+                          "__collections__": {}
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "ga4i7jIwqN4MxCPAOPH1": {
+        "userId": "ivwR7j0cRHhI1bE7iDnmKJBjYw42",
+        "__collections__": {}
+      },
+      "z2pvR9ARQLrn8lovzb05": {
+        "userId": "0000000000",
+        "__collections__": {}
+      }
+    }
+  }
+}
