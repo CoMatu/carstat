@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:carstat/components/custom_circle_progress_bar.dart';
 import 'package:carstat/components/main_appbar.dart';
 import 'package:carstat/features/turbostat/data/models/car_model.dart';
+import 'package:carstat/features/turbostat/data/models/maintenance_model.dart';
 import 'package:carstat/generated/i18n.dart';
-import 'package:carstat/features/turbostat/domain/entities/entry.dart';
 import 'package:carstat/features/turbostat/domain/entities/operation.dart';
 import 'package:carstat/pages/dashboard_page.dart';
 import 'package:carstat/services/data_service.dart';
@@ -102,7 +102,7 @@ class EntryDetailsPage extends StatefulWidget {
 }
 
 class _EntryDetailsPageState extends State<EntryDetailsPage> {
-  final Entry entry;
+  final MaintenanceModel _maintenanceModel;
   final CarModel car;
   String entryId;
   DataService dataService = DataService();
@@ -111,7 +111,7 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
   int entryDateLimit2;
   int entryMileageLimit2;
 
-  _EntryDetailsPageState(this.entry, this.car);
+  _EntryDetailsPageState(this._maintenanceModel, this.car);
 
   Future<void> getOperations(String entryId) async {
     _operns = await dataService.getEntryOperations(entryId, car.carId);
@@ -124,8 +124,8 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
   @override
   void initState() {
     initializeDateFormatting();
-    entryDateLimit2 = entry.entryDateLimit;
-    entryMileageLimit2 = entry.entryMileageLimit;
+    entryDateLimit2 = _maintenanceModel.maintenanceMonthLimit;
+    entryMileageLimit2 = _maintenanceModel.maintenanceMileageLimit;
     super.initState();
   }
 
@@ -148,7 +148,7 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
-                          Expanded(child: Text(entry.entryName)),
+                          Expanded(child: Text(_maintenanceModel.maintenanceName)),
                           _simplePopup()
                         ],
                       ),
@@ -169,7 +169,7 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
             ),
           ),
           FutureBuilder(
-            future: getOperations(entry.entryId),
+            future: getOperations(_maintenanceModel.maintenanceId),
             builder: (BuildContext ctx, AsyncSnapshot snapshot) {
               if (snapshot.connectionState != ConnectionState.done) {
                 return Center(
@@ -186,10 +186,10 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                   var f = DateFormat('dd.MM.yyyy');
                   final littleTextStyle =
                       TextStyle(fontSize: 8.0, color: Colors.black38);
-                  String partPrice =
-                      _numberFormat.format(_operns[index].partPrice);
+//                  String partPrice =
+//                      _numberFormat.format(_operns[index].partPrice);
                   String totalPrice = _numberFormat.format(
-                      (_operns[index].partPrice +
+                      (0 + //add calculate part price
                           _operns[index].operationPrice));
                   String operationPrice =
                       _numberFormat.format(_operns[index].operationPrice);
@@ -257,7 +257,7 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                                               style: littleTextStyle,
                                             ),
                                             Text(
-                                              partPrice,
+                                              'partPrice',
                                               style: littleTextStyle,
                                             ),
                                           ],
@@ -293,7 +293,7 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                                           context,
                                           dataService,
                                           car.carId,
-                                          _operns[index].entryId,
+                                          _operns[index].maintenanceId,
                                           _operns[index].operationId);
                                       setState(() {});
                                     },
@@ -330,7 +330,7 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                                       flex: 3,
                                       child: Container(
                                         child: Text(
-                                            _operns[index].operationPartName),
+                                            '_operns[index].operationPartName'),
                                       ),
                                     ),
                                   ],
@@ -427,20 +427,20 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
   void choiceAction(String value) {
     if (value == S.of(context).button_delete_camel) {
       print('DELETE');
-      _asyncDeleteDialog(context, dataService, car, entry.entryId);
+      _asyncDeleteDialog(context, dataService, car, _maintenanceModel.maintenanceId);
     } else {
       if (value == S.of(context).button_edit_camel) {
         print('EDIT');
         Navigator.pushNamed(context, 'edit_entry_page',
-            arguments: [entry, car]);
+            arguments: [_maintenanceModel, car]);
       }
       if (value == S.of(context).button_add_calendar_camel) {
 //        print(tile['entry'].entryDateLimit * 30);
 //        print(DateTime.now().difference(_operns[0].operationDate).inDays);
-        int duration = entry.entryDateLimit * 30 -
+        int duration = _maintenanceModel.maintenanceMonthLimit * 30 -
             DateTime.now().difference(_operns[0].operationDate).inDays;
         final Event event = Event(
-          title: entry.entryName,
+          title: _maintenanceModel.maintenanceName,
           description: S.of(context).entry_details_page_description(
               entryDateLimit2.toString(), entryMileageLimit2.toString()),
           startDate: DateTime.now().add(Duration(days: duration)),

@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:carstat/features/turbostat/data/models/car_model.dart';
-import 'package:carstat/features/turbostat/domain/entities/entry.dart';
+import 'package:carstat/features/turbostat/data/models/maintenance_model.dart';
+import 'package:carstat/features/turbostat/data/models/operation_model.dart';
 import 'package:carstat/features/turbostat/domain/entities/operation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:carstat/services/auth_service.dart';
@@ -85,35 +86,34 @@ class DataService {
     fs.document(docId).collection('cars').document(carId).delete();
   }
 
-  Future<void> addEntry(Entry entry, String carId) async {
+  Future<void> addEntry(MaintenanceModel maintenanceModel, String carId) async {
     await getData();
-    var entryRef = fs
+    var maintenanceRef = fs
         .document(docId)
         .collection('cars')
         .document(carId)
-        .collection('entries')
+        .collection('maintenancies')
         .document();
 
-    var entryData = {
-      'entryName': entry.entryName,
-      'entryDateLimit': entry.entryDateLimit,
-      'entryMileageLimit': entry.entryMileageLimit,
-      'entryChange': entry.forChange,
-      'entryId': entryRef.documentID
+    var maintenanceData = {
+      'maintenanceName': maintenanceModel.maintenanceName,
+      'maintenanceMonthLimit': maintenanceModel.maintenanceMonthLimit,
+      'maintenanceMileageLimit': maintenanceModel.maintenanceMileageLimit,
+      'maintenanceId': maintenanceRef.documentID
     };
 
     fs
         .document(docId)
         .collection('cars')
         .document(carId)
-        .collection('entries')
-        .document(entryRef.documentID)
-        .setData(entryData);
+        .collection('maintenancies')
+        .document(maintenanceRef.documentID)
+        .setData(maintenanceData);
   }
 
-  Future<List<Entry>> getEntries(String carId) async {
+  Future<List<MaintenanceModel>> getAllMaintenance(String carId) async {
     _userId = await _firebaseAuth.currentUser();
-    List<Entry> _entriesList = [];
+    List<MaintenanceModel> _maintenanciesList = [];
 
     if (_userId != null) {
       // проверка на ноль при выходе из аккаунта
@@ -127,46 +127,44 @@ class DataService {
           .document(docId)
           .collection('cars')
           .document(carId)
-          .collection('entries')
+          .collection('maintenancies')
           .getDocuments();
 
       await _carEntries.then((res) {
         for (int i = 0; i < res.documents.length; i++) {
-          var entry = Entry();
-          entry.entryName = res.documents[i].data['entryName'];
-          entry.entryMileageLimit = res.documents[i].data['entryMileageLimit'];
-          entry.entryDateLimit = res.documents[i].data['entryDateLimit'];
-          entry.forChange = res.documents[i].data['forChange'];
-          entry.entryId = res.documents[i].data['entryId'];
-//          print(entry.entryName); // print for debugging
-          _entriesList.add(entry);
+          var maintenance = MaintenanceModel(
+            maintenanceId: res.documents[i].data['maintenanceId'],
+            maintenanceName: res.documents[i].data['maintenanceName'],
+            maintenanceMileageLimit: res.documents[i].data['maintenanceMileageLimit'],
+            maintenanceMonthLimit: res.documents[i].data['maintenanceMonthLimit'],
+          );
+//          print(maintenance.maintenanceName); // print for debugging
+          _maintenanciesList.add(maintenance);
         }
       });
     }
 
-    return _entriesList;
+    return _maintenanciesList;
   }
 
   Future<void> addOperation(Operation operation, String carId) async {
     await getData();
-    var entryId = operation.entryId;
+    var maintenanceId = operation.maintenanceId;
     var operationRef = fs
         .document(docId)
         .collection('cars')
         .document(carId)
-        .collection('entries')
-        .document(entryId)
+        .collection('maintenancies')
+        .document(maintenanceId)
         .collection('operations')
         .document();
 
     var operationData = {
       'operationDate': operation.operationDate,
       'operationMileage': operation.operationMileage,
-      'operationPartName': operation.operationPartName,
       'operationNote': operation.operationNote,
-      'partPrice': operation.partPrice ?? 0.0,
       'operationPrice': operation.operationPrice ?? 0.0,
-      'entryId': operation.entryId,
+      'maintenanceId': operation.maintenanceId,
       'operationId': operationRef.documentID
     };
 
@@ -174,14 +172,14 @@ class DataService {
         .document(docId)
         .collection('cars')
         .document(carId)
-        .collection('entries')
-        .document(entryId)
+        .collection('maintenancies')
+        .document(maintenanceId)
         .collection('operations')
         .document(operationRef.documentID)
         .setData(operationData);
   }
 
-  getEntryOperations(String entryId, String carId) async {
+  getEntryOperations(String maintenanceId, String carId) async {
     _userId = await _firebaseAuth.currentUser();
     List<Operation> _operations = [];
     Future<QuerySnapshot> _userDoc =
@@ -189,73 +187,70 @@ class DataService {
     await _userDoc.then((res) {
       docId = res.documents[0].documentID;
     });
-    Future<QuerySnapshot> _entryOperations = fs
+    Future<QuerySnapshot> _maintenanceOperations = fs
         .document(docId)
         .collection('cars')
         .document(carId)
-        .collection('entries')
-        .document(entryId)
+        .collection('maintenancies')
+        .document(maintenanceId)
         .collection('operations')
         .getDocuments();
 
-    await _entryOperations.then((val) {
+    await _maintenanceOperations.then((val) {
       for (int i = 0; i < val.documents.length; i++) {
-        var _operation = Operation();
+        var _operationModel = OperationModel(
+          maintenanceId: maintenanceId,
+          operationId: val.documents[i]['operationId'],
+          operationPrice: val.documents[i].data['operationPrice'],
+          operationDate: val.documents[i].data['operationDate'].toDate(),
+          operationMileage: val.documents[i].data['operationMileage'],
+          operationNote: val.documents[i].data['operationNote'],
+        );
 
-        _operation.entryId = entryId;
-        _operation.operationNote = val.documents[i].data['operationNote'];
-        _operation.operationDate =
-            val.documents[i].data['operationDate'].toDate();
-        _operation.operationMileage = val.documents[i].data['operationMileage'];
-        _operation.operationPartName =
-            val.documents[i].data['operationPartName'];
-        _operation.operationPrice = val.documents[i].data['operationPrice'];
-        _operation.partPrice = val.documents[i]['partPrice'];
-        _operation.operationId = val.documents[i]['operationId'];
-        _operations.add(_operation);
+        _operations.add(_operationModel);
       }
     });
     return _operations;
   }
 
   Future<void> deleteOperation(
-      String carId, String entryId, String operationId) async {
+      String carId, String maintenanceId, String operationId) async {
     await getData();
     fs
         .document(docId)
         .collection('cars')
         .document(carId)
-        .collection('entries')
-        .document(entryId)
+        .collection('maintenancies')
+        .document(maintenanceId)
         .collection('operations')
         .document(operationId)
         .delete();
   }
 
-  Future<void> deleteEntry(String carId, String entryId) async {
+  Future<void> deleteEntry(String carId, String maintenanceId) async {
     await getData();
     fs
         .document(docId)
         .collection('cars')
         .document(carId)
-        .collection('entries')
-        .document(entryId)
+        .collection('maintenancies')
+        .document(maintenanceId)
         .delete();
   }
 
-  Future<void> updateEntry(CarModel car, Entry entry) async {
+  Future<void> updateEntry(CarModel car, MaintenanceModel maintenanceModel) async {
     await getData();
     var data = {
-      'entryName': entry.entryName,
-      'entryMileageLimit': entry.entryMileageLimit,
-      'entryDateLimit': entry.entryDateLimit
+      'maintenanceName': maintenanceModel.maintenanceName,
+      'maintenanceMileageLimit': maintenanceModel.maintenanceMileageLimit,
+      'maintenanceMonthLimit': maintenanceModel.maintenanceMonthLimit,
     };
     fs
         .document(docId)
         .collection('cars')
         .document(car.carId)
-        .collection('entries')
-        .document(entry.entryId)
+        .collection('maintenancies')
+        .document(maintenanceModel.maintenanceId)
         .updateData(data);
   }
 }

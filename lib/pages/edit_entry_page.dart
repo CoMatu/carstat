@@ -1,7 +1,7 @@
 import 'package:carstat/components/main_appbar.dart';
 import 'package:carstat/features/turbostat/data/models/car_model.dart';
+import 'package:carstat/features/turbostat/data/models/maintenance_model.dart';
 import 'package:carstat/generated/i18n.dart';
-import 'package:carstat/features/turbostat/domain/entities/entry.dart';
 import 'package:carstat/pages/dashboard_page.dart';
 import 'package:carstat/services/data_service.dart';
 import 'package:flutter/material.dart';
@@ -15,8 +15,14 @@ class _EditEntryPageState extends State<EditEntryPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   DataService _dataService = DataService();
-  Entry _entry;
+  MaintenanceModel _entry;
   CarModel _car;
+
+  String maintenanceName;
+
+  int maintenanceMileageLimit;
+
+  int maintenanceMonthLimit;
 
   void _submitDetails() {
     final FormState formState = _formKey.currentState;
@@ -50,24 +56,24 @@ class _EditEntryPageState extends State<EditEntryPage> {
               ),
               TextFormField(
                 keyboardType: TextInputType.text,
-                initialValue: _entry.entryName,
-                onSaved: (val) => _entry.entryName = val,
+                initialValue: _entry.maintenanceName,
+                onSaved: (val) => maintenanceName = val,
                 decoration: InputDecoration(
                   labelText: S.of(context).form_decorator_maintenance_name,
                 ),
               ),
               TextFormField(
                 keyboardType: TextInputType.text,
-                initialValue: _entry.entryDateLimit.toString(),
-                onSaved: (val) => _entry.entryDateLimit = int.parse(val),
+                initialValue: _entry.maintenanceMonthLimit.toString(),
+                onSaved: (val) => maintenanceMonthLimit = int.parse(val),
                 decoration: InputDecoration(
                   labelText: S.of(context).form_decorator_maintenance_interval,
                 ),
               ),
               TextFormField(
                 keyboardType: TextInputType.text,
-                initialValue: _entry.entryMileageLimit.toString(),
-                onSaved: (val) => _entry.entryMileageLimit = int.parse(val),
+                initialValue: _entry.maintenanceMileageLimit.toString(),
+                onSaved: (val) => maintenanceMileageLimit = int.parse(val),
                 decoration: InputDecoration(
                   labelText: S.of(context).form_decorator_maintenance_interval_km,
                 ),

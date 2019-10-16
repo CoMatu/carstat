@@ -1,5 +1,5 @@
+import 'package:carstat/features/turbostat/data/models/maintenance_model.dart';
 import 'package:carstat/generated/i18n.dart';
-import 'package:carstat/features/turbostat/domain/entities/entry.dart';
 import 'package:carstat/services/data_service.dart';
 import 'package:carstat/services/validators/number_validator.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +17,12 @@ class AddEntryPage extends StatefulWidget {
 class _AddEntryPageState extends State<AddEntryPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  Entry _entry = Entry();
   final String carId;
+
+  String maintenanceName;
+  int maintenanceMonthLimit;
+  int maintenanceMileageLimit;
+
   _AddEntryPageState(this.carId);
   bool _forChange = false;
 
@@ -42,7 +46,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
               Container(height: 30),
               TextFormField(
                 keyboardType: TextInputType.text,
-                onSaved: (val) => _entry.entryName = val,
+                onSaved: (val) => maintenanceName = val,
                 decoration: InputDecoration(
                   labelText: S.of(context).form_decorator_maintenance_name,
                 ),
@@ -68,7 +72,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
                 keyboardType: TextInputType.number,
                 initialValue: '12',
                 validator: (val) => NumberValidator().numberValidator(val),
-                onSaved: (val) => _entry.entryDateLimit = int.parse(val),
+                onSaved: (val) => maintenanceMonthLimit = int.parse(val),
                 decoration:
                     InputDecoration(labelText: S.of(context).form_decorator_maintenance_interval),
               ),
@@ -77,7 +81,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
                 keyboardType: TextInputType.number,
                 initialValue: '15000',
                 validator: (val) => NumberValidator().numberValidator(val),
-                onSaved: (val) => _entry.entryMileageLimit = int.parse(val),
+                onSaved: (val) => maintenanceMileageLimit = int.parse(val),
                 decoration: InputDecoration(
                     labelText: S.of(context).form_decorator_maintenance_interval_km),
               ),
@@ -113,10 +117,14 @@ class _AddEntryPageState extends State<AddEntryPage> {
         backgroundColor: Colors.red,
       ));
     } else {
-      _entry.forChange = _forChange;
       form.save();
 
-      DataService().addEntry(_entry, carId);
+      DataService().addEntry(MaintenanceModel(
+        maintenanceId: '',
+        maintenanceName: maintenanceName,
+        maintenanceMileageLimit: maintenanceMileageLimit,
+        maintenanceMonthLimit: maintenanceMonthLimit,
+      ), carId);
       Navigator.pop(context);
     }
   }

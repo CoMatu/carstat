@@ -2,8 +2,8 @@ import 'package:carstat/components/custom_circle_progress_bar.dart';
 import 'package:carstat/components/drawer.dart';
 import 'package:carstat/components/main_appbar.dart';
 import 'package:carstat/features/turbostat/data/models/car_model.dart';
+import 'package:carstat/features/turbostat/data/models/maintenance_model.dart';
 import 'package:carstat/generated/i18n.dart';
-import 'package:carstat/features/turbostat/domain/entities/entry.dart';
 import 'package:carstat/features/turbostat/domain/entities/operation.dart';
 import 'package:carstat/features/turbostat/domain/entities/sorted_tile.dart';
 import 'package:carstat/pages/add_entry_page.dart';
@@ -33,7 +33,7 @@ class _DashboardPageState extends State<DashboardPage> {
     FontAwesomeIcons.calendarPlus,
   ];
   DashboardService dashboardService = DashboardService();
-  List<Entry> _entries = [];
+  List<MaintenanceModel> _entries = [];
   List<SortedTile> _sorted;
   static List _tiles;
   DateTime now;
@@ -54,15 +54,15 @@ class _DashboardPageState extends State<DashboardPage> {
 
   _getEntries(String carId) async {
     _sorted = [];
-    _entries = await DataService().getEntries(carId);
+    _entries = await DataService().getAllMaintenance(carId);
     _tiles = await dashboardService.getMarkers(_entries, carId);
     _tiles.forEach((res) {
       List<Operation> _operations = res['operations'];
-      Entry _entry = res['entry'];
+      MaintenanceModel _maintenance = res['entry'];
 
       sortedTile = SortedTile();
-      sortedTile.tileName = _entry.entryName;
-      sortedTile.entry = _entry;
+      sortedTile.tileName = _maintenance.maintenanceName;
+      sortedTile.maintenanceModel = _maintenance;
 
       if (_operations.length == 0) {
         iconStatus = IconStatus.NotDeterminate;
@@ -81,7 +81,7 @@ class _DashboardPageState extends State<DashboardPage> {
         int lastMileage = _operations[0].operationMileage;
         int mileageFromLast = car.carMileage - lastMileage;
 
-        if (mileageFromLast >= _entry.entryMileageLimit) {
+        if (mileageFromLast >= _maintenance.maintenanceMonthLimit) {
           // проверка на пробег сверх лимита
           iconStatus = IconStatus.Danger;
           sortedTile.icon = Icon(Icons.warning, color: Colors.red, size: 32.0,);
@@ -90,7 +90,7 @@ class _DashboardPageState extends State<DashboardPage> {
               .dashboard_page_missed_maintenance(mileageFromLast.toString());
         } else {
           int daysFromLast = now.difference(lastDate).inDays;
-          int dayLimit = _entry.entryDateLimit*30;
+          int dayLimit = _maintenance.maintenanceMonthLimit*30;
           if (daysFromLast >= dayLimit) {
             int daysOver = daysFromLast - dayLimit;
             iconStatus = IconStatus.Danger;
@@ -100,7 +100,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 .dashboard_page_missed_maintenance_days(daysOver.toString());
           } else {
             int daysRemain = dayLimit - daysFromLast;
-            int mileageRemain = lastMileage + _entry.entryMileageLimit - car.carMileage;
+            int mileageRemain = lastMileage + _maintenance.maintenanceMileageLimit - car.carMileage;
             sortedTile.infoMessage = S.of(context).dashboard_page_maintenance_before(
                 daysRemain.toString(), mileageRemain.toString());
 
@@ -235,7 +235,7 @@ class _DashboardPageState extends State<DashboardPage> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      EntryDetailsPage(_sorted[index].entry, car)));
+                                      EntryDetailsPage(_sorted[index].maintenanceModel, car)));
                         },
                         contentPadding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 10.0),

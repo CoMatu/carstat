@@ -1,17 +1,17 @@
 import 'dart:async';
 
-import 'package:carstat/features/turbostat/domain/entities/entry.dart';
+import 'package:carstat/features/turbostat/data/models/maintenance_model.dart';
 import 'package:carstat/services/data_service.dart';
 
   class DashboardService {
     DataService dataService = DataService();
 
-    getMarkers(List<Entry> entries, String carId) async {
+    getMarkers(List<MaintenanceModel> entries, String carId) async {
       var _marker = []; // коллекция списков операторов для каждого регламента ТО
 
       final opsForEntries = await Future.wait(
         entries.map((value) {
-          return dataService.getEntryOperations(value.entryId, carId);
+          return dataService.getEntryOperations(value.maintenanceId, carId);
         })
       );
 

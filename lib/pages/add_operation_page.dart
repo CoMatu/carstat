@@ -1,18 +1,18 @@
 import 'package:carstat/features/turbostat/data/models/car_model.dart';
+import 'package:carstat/features/turbostat/data/models/maintenance_model.dart';
+import 'package:carstat/features/turbostat/data/models/operation_model.dart';
 import 'package:carstat/generated/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
-import 'package:carstat/features/turbostat/domain/entities/entry.dart';
-import 'package:carstat/features/turbostat/domain/entities/operation.dart';
 import 'package:carstat/services/data_service.dart';
 import 'package:carstat/services/validators/date_validator.dart';
 import 'package:carstat/components/main_appbar.dart';
 
 class AddOperationPage extends StatefulWidget {
   final CarModel car;
-  final List<Entry> entries;
+  final List<MaintenanceModel> entries;
 
   AddOperationPage(this.car, this.entries);
 
@@ -26,10 +26,23 @@ class _AddOperationPageState extends State<AddOperationPage> {
   final TextEditingController _controller = TextEditingController();
 
   List<String> _entriesNames = <String>[];
-  Operation _operation = Operation();
 
   final CarModel car;
-  final List<Entry> _entries;
+  final List<MaintenanceModel> _entries;
+
+  String maintenanceId;
+
+  DateTime operationDate;
+
+  String operationPartName;
+
+  double operationPrice;
+
+  int operationMileage;
+
+  double partPrice;
+
+  String operationNote;
 
   _AddOperationPageState(this.car, this._entries);
 
@@ -70,7 +83,7 @@ class _AddOperationPageState extends State<AddOperationPage> {
   @override
   void initState() {
     _entries.forEach((res) {
-      _entriesNames.add(res.entryName);
+      _entriesNames.add(res.maintenanceName);
     });
     super.initState();
   }
@@ -96,24 +109,25 @@ class _AddOperationPageState extends State<AddOperationPage> {
                 builder: (FormFieldState<String> state) {
                   return InputDecorator(
                     decoration: InputDecoration(
-                        labelText: S.of(context).form_decorator_select_maintenance,
+                        labelText:
+                            S.of(context).form_decorator_select_maintenance,
                         labelStyle: TextStyle(fontSize: 22.0)),
-                    isEmpty: _operation.entryId == '',
+                    isEmpty: maintenanceId == '',
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton<String>(
-                        value: _operation.entryId,
+                        value: maintenanceId,
                         isDense: true,
                         isExpanded: true,
                         onChanged: (String newValue) {
                           setState(() {
-                            _operation.entryId = newValue;
+                            maintenanceId = newValue;
                             state.didChange(newValue);
                           });
                         },
-                        items: _entries.map((Entry value) {
+                        items: _entries.map((MaintenanceModel value) {
                           return DropdownMenuItem<String>(
-                            value: value.entryId,
-                            child: Text(value.entryName),
+                            value: value.maintenanceId,
+                            child: Text(value.maintenanceName),
                           );
                         }).toList(),
                       ),
@@ -134,8 +148,8 @@ class _AddOperationPageState extends State<AddOperationPage> {
                   validator: (val) => DateValidator().isValidDate(val)
                       ? null
                       : S.of(context).form_validator_date_format,
-                  onSaved: (val) => _operation.operationDate =
-                      DateFormat('dd.MM.yyyy').parseStrict(val),
+                  onSaved: (val) =>
+                      operationDate = DateFormat('dd.MM.yyyy').parseStrict(val),
                 )),
                 IconButton(
                   icon: Icon(Icons.more_horiz),
@@ -151,17 +165,17 @@ class _AddOperationPageState extends State<AddOperationPage> {
                 keyboardType: TextInputType.number,
                 initialValue: currentMileage,
                 onSaved: (val) {
-                  _operation.operationMileage = int.parse(val);
+                  operationMileage = int.parse(val);
                 },
-                decoration:
-                    InputDecoration(labelText: S.of(context).form_decorator_odometer_value),
+                decoration: InputDecoration(
+                    labelText: S.of(context).form_decorator_odometer_value),
               ),
               Container(height: 30),
               TextFormField(
                 maxLines: 3,
                 keyboardType: TextInputType.text,
                 initialValue: '',
-                onSaved: (val) => _operation.operationPartName = val,
+                onSaved: (val) => operationPartName = val,
                 decoration: InputDecoration(
                     labelText: S.of(context).form_decorator_part_name),
               ),
@@ -175,7 +189,7 @@ class _AddOperationPageState extends State<AddOperationPage> {
                   }
                   return null;
                 },
-                onSaved: (val) => _operation.operationPrice = double.parse(val),
+                onSaved: (val) => operationPrice = double.parse(val),
                 decoration: InputDecoration(
                     labelText: S.of(context).form_decorator_value_work),
               ),
@@ -189,7 +203,7 @@ class _AddOperationPageState extends State<AddOperationPage> {
                   }
                   return null;
                 },
-                onSaved: (val) => _operation.partPrice = double.parse(val),
+                onSaved: (val) => partPrice = double.parse(val),
                 decoration: InputDecoration(
                     labelText: S.of(context).form_decorator_value_parts),
               ),
@@ -198,7 +212,7 @@ class _AddOperationPageState extends State<AddOperationPage> {
                 maxLines: 3,
                 keyboardType: TextInputType.text,
                 initialValue: '',
-                onSaved: (val) => _operation.operationNote = val,
+                onSaved: (val) => operationNote = val,
                 decoration: InputDecoration(
                     labelText: S.of(context).form_decorator_notes),
               ),
@@ -240,7 +254,16 @@ class _AddOperationPageState extends State<AddOperationPage> {
       print(form.toString());
       form.save();
 
-      DataService().addOperation(_operation, car.carId);
+      DataService().addOperation(
+          OperationModel(
+            maintenanceId: maintenanceId,
+            operationId: '',
+            operationDate: operationDate,
+            operationMileage: operationMileage,
+            operationNote: operationNote,
+            operationPrice: operationPrice,
+          ),
+          car.carId);
       Navigator.pop(context);
     }
   }

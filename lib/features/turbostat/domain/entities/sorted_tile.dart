@@ -1,4 +1,4 @@
-import 'package:carstat/features/turbostat/domain/entities/entry.dart';
+import 'package:carstat/features/turbostat/data/models/maintenance_model.dart';
 import 'package:flutter/widgets.dart';
 
 class SortedTile {
@@ -6,5 +6,5 @@ class SortedTile {
   String infoMessage;
   Icon icon;
   int rank;
-  Entry entry;
+  MaintenanceModel maintenanceModel;
 }
