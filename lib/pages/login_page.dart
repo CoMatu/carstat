@@ -185,7 +185,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Wrap(
             children: <Widget>[
               Image.asset(
-                'images/google_logo.png',
+                'res/images/google_logo.png',
                 height: 15.0,
               ),
               Container(
