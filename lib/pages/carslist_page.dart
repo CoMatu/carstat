@@ -43,7 +43,6 @@ class _CarsListPageState extends State<CarsListPage> {
             carModel: results.documents[i].data['carModel'],
             carMark: results.documents[i].data['carMark'],
             carName: results.documents[i].data['carName'],
-            carMileage: results.documents[i].data['carMileage'],
             carVin: results.documents[i].data['carVin'],
             carYear: results.documents[i].data['carYear'],
         );
@@ -71,7 +70,6 @@ class _CarsListPageState extends State<CarsListPage> {
           carModel: results.documents[i].data['carModel'],
           carMark: results.documents[i].data['carMark'],
           carName: results.documents[i].data['carName'],
-          carMileage: results.documents[i].data['carMileage'],
           carVin: results.documents[i].data['carVin'],
           carYear: results.documents[i].data['carYear'],
         );

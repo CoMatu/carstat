@@ -21,7 +21,7 @@ class _AddCarState extends State<AddCar> {
   String carMark;
   String carModel;
   int carYear;
-  int carMileage;
+  int carMileage = 222222;
   String carVin;
 
   @override
@@ -72,7 +72,6 @@ class _AddCarState extends State<AddCar> {
                         carModel: carModel,
                         carMark: carMark,
                         carName: carName,
-                        carMileage: carMileage,
                         carVin: carVin,
                         carYear: carYear))
                     .then((res) {

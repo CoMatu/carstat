@@ -90,7 +90,7 @@ class _AddOperationPageState extends State<AddOperationPage> {
 
   @override
   Widget build(BuildContext context) {
-    String currentMileage = car.carMileage.toString();
+    String currentMileage = '00000'; // TODO add get mileage
     return Scaffold(
       key: _scaffoldKey,
       appBar: MainAppBar(),

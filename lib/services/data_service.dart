@@ -53,7 +53,6 @@ class DataService {
       'carName': car.carName,
       'carMark': car.carMark,
       'carYear': car.carYear,
-      'carMileage': car.carMileage,
       'carId': _id
     };
     fs.document(docId).collection('cars').document(_id).setData(data);
@@ -76,7 +75,6 @@ class DataService {
       'carName': car.carName,
       'carMark': car.carMark,
       'carYear': car.carYear,
-      'carMileage': car.carMileage,
     };
     fs.document(docId).collection('cars').document(car.carId).updateData(data);
   }

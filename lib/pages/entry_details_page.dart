@@ -78,11 +78,17 @@ Future<ConfirmAction> _asyncDeleteDialog(BuildContext context,
               S.of(context).button_delete,
             ),
             onPressed: () async {
-              await dataService.deleteEntry(car.carId, entryId).then((res) =>
-                  Navigator.push(
+              await dataService.deleteEntry(car.carId, entryId).then(
+                    (res) => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => DashboardPage(car))));
+                        builder: (context) => DashboardPage(),
+                        settings: RouteSettings(
+                          arguments: car,
+                        ),
+                      ),
+                    ),
+                  );
             },
           )
         ],
@@ -148,7 +154,8 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
-                          Expanded(child: Text(_maintenanceModel.maintenanceName)),
+                          Expanded(
+                              child: Text(_maintenanceModel.maintenanceName)),
                           _simplePopup()
                         ],
                       ),
@@ -188,8 +195,8 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                       TextStyle(fontSize: 8.0, color: Colors.black38);
 //                  String partPrice =
 //                      _numberFormat.format(_operns[index].partPrice);
-                  String totalPrice = _numberFormat.format(
-                      (0 + //add calculate part price
+                  String totalPrice =
+                      _numberFormat.format((0 + //add calculate part price
                           _operns[index].operationPrice));
                   String operationPrice =
                       _numberFormat.format(_operns[index].operationPrice);
@@ -202,9 +209,14 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
                           Container(
                             child: Row(
                               children: <Widget>[
-                                Expanded(flex: 1, child: CircleAvatar(
-                                  child: Icon(Icons.settings, color: Colors.black54,),
-                                )),
+                                Expanded(
+                                    flex: 1,
+                                    child: CircleAvatar(
+                                      child: Icon(
+                                        Icons.settings,
+                                        color: Colors.black54,
+                                      ),
+                                    )),
                                 Expanded(
                                   flex: 4,
                                   child: Column(
@@ -427,7 +439,8 @@ class _EntryDetailsPageState extends State<EntryDetailsPage> {
   void choiceAction(String value) {
     if (value == S.of(context).button_delete_camel) {
       print('DELETE');
-      _asyncDeleteDialog(context, dataService, car, _maintenanceModel.maintenanceId);
+      _asyncDeleteDialog(
+          context, dataService, car, _maintenanceModel.maintenanceId);
     } else {
       if (value == S.of(context).button_edit_camel) {
         print('EDIT');

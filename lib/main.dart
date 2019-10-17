@@ -1,5 +1,6 @@
 import 'package:carstat/generated/i18n.dart';
 import 'package:carstat/pages/add_car.dart';
+import 'package:carstat/pages/dashboard_page.dart';
 import 'package:carstat/pages/edit_car_page.dart';
 import 'package:carstat/pages/edit_entry_page.dart';
 import 'package:carstat/pages/logo_screen.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         routes: {
           'start_page': (context) => StartPage(),
-//          'dashboard_page': (context) => DashboardPage(),
+          'dashboard_page': (context) => DashboardPage(),
           'car_list_page': (context) => CarsListPage(),
           'add_car_page': (context) => AddCar(),
           'edit_car_page': (context) => EditCarPage(),
@@ -39,9 +40,10 @@ class MyApp extends StatelessWidget {
         supportedLocales: S.delegate.supportedLocales,
         title: 'TurboStat',
         theme: ThemeData(
-          primarySwatch: Colors.yellow,
-          pageTransitionsTheme: PageTransitionsTheme(builders: {TargetPlatform.android: CupertinoPageTransitionsBuilder(),})
-        ),
+            primarySwatch: Colors.yellow,
+            pageTransitionsTheme: PageTransitionsTheme(builders: {
+              TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+            })),
         home: LogoScreen(),
       ),
     );

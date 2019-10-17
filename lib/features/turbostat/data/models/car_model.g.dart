@@ -14,7 +14,6 @@ CarModel _$CarModelFromJson(Map<String, dynamic> json) {
     carName: json['carName'] as String,
     carMark: json['carMark'] as String,
     carYear: json['carYear'] as int,
-    carMileage: json['carMileage'] as int,
   );
 }
 
@@ -25,5 +24,4 @@ Map<String, dynamic> _$CarModelToJson(CarModel instance) => <String, dynamic>{
       'carName': instance.carName,
       'carMark': instance.carMark,
       'carYear': instance.carYear,
-      'carMileage': instance.carMileage,
     };

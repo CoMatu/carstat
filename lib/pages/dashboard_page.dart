@@ -17,13 +17,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 enum IconStatus { Danger, Warning, Norm, NotDeterminate }
 
 class DashboardPage extends StatefulWidget {
-  DashboardPage(this.car, {this.onSignedOut});
+  DashboardPage({this.onSignedOut});
 
-  final CarModel car;
   final VoidCallback onSignedOut;
 
   @override
-  _DashboardPageState createState() => _DashboardPageState(car);
+  _DashboardPageState createState() => _DashboardPageState();
 }
 
 class _DashboardPageState extends State<DashboardPage> {
@@ -40,15 +39,13 @@ class _DashboardPageState extends State<DashboardPage> {
 
   String tileMessage;
   CarModel car;
-  String carId;
   SortedTile sortedTile;
 
-  _DashboardPageState(this.car);
+  var currentMileage = 22222;
 
   @override
   void initState() {
     now = DateTime.now();
-    carId = car.carId;
     super.initState();
   }
 
@@ -79,7 +76,7 @@ class _DashboardPageState extends State<DashboardPage> {
           return b.operationMileage.compareTo(a.operationMileage);
         });
         int lastMileage = _operations[0].operationMileage;
-        int mileageFromLast = car.carMileage - lastMileage;
+        int mileageFromLast = currentMileage - lastMileage; // TODO add get mileage
 
         if (mileageFromLast >= _maintenance.maintenanceMonthLimit) {
           // проверка на пробег сверх лимита
@@ -100,7 +97,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 .dashboard_page_missed_maintenance_days(daysOver.toString());
           } else {
             int daysRemain = dayLimit - daysFromLast;
-            int mileageRemain = lastMileage + _maintenance.maintenanceMileageLimit - car.carMileage;
+            int mileageRemain = lastMileage + _maintenance.maintenanceMileageLimit - currentMileage; // TODO add get mileage
             sortedTile.infoMessage = S.of(context).dashboard_page_maintenance_before(
                 daysRemain.toString(), mileageRemain.toString());
 
@@ -138,7 +135,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
-//    Car car = ModalRoute.of(context).settings.arguments;
+    CarModel car = ModalRoute.of(context).settings.arguments;
     return Scaffold(
         drawer: MainDrawer(),
 //        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -212,7 +209,7 @@ class _DashboardPageState extends State<DashboardPage> {
         body: ListView(
           children: <Widget>[
             FutureBuilder(
-              future: _getEntries(carId),
+              future: _getEntries(car.carId),
               builder: (BuildContext ctx, AsyncSnapshot snapshot) {
                 if (snapshot.connectionState != ConnectionState.done) {
                   return Center(

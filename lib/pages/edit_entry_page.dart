@@ -28,10 +28,17 @@ class _EditEntryPageState extends State<EditEntryPage> {
     final FormState formState = _formKey.currentState;
     formState.save();
 
-    _dataService.updateEntry(_car, _entry).then((_){
-      Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardPage(_car)));
-    }
-    );
+    _dataService.updateEntry(_car, _entry).then((_) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => DashboardPage(),
+          settings: RouteSettings(
+            arguments: _car,
+          ),
+        ),
+      );
+    });
   }
 
   @override
@@ -51,8 +58,7 @@ class _EditEntryPageState extends State<EditEntryPage> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(top: 16.0, bottom: 8.0),
-                child: Text(
-                    S.of(context).edit_entry_page_title),
+                child: Text(S.of(context).edit_entry_page_title),
               ),
               TextFormField(
                 keyboardType: TextInputType.text,
@@ -75,7 +81,8 @@ class _EditEntryPageState extends State<EditEntryPage> {
                 initialValue: _entry.maintenanceMileageLimit.toString(),
                 onSaved: (val) => maintenanceMileageLimit = int.parse(val),
                 decoration: InputDecoration(
-                  labelText: S.of(context).form_decorator_maintenance_interval_km,
+                  labelText:
+                      S.of(context).form_decorator_maintenance_interval_km,
                 ),
               ),
               Container(

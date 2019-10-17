@@ -13,7 +13,6 @@ class Car extends Equatable {
   final String carName;
   final String carMark;
   final int carYear;
-  final int carMileage;
 
   Car({
     @required this.carId,
@@ -22,7 +21,6 @@ class Car extends Equatable {
     @required this.carName,
     @required this.carMark,
     @required this.carYear,
-    @required this.carMileage
   });
 
   factory Car.fromJson(Map<String, dynamic> json) => _$CarFromJson(json);
@@ -35,7 +33,6 @@ class Car extends Equatable {
     carModel,
     carMark,
     carName,
-    carMileage,
     carYear,
   ];
 }

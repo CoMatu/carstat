@@ -9,7 +9,6 @@ class LogoScreen extends StatefulWidget {
 }
 
 class LogoScreenState extends State<LogoScreen>
-// ignore: mixin_inherits_from_not_object
     with SingleTickerProviderStateMixin {
   Animation<double> animation;
   AnimationController animationController;

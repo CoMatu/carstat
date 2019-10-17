@@ -13,7 +13,6 @@ void main() {
       carMark: 'nissan',
       carModel: 'note',
       carYear: 2012,
-      carMileage: 83300,
       carVin: 'VIN123');
 
   test('should be a subclass of Car entity', () async {

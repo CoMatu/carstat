@@ -91,66 +91,67 @@ class _CarCardState extends State<CarCard> {
 
   getAutoImage(File image) {
     return Container(
-        child: !image.existsSync()
-            ? Container(
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        S.of(context).car_card_no_image_selected,
-                        style: TextStyle(color: Colors.black26),
-                      ),
+      child: !image.existsSync()
+          ? Container(
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      S.of(context).car_card_no_image_selected,
+                      style: TextStyle(color: Colors.black26),
                     ),
-                    Wrap(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: FloatingActionButton(
-                            onPressed: getImageFromCam,
-                            heroTag: null,
-                            tooltip: S.of(context).pick_image,
-                            child: Icon(Icons.add_a_photo),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: FloatingActionButton(
-                            onPressed: getImageFromGallery,
-                            heroTag: null,
-                            tooltip: S.of(context).pick_image,
-                            child: Icon(Icons.wallpaper),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              )
-            : Container(
-                height: 240.0,
-                width: 400.0,
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => DashboardPage(widget.car)));
-                  },
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0)),
-                    child:
-                        FittedBox(fit: BoxFit.cover, child: Image.file(image)),
                   ),
+                  Wrap(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: FloatingActionButton(
+                          onPressed: getImageFromCam,
+                          heroTag: null,
+                          tooltip: S.of(context).pick_image,
+                          child: Icon(Icons.add_a_photo),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: FloatingActionButton(
+                          onPressed: getImageFromGallery,
+                          heroTag: null,
+                          tooltip: S.of(context).pick_image,
+                          child: Icon(Icons.wallpaper),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            )
+          : Container(
+              height: 240.0,
+              width: 400.0,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    'dashboard_page',
+                    arguments: widget.car,
+                  );
+                },
+                child: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(4.0),
+                      topRight: Radius.circular(4.0)),
+                  child: FittedBox(fit: BoxFit.cover, child: Image.file(image)),
                 ),
-              ));
+              ),
+            ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    String _mileage = widget.car.carMileage.toString();
+    String _mileage = '000000'; // TODO get mileage
     return Card(
       elevation: 8,
       child: Column(
@@ -174,10 +175,11 @@ class _CarCardState extends State<CarCard> {
           ),
           ListTile(
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => DashboardPage(widget.car)));
+              Navigator.pushNamed(
+                context,
+                'dashboard_page',
+                arguments: widget.car,
+              );
             },
             title: Row(
               mainAxisSize: MainAxisSize.max,
