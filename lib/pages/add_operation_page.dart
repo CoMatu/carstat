@@ -1,5 +1,6 @@
 import 'package:carstat/generated/i18n.dart';
 import 'package:carstat/models/car.dart';
+import 'package:carstat/pages/dashboard_page.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'dart:async';
@@ -96,7 +97,8 @@ class _AddOperationPageState extends State<AddOperationPage> {
                 builder: (FormFieldState<String> state) {
                   return InputDecorator(
                     decoration: InputDecoration(
-                        labelText: S.of(context).form_decorator_select_maintenance,
+                        labelText:
+                            S.of(context).form_decorator_select_maintenance,
                         labelStyle: TextStyle(fontSize: 22.0)),
                     isEmpty: _operation.entryId == '',
                     child: DropdownButtonHideUnderline(
@@ -153,8 +155,8 @@ class _AddOperationPageState extends State<AddOperationPage> {
                 onSaved: (val) {
                   _operation.operationMileage = int.parse(val);
                 },
-                decoration:
-                    InputDecoration(labelText: S.of(context).form_decorator_odometer_value),
+                decoration: InputDecoration(
+                    labelText: S.of(context).form_decorator_odometer_value),
               ),
               Container(height: 30),
               TextFormField(
@@ -241,7 +243,12 @@ class _AddOperationPageState extends State<AddOperationPage> {
       form.save();
 
       DataService().addOperation(_operation, car.carId);
-      Navigator.pop(context);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => DashboardPage(car),
+        ),
+      );
     }
   }
 }

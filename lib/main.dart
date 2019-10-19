@@ -1,3 +1,4 @@
+import 'package:carstat/features/turbostat/domain/providers/DashboardModel.dart';
 import 'package:carstat/generated/i18n.dart';
 import 'package:carstat/pages/add_car.dart';
 import 'package:carstat/pages/edit_car_page.dart';
@@ -11,8 +12,16 @@ import 'package:carstat/pages/start_page.dart';
 import 'package:carstat/pages/carslist_page.dart';
 import 'package:carstat/services/auth_provider.dart';
 import 'package:carstat/services/auth_service.dart';
+import 'package:provider/provider.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          builder: (context) => DashboardModel(),
+          child: MyApp(),
+        ),
+      ],
+    ));
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -39,9 +48,10 @@ class MyApp extends StatelessWidget {
         supportedLocales: S.delegate.supportedLocales,
         title: 'TurboStat',
         theme: ThemeData(
-          primarySwatch: Colors.yellow,
-          pageTransitionsTheme: PageTransitionsTheme(builders: {TargetPlatform.android: CupertinoPageTransitionsBuilder(),})
-        ),
+            primarySwatch: Colors.yellow,
+            pageTransitionsTheme: PageTransitionsTheme(builders: {
+              TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+            })),
         home: LogoScreen(),
       ),
     );

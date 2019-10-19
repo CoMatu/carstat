@@ -33,15 +33,23 @@ class _DashboardPageState extends State<DashboardPage> {
     FontAwesomeIcons.calendarPlus,
   ];
   DashboardService dashboardService = DashboardService();
-  List<Entry> _entries = [];
+  List<Entry> _entries;
   List<SortedTile> _sorted;
-  static List _tiles;
   DateTime now;
 
   String tileMessage;
   Car car;
   String carId;
-  SortedTile sortedTile;
+
+  String tileName;
+
+  Entry entry;
+
+  Icon icon;
+
+  String infoMessage;
+
+  int rank;
 
   _DashboardPageState(this.car);
 
@@ -49,25 +57,28 @@ class _DashboardPageState extends State<DashboardPage> {
   void initState() {
     now = DateTime.now();
     carId = car.carId;
+    _sorted = [];
     super.initState();
   }
 
   _getEntries(String carId) async {
-    _sorted = [];
     _entries = await DataService().getEntries(carId);
-    _tiles = await dashboardService.getMarkers(_entries, carId);
+    final _tiles = await dashboardService.getMarkers(_entries, carId);
     _tiles.forEach((res) {
       List<Operation> _operations = res['operations'];
       Entry _entry = res['entry'];
 
-      sortedTile = SortedTile();
-      sortedTile.tileName = _entry.entryName;
-      sortedTile.entry = _entry;
+      tileName = _entry.entryName;
+      entry = _entry;
 
       if (_operations.length == 0) {
         iconStatus = IconStatus.NotDeterminate;
-        sortedTile.icon = Icon(Icons.help_outline, color: Colors.orange, size: 32.0,);
-        sortedTile.infoMessage = S.of(context).dashboard_page_not_determinate_title;
+        icon = Icon(
+          Icons.help_outline,
+          color: Colors.orange,
+          size: 32.0,
+        );
+        infoMessage = S.of(context).dashboard_page_not_determinate_title;
       } else {
         _operations.sort((a, b) {
           return b.operationDate.millisecondsSinceEpoch
@@ -84,54 +95,76 @@ class _DashboardPageState extends State<DashboardPage> {
         if (mileageFromLast >= _entry.entryMileageLimit) {
           // проверка на пробег сверх лимита
           iconStatus = IconStatus.Danger;
-          sortedTile.icon = Icon(Icons.warning, color: Colors.red, size: 32.0,);
-          sortedTile.infoMessage = S
+          icon = Icon(
+            Icons.warning,
+            color: Colors.red,
+            size: 32.0,
+          );
+          infoMessage = S
               .of(context)
               .dashboard_page_missed_maintenance(mileageFromLast.toString());
         } else {
           int daysFromLast = now.difference(lastDate).inDays;
-          int dayLimit = _entry.entryDateLimit*30;
+          int dayLimit = _entry.entryDateLimit * 30;
           if (daysFromLast >= dayLimit) {
             int daysOver = daysFromLast - dayLimit;
             iconStatus = IconStatus.Danger;
-            sortedTile.icon = Icon(Icons.warning, color: Colors.red, size: 32.0,);
-            sortedTile.infoMessage = S
+            icon = Icon(
+              Icons.warning,
+              color: Colors.red,
+              size: 32.0,
+            );
+            infoMessage = S
                 .of(context)
                 .dashboard_page_missed_maintenance_days(daysOver.toString());
           } else {
             int daysRemain = dayLimit - daysFromLast;
-            int mileageRemain = lastMileage + _entry.entryMileageLimit - car.carMileage;
-            sortedTile.infoMessage = S.of(context).dashboard_page_maintenance_before(
+            int mileageRemain =
+                lastMileage + _entry.entryMileageLimit - car.carMileage;
+            infoMessage = S.of(context).dashboard_page_maintenance_before(
                 daysRemain.toString(), mileageRemain.toString());
 
             if (daysRemain <= 30) {
               iconStatus = IconStatus.Warning;
-              sortedTile.icon = Icon(Icons.assignment_late, color: Colors.blue[200], size: 32.0,);
+              icon = Icon(
+                Icons.assignment_late,
+                color: Colors.blue[200],
+                size: 32.0,
+              );
             } else {
               iconStatus = IconStatus.Norm;
-              sortedTile.icon = Icon(Icons.directions_car, color: Colors.green, size: 32.0,);
+              icon = Icon(
+                Icons.directions_car,
+                color: Colors.green,
+                size: 32.0,
+              );
             }
           }
         }
       }
 
-      switch(iconStatus) {
-
+      switch (iconStatus) {
         case IconStatus.Danger:
-          sortedTile.rank = 1;
+          rank = 1;
           break;
         case IconStatus.Warning:
-          sortedTile.rank = 3;
+          rank = 3;
           break;
         case IconStatus.Norm:
-          sortedTile.rank = 4;
+          rank = 4;
           break;
         case IconStatus.NotDeterminate:
-          sortedTile.rank = 2;
+          rank = 2;
           break;
       }
 
-      _sorted.add(sortedTile);
+      _sorted.add(SortedTile(
+        tileName: tileName,
+        entry: entry,
+        icon: icon,
+        infoMessage: infoMessage,
+        rank: rank,
+      ));
     });
     _sorted.sort((a, b) => a.rank.compareTo(b.rank));
   }
@@ -234,8 +267,8 @@ class _DashboardPageState extends State<DashboardPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      EntryDetailsPage(_sorted[index].entry, car)));
+                                  builder: (context) => EntryDetailsPage(
+                                      _sorted[index].entry, car)));
                         },
                         contentPadding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 10.0),
@@ -309,7 +342,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     leading: Icon(FontAwesomeIcons.tools),
                     onTap: () {
                       Navigator.pop(context);
-                      Navigator.push(
+                      Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
